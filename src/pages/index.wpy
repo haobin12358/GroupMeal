@@ -1,0 +1,23 @@
+<style lang="less">
+
+</style>
+<template>
+  <view class="container">
+
+    云翼食堂
+
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+
+
+  export default class Index extends wepy.page {
+    config = {
+      navigationBarTitleText: 'test'
+    }
+
+  }
+</script>
