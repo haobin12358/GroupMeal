@@ -1,5 +1,5 @@
 <style lang="less">
-
+  @import "/styles/base";
 </style>
 
 <script>
