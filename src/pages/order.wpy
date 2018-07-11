@@ -1,0 +1,30 @@
+<style lang="less">
+
+</style>
+
+<template>
+  订单
+
+</template>
+
+<script>
+    import wepy from 'wepy'
+
+    export default class Order extends wepy.page {
+        config = {}
+
+        components = {}
+
+        data = {}
+        computed = {}
+
+        methods = {}
+
+        events = {}
+
+        onLoad() {
+
+        }
+    }
+</script>
+

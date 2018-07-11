@@ -1,0 +1,109 @@
+<style scoped lang="less">
+  @import "../styles/base";
+
+  .commodity-swiper{
+    height: 428rpx;
+
+    .header{
+      height: 86rpx;
+      width: 694rpx;
+      border-top: 6rpx solid #e9e9e9;
+      margin: 0 auto;
+
+      display: flex;
+      justify-content: space-between;
+
+      .showMore{
+        color: @redPink;
+
+        .fz24();
+      }
+    }
+
+    .swiper{
+      white-space: nowrap;
+      width: 100%;
+      height: 300rpx;
+
+      .swiper-item{
+        height: 300rpx;
+        width: 50%;
+        display: inline-block;
+
+        image{
+          width: 280rpx;
+          height: 200rpx;
+          opacity: .5;
+        }
+      }
+
+      .swiper-item-active{
+        image{
+          /*width: 280rpx;*/
+          height: 280rpx;
+        }
+      }
+    }
+  }
+</style>
+
+<template>
+  <view class="commodity-swiper">
+    <view class="header">
+      <view>营养套餐</view>
+      <view class="showMore">查看更多</view>
+    </view>
+    <scroll-view scroll-x="true" class="swiper" scroll-into-view="{{toView}}"
+                 bindscroll="scrollHandler">
+      <view id="demo1" class="swiper-item" >
+        <image src="../images/food.jpg"></image>
+      </view>
+      <view id="demo2" class="swiper-item swiper-item-active">
+        <image src="../images/food.jpg"></image>
+      </view>
+      <view id="demo3" class="swiper-item">
+        <image src="../images/food.jpg"></image>
+      </view>
+      <view id="demo4" class="swiper-item">
+        <image src="../images/food.jpg"></image>
+      </view>
+    </scroll-view>
+  </view>
+
+</template>
+<script>
+    import wepy from 'wepy'
+
+
+    export default class CommoditySwiper extends wepy.component {
+        data = {
+          views: ['demo1','demo2','demo3','demo4'],
+          toView: ''
+        }
+        computed = {}
+
+        methods = {
+          scrollHandler(e){
+            let scrollLeft = e.scrollLeft
+            let scrollTop = e.scrollTop
+            let scrollHeight = e.scrollHeight
+            let scrollWidth = e.scrollWidth
+            let deltaX = e.deltaX
+            let deltaY = e.deltaY
+            console.log(e);
+          }
+        }
+
+        events = {}
+
+        onLoad() {
+          let index = 1
+          // setInterval(function () {
+          //   this.toView = 'demo'+index;
+          //   index++;
+          //   this.$apply();
+          // }.bind(this), 1000)
+        }
+    }
+</script>
+

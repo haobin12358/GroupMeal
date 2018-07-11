@@ -1,4 +1,5 @@
 <style lang="less">
+  @import "/styles/weui";
   @import "/styles/base";
 </style>
 
@@ -10,13 +11,43 @@ import 'wepy-async-function'
 export default class extends wepy.app {
   config = {
     pages: [
-      'pages/index'
+      'pages/index',
+      'pages/button',
+      'pages/order',
+      'pages/data',
+      'pages/person'
     ],
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: 'WeChat',
+      navigationBarTitleText: '智慧食堂',
       navigationBarTextStyle: 'black'
+    },
+    tabBar: {
+      color: '#444444',
+      selectedColor: '#f62776',
+      backgroundColor: '#fafafa',
+      list: [{
+        pagePath: "pages/index",
+        text: "首页",
+        iconPath: "images/navbar_index.png",
+        selectedIconPath: "images/navbar_index_active.png"
+      },{
+        pagePath: "pages/order",
+        text: "订单",
+        iconPath: "images/navbar_order.png",
+        selectedIconPath: "images/navbar_order_active.png"
+      },{
+        pagePath: "pages/data",
+        text: "数据",
+        iconPath: "images/navbar_data.png",
+        selectedIconPath: "images/navbar_data_active.png"
+      },{
+        pagePath: "pages/person",
+        text: "我的",
+        iconPath: "images/navbar_person.png",
+        selectedIconPath: "images/navbar_person_active.png"
+      }]
     }
   }
 

@@ -1,0 +1,25 @@
+<style lang="less">
+
+</style>
+
+<template>
+  营养套餐:列表
+</template>
+
+<script>
+    import wepy from 'wepy'
+
+    export default class CommodityList extends wepy.component {
+        data = {}
+        computed = {}
+
+        methods = {}
+
+        events = {}
+
+        onLoad() {
+
+        }
+    }
+</script>
+
