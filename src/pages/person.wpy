@@ -1,19 +1,28 @@
 <style lang="less">
-
+  .divide {
+    height: 20rpx;
+    background-color: #f2f2f2;
+  }
 </style>
 
 <template>
-  我的
+  <person-info></person-info>
+  <view class="divide"></view>
 
 </template>
 
 <script>
     import wepy from 'wepy'
+    import tip from '@/utils/tip'
+    import api from '@/api/api'
+    import PersonInfo from "@/components/personInfo"
 
     export default class Person extends wepy.page {
         config = {}
 
-        components = {}
+        components = {
+          'person-info': PersonInfo
+        }
 
         data = {}
         computed = {}

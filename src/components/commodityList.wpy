@@ -1,9 +1,108 @@
-<style lang="less">
+<style scoped lang="less">
+  @import "../styles/base";
 
+  @commonPaddLeft: 12rpx;
+
+  .commodity-list{
+    padding: 0 28rpx;
+    box-sizing: border-box;
+
+    .header{
+      padding-top: 18rpx;
+      padding-left: @commonPaddLeft;
+      border-top: 2rpx solid #e9e9e9;
+
+    }
+
+    .list{
+
+      .list-item{
+        height:140rpx;
+        display: flex;
+        border-bottom: 2rpx solid #e9e9e9;
+        padding:36rpx 12rpx 50rpx @commonPaddLeft;
+
+        .item-hd{
+          width: 140rpx;
+          height: 140rpx;
+
+          image{
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .item-bd{
+          padding-left: 22rpx;
+          width: 370rpx;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+
+          .fz24();
+
+          .line1{
+            color: @nameColor;
+
+            .ellipsis();
+          }
+          .line2{
+            color: @detailColor;
+
+            .fz20();
+          }
+          .line3{
+            color: @detailColor;
+
+            .fz20();
+          }
+          .line4{
+            color: @redPink;
+          }
+        }
+        .item-ft{
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+
+          button{
+            width: 140rpx;
+            height: 60rpx;
+            line-height: 60rpx;
+            border-radius: 30rpx;
+            color: #FFFFFF;
+            background-color: @redPink;
+            box-shadow: 0 2px 4px 0 #fb88b4;
+
+            .fz24();
+          }
+        }
+      }
+    }
+  }
 </style>
 
 <template>
-  营养套餐:列表
+  <view class="commodity-list">
+    <view class="header">
+      推荐
+    </view>
+    <view class="list">
+      <view wx:for="aaaaaaa" class="list-item">
+        <view class="item-hd">
+          <image src="../images/food.jpg"></image>
+        </view>
+        <view class="item-bd">
+          <view class="line1">餐品名称餐品名称餐品名称餐品名称餐品名称餐品名称</view>
+          <view class="line2">月售</view>
+          <view class="line3">当前优惠:优惠券减5元</view>
+          <view class="line4">￥20</view>
+        </view>
+        <view class="item-ft">
+          <button>订餐</button>
+        </view>
+      </view>
+    </view>
+  </view>
 </template>
 
 <script>

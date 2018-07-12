@@ -1,0 +1,29 @@
+<style lang="less">
+
+</style>
+
+<template>
+  <view class="person-info">
+    personInfo
+  </view>
+</template>
+
+<script>
+    import wepy from 'wepy'
+
+
+    export default class PersonInfo extends wepy.component {
+        data = {}
+
+        computed = {}
+
+        methods = {}
+
+        events = {}
+
+        onLoad() {
+
+        }
+    }
+</script>
+

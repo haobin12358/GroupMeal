@@ -1,11 +1,17 @@
 @barbiePink: rgb(251, 79, 174);
 @redPink: rgb(246, 39, 118);
+@pinky: #fb88b4;
+@nameColor: #515151;
+@detailColor: #a1a1a1;
+@greyishBrown: #4f4f4f;
 
 @myFont:"PingFang SC","Hiragino Sans GB","Microsoft YaHei";
 @myFontSans:sans-serif;
 
 page{
   font-family:@myFont,@myFontSans;
+  font-size: 28rpx;
+  border-top: 6rpx solid #fbfbfb;
 }
 
 .button {
@@ -18,9 +24,18 @@ page{
   border-radius: 10rpx;
 }
 
+.ellipsis{
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+}
+
 
 .fz18 {
   font-size: 18rpx;
+}
+.fz20 {
+  font-size: 20rpx;
 }
 .fz24 {
   font-size: 24rpx;
@@ -61,8 +76,3 @@ page{
 .fz38{
   font-size: 38rpx;
 }
-
-//to2X(num){
-//  return 2*num;
-//}
-

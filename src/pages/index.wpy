@@ -1,70 +1,110 @@
 <style lang="less">
+  @import "../styles/base";
+
   .container{
-    border-top: 1px solid #fbfbfb;
 
     .position{
       height: 43px;
       line-height: 43px;
+      padding-left: 28rpx;
+      display: flex;
+      align-items: center;
+
+      image{
+        width: 24rpx;
+        height: 32rpx;
+
+        margin-right: 16rpx;
+      }
+
+      .text{
+
+      }
     }
 
     .search {
       height:288rpx;
       position:relative;
-      margin-bottom: 40rpx;
+      margin-bottom: 105rpx;
 
       image {
         width:100%;
-        height:288rpx;
+        height:100%;
       }
       .navigate-search-page {
         position:absolute;
         height:80rpx;
+        /*line-height:80rpx;*/
         width: 560rpx;
         left: 95rpx;
         bottom:-40rpx;
         background-color:#FFFFFF;
         border-radius: 8rpx;
         box-shadow: 0 12rpx 10rpx 2rpx rgba(190, 190, 190, 0.5);
+        /*padding:22rpx auto 22rpx 16rpx;*/
+        box-sizing: border-box;
+        padding-top: 22rpx;
+        padding-left: 16rpx;
+        image{
+          height: 36rpx;
+          width: 36rpx;
+        }
       }
     }
 
     .nav-list{
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
+      padding: 0 100rpx;
+      box-sizing: border-box;
+      padding-bottom: 54rpx;
 
+      .nav-item {
+        text-align: center;
+        color: @greyishBrown;
 
+        .fz24();
+
+        image{
+          width: 60rpx;
+          height: 60rpx;
+        }
+      }
     }
   }
 </style>
 <template>
   <view class="container">
     <view class="position">
-      杭州•xx食堂
+      <image src="../images/position.png"></image>
+      <text class="text">杭州•xx食堂</text>
     </view>
     <view class="search">
       <image src="../images/food.jpg"></image>
-      <view class="navigate-search-page">
-        调专业
-      </view>
+
+      <navigator url="/pages/search" hover-class="none">
+        <view class="navigate-search-page" >
+          <image src="../images/search.png"></image>
+        </view>
+      </navigator>
     </view>
     <view class="nav-list">
       <view class="nav-item">
-        <view class="icon"></view>
-        <view class="name">1</view>
+        <image class="icon" src="../images/nav_fork.png"></image>
+        <view class="name">进入食堂</view>
       </view>
       <view class="nav-item">
-        <view class="icon"></view>
-        <view class="name">2</view>
+        <image class="icon" src="../images/nav_latest.png"></image>
+        <view class="name">最近吃过</view>
       </view>
       <view class="nav-item">
-        <view class="icon"></view>
-        <view class="name">3</view>
+        <image class="icon" src="../images/nav_nutrition.png"></image>
+        <view class="name">营养推荐</view>
       </view>
       <view class="nav-item">
-        <view class="icon"></view>
-        <view class="name">4</view>
+        <image class="icon" src="../images/nav_discounts.png"></image>
+        <view class="name">优惠</view>
       </view>
-
     </view>
     <commodity-swiper></commodity-swiper>
     <commodity-list></commodity-list>
@@ -86,6 +126,16 @@
     components = {
       'commodity-list' : CommodityList,
       'commodity-swiper': CommoditySwiper
+    }
+
+    onLoad(){
+      // wx.openSetting();
+      // if(wx.getStorageSync('test')){
+      //   console.log('缓存保留');
+      // }else{
+      //   console.log('缓存');
+      //   wx.setStorageSync('test', '测试');
+      // }
     }
 
   }

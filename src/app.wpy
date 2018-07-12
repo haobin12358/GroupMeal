@@ -12,10 +12,10 @@ export default class extends wepy.app {
   config = {
     pages: [
       'pages/index',
-      'pages/button',
       'pages/order',
       'pages/data',
-      'pages/person'
+      'pages/person',
+      'pages/search',
     ],
     window: {
       backgroundTextStyle: 'light',
