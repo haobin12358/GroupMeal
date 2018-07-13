@@ -3,28 +3,43 @@
 </style>
 
 <template>
-  订单
-
+  <tab @switchTab.user="switchTab" :tabList.sync="tabList" :currentTab.sync="currentTab"></tab>
+  <view>
+    {{msg}}
+  </view>
 </template>
 
 <script>
-    import wepy from 'wepy'
+  import wepy from 'wepy'
+  import tip from '@/utils/tip'
+  import api from '@/api/api'
+  import Tab from "@/components/common/tab"
 
-    export default class Order extends wepy.page {
-        config = {}
+  export default class Order extends wepy.page {
+    config = {}
 
-        components = {}
-
-        data = {}
-        computed = {}
-
-        methods = {}
-
-        events = {}
-
-        onLoad() {
-
-        }
+    components = {
+      tab: Tab,
     }
+
+    data = {
+      tabList: ['全部','待支付','待取餐','已完成'],
+      currentTab: 0,
+      msg: ''
+    }
+    computed = {}
+
+    methods = {
+      switchTab(currentTab){
+        this.msg = `查询${this.tabList[currentTab]}的数据`
+      }
+    }
+
+    events = {}
+
+    onLoad() {
+
+    }
+  }
 </script>
 

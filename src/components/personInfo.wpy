@@ -1,10 +1,35 @@
 <style lang="less">
+  .person-info{
+    display: flex;
+    padding: 48rpx 0  42rpx 46rpx;
 
+    .head-image{
+        width: 120rpx;
+        height: 120rpx;
+    }
+    .main{
+      flex: 1;
+      padding-left: 28rpx;
+      font-size: 24rpx;
+      color: #646464;
+
+      .line1{
+        font-size: 36rpx;
+        color: #000000;
+      }
+
+    }
+  }
 </style>
 
 <template>
   <view class="person-info">
-    personInfo
+    <image src="../../images/default_head_image.png" class="head-image"></image>
+    <view class="main" @tap="tapMainHandler">
+      <view class="line1">点击登录</view>
+      <view class="line2">VIP等级</view>
+      <view class="line3">积分</view>
+    </view>
   </view>
 </template>
 
@@ -13,11 +38,26 @@
 
 
     export default class PersonInfo extends wepy.component {
+      props={
+        isLogin: {
+          type: Boolean,
+          default: false
+        }
+      }
         data = {}
 
         computed = {}
 
-        methods = {}
+        methods = {
+          tapMainHandler(){
+            if(this.isLogin){
+
+            }else{
+              console.log('组件登录')
+              this.$emit('goLogin');
+            }
+          }
+        }
 
         events = {}
 

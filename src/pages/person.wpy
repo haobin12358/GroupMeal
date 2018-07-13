@@ -1,13 +1,122 @@
 <style lang="less">
-  .divide {
-    height: 20rpx;
-    background-color: #f2f2f2;
+  @import "../styles/base";
+
+  .container{
+    .divide {
+      height: 20rpx;
+      background-color: #f2f2f2;
+    }
+
+    .cells{
+      .fz32();
+
+      .cell{
+        box-sizing: border-box;
+        padding: 32rpx 51rpx 30rpx 48rpx;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 4rpx solid #f2f2f2;
+
+        .cell-bd{
+          flex: 1;
+
+          .cell-image{
+            width: 56rpx;
+            height: 40rpx;
+          }
+        }
+
+        .cell-ft-access{
+          position: relative;
+        }
+        .cell-ft-access:after, .cell-ft-access:before {
+          width: 0;
+          height: 0;
+          border: 20rpx solid transparent;
+          border-left-color: @redPink;
+          position: absolute;
+          content: "";
+        }
+        .cell-ft-access:before{
+          z-index: 1;
+          top: 0;
+          left: -2rpx;
+          border-left-color: white;
+        }
+      }
+    }
   }
+
 </style>
 
 <template>
-  <person-info></person-info>
-  <view class="divide"></view>
+  <view class="container">
+    <person-info :isLogin.sync="isLogin"></person-info>
+    <view class="divide"></view>
+    <view class="cells">
+      <view class="cell">
+        <view class="cell-bd">
+          会员中心
+          <image src="../images/glod_crown.png" class="cell-image"></image>
+        </view>
+        <view class="cell-ft">
+
+          <!--<view class="cell-ft-access"></view>-->
+        </view>
+      </view>
+    </view>
+
+    <view class="divide"></view>
+
+    <view class="cells">
+      <view class="cell">
+        <view class="cell-bd">
+          我的优惠券
+        </view>
+        <view class="cell-ft cell-ft-access">
+
+        </view>
+
+      </view>
+      <view class="cell">
+        <view class="cell-bd">
+          我的喜好
+        </view>
+        <view class="cell-ft cell-ft-access">
+
+        </view>
+
+      </view>
+      <view class="cell">
+        <view class="cell-bd">
+          基本信息
+        </view>
+        <view class="cell-ft cell-ft-access">
+
+        </view>
+
+      </view>
+    </view>
+    <view class="divide"></view>
+    <view class="cells">
+      <view class="cell">
+        <view class="cell-bd">
+          设置
+        </view>
+        <view class="cell-ft">
+        </view>
+      </view>
+      <view class="cell">
+        <view class="cell-bd">
+          联系我们
+        </view>
+        <view class="cell-ft">
+        </view>
+
+      </view>
+    </view>
+  </view>
+
 
 </template>
 
@@ -24,7 +133,9 @@
           'person-info': PersonInfo
         }
 
-        data = {}
+        data = {
+          isLogin: false
+        }
         computed = {}
 
         methods = {}

@@ -1,0 +1,67 @@
+<style lang="less">
+  @import "../../styles/base";
+
+  .tab{
+    display: flex;
+    border-bottom: 2rpx solid #e9e9e9;
+    height: 88rpx;
+    line-height: 88rpx;
+    /*font-size: 28rpx;*/
+
+    .tab-item{
+      flex: 1;
+      text-align: center;
+      color: #444444;
+    }
+
+    .tab-item-active{
+      color: @mainColor;
+    }
+  }
+</style>
+
+<template>
+  <view class="tab">
+    <view  wx:for="{{tabList}}" wx:key="*this" class="tab-item {{currentTab == index ? 'tab-item-active': ''}}"
+    @tap="switchTab({{index}})">
+      {{item}}
+    </view>
+  </view>
+</template>
+
+<script>
+    import wepy from 'wepy'
+
+    export default class Tab extends wepy.component {
+      props = {
+        currentTab: {
+          type: Number,
+          default: 0
+        },
+        tabList: {
+          type: Array,
+          default: []
+        }
+      }
+        data = {}
+        computed = {}
+
+        methods = {
+          switchTab(index){
+            if(this.currentTab == index){
+              console.log('return');
+            }else{
+              this.currentTab = index;
+              this.$emit("switchTab", this.currentTab);
+            }
+          }
+        }
+
+        events = {}
+
+        onLoad() {
+    console.log(this.currentTab);
+        }
+    }
+</script>
+
