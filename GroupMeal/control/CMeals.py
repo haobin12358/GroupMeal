@@ -18,7 +18,8 @@ class CMeals():
         self.susers = SUsers()
         from GroupMeal.services.SMeals import SMeals
         self.smeals = SMeals()
-        # TODO 引用食堂
+        from GroupMeal.services.SMess import SMess
+        self.smess = SMess()
 
     def new_meal(self):
         args = request.args.to_dict()
@@ -28,10 +29,14 @@ class CMeals():
         if "token" not in args and "MSid" not in args:
             return PARAMS_MISS
         USid = token_to_usid(args["token"])
+        MSid = args["MSid"]
         user = self.susers.get_user_by_usid(USid)
         if not user:
             return import_status("ERROR_NONE_USER", "GROUPMEAL_ERROR", "ERROR_NONE_USER")
-        # TODO 食堂的存在验证
+        mess = self.smess.get_mess_by_msid(MSid)
+        if not mess:
+            return SYSTEM_ERROR
+        # TODO 用户改为管理员
         data = request.data
         print(self.title.format("data"))
         print(data)

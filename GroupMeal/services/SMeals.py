@@ -2,9 +2,7 @@
 import sys
 import os
 sys.path.append(os.path.dirname(os.getcwd()))
-import uuid
 from GroupMeal.models.models import Meals
-from GroupMeal.common.TransformToList import trans_params
 from GroupMeal.services.SBase import SBase, close_session
 
 class SMeals(SBase):

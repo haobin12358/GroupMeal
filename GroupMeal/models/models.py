@@ -75,6 +75,7 @@ class Mess(Base):
     MShealthimage = Column(Text)                        # 健康许可证
     MShealthlevel = Column(String(1))                   # 卫生指标
     MScity = Column(String(128), nullable=False)        # 所在城市
+    MSstatus = Column(Integer, nullable=False)          # 食堂状态{501营业中502审核中503休息中504已关闭}
 
 class OrderMain(Base):
     __tablename__ = "OrderMain"

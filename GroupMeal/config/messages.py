@@ -4,7 +4,11 @@ SUCCESS_ADD_MEAL = "创建餐品成功"
 SUCCESS_UPDATE_MEAL = "更新餐品成功"
 ERROR_NONE_USER = "未找到该用户"
 SUCCESS_GET_MEAL = "获取餐品成功"
-
+SUCCESS_NEW_MESS = "创建食堂成功"
+ERROR_NONE_MESS = "该城市未开放"
+SUCCESS_GET_MESS = "获取食堂成功"
+SUCCESS_GET_CITY = "获取城市成功"
+SUCCESS_UPDATE_MESS = "更新食堂信息成功"
 
 SUCCESS_MESSAGE_ADD_REVIEW = "创建评论成功"
 ERROR_MESSAGE_WRONG_OMSTATUS = "该状态不可评论"
