@@ -3,7 +3,7 @@ import sys
 from aliyunsdkdysmsapi.request.v20170525 import SendSmsRequest
 from aliyunsdkcore.client import AcsClient
 from aliyunsdkcore.profile import region_provider
-from config.Inforcode import ACCESS_KEY_ID, ACCESS_KEY_SECRET
+from GroupMeal.config.Inforcode import ACCESS_KEY_ID, ACCESS_KEY_SECRET
 
 try:
     reload(sys)

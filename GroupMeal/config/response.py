@@ -15,3 +15,9 @@ APIS_WRONG = {
     "status_code": 405002,
     "message": "接口未注册"
 }
+
+PARAMS_REDUNDANCY = {
+    "status": 405,
+    "status_code": 405003,
+    "message": "参数冗余"
+}

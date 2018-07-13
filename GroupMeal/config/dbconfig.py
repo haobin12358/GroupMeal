@@ -1,5 +1,5 @@
 database = "groupmeal"
-host = "123.207.97.185"
+host = "120.79.182.43"
 port = ""
 username = "root"
 password = "root"

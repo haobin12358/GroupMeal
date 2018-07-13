@@ -4,7 +4,7 @@ import sys
 import os
 sys.path.append(os.path.dirname(os.getcwd()))  # 增加系统路径
 sys.path.append(os.path.dirname(os.getcwd()))  # 增加系统路径
-import models.model as models
+import GroupMeal.models.models as models
 
 
 # 装饰器，用来解析数据库获取的内容，将获取到的对象转置为dict，将获取到的单个数据的tuple里的数据解析出来
@@ -47,11 +47,11 @@ def add_model(model_name, **kwargs):
     for key in model_bean.__table__.columns.keys():
         if key in kwargs:
             setattr(model_bean, key, kwargs.get(key))
-    from services.DBSession import get_session
+    from GroupMeal.services.DBSession import get_session
     session, status = get_session()
     if status:
         session.add(model_bean)
         session.commit()
         session.close()
-        return
+        return True
     raise Exception("session connect error")

@@ -4,7 +4,7 @@ import os
 sys.path.append(os.path.dirname(os.getcwd()))
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, create_engine, Integer, String, Text, Float
-from config import dbconfig as cfg
+from GroupMeal.config import dbconfig as cfg
 
 DB_PARAMS = "{0}://{1}:{2}@{3}/{4}?charset={5}".format(
     cfg.sqlenginename, cfg.username, cfg.password, cfg.host, cfg.database, cfg.charset)
@@ -16,11 +16,12 @@ class Users(Base):
     USid = Column(String(64), primary_key=True)         # 主键
     USname = Column(String(64), nullable=False)         # 昵称
     UStelphone = Column(String(14), nullable=False)     # 联系方式
+    USpassword = Column(String(16), nullable=False)     # 密码
     USlevel = Column(Integer, nullable=False, default=0)# 等级{0-7，默认0}
-    USemail = Column(Text)                              # 邮箱
+    USemail = Column(Text)                              # 邮箱  # 邮箱验证待定
     UScoin = Column(Float, nullable=False, default=0)   # 积分
     USinvatecode = Column(String(7), nullable=False)    # 邀请码
-    USavatar = Column(Text)                             # 头像
+    USavatar = Column(Text)                             # 头像  # 头像修改方式待定
     USsex = Column(Integer)                             # 性别{101男，102女}
     USheight = Column(Float)                            # 身高
     USweight = Column(Float)                            # 体重
@@ -40,14 +41,18 @@ class Meals(Base):
     MEimage = Column(Text, nullable=False)              # 餐品图片
     MEinfo = Column(Text)                               # 餐品详情
     MEprice = Column(Float, nullable=False)             # 餐品价格
+    MEdprice = Column(Float)                            # 餐品折扣价
     MEvolume = Column(Integer, nullable=False, default=0)# 餐品销量
     MEfraction = Column(Float, nullable=False, default=0)# 餐品评分
     MSid = Column(String(64), nullable=False)           # 食堂id
     MEweight = Column(Float)                            # 餐品分量
     MEtype = Column(Integer, nullable=False)            # 餐品分类
-    # {200肉类201特色餐饮202套餐203素食204汤菜205面试206粥点207早餐}
+    # {200肉类201特色餐饮202套餐203素食204汤菜205面食206粥点207早餐}
     MEtag = Column(Integer, nullable=False)             # 餐品标签
-    # {291热销292活动商品293推广商品294广告商品295网红商品}
+    # {291热销292活动商品293推广商品294广告商品295网红商品296新品}
+    MEstatus = Column(Integer, nullable=False)          # 餐品状态
+    # {281在售，282下架， 283待审核}
+    MEinventory = Column(Integer)                       # 库存
     MEprotein = Column(Float)                           # 蛋白质
     MEfat = Column(Float)                               # 脂肪
     MEcarbohydrate = Column(Float)                      # 碳水化合物
@@ -135,3 +140,9 @@ class BlackUsers(Base):
     BUid = Column(String(64), primary_key=True)         # 主键
     BUtelphone = Column(String(14), nullable=False)     # 黑名单电话
     BUreason = Column(Text)                             # 加入黑名单的原因
+
+if __name__ == "__main__":
+    '''
+    运行该文件就可以在对应的数据库里生成本文件声明的所有table
+    '''
+    Base.metadata.create_all(mysql_engine)
