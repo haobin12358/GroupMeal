@@ -39,3 +39,7 @@ class SMeals(SBase):
                                   Meals.MEdprice, Meals.MEtype, Meals.MEvolume, Meals.MEfraction, Meals.MEinventory) \
             .filter_by(MSid=msid).filter_by(MEstatus=281).filter_by(MEtag=metag).all()
 
+    @close_session
+    def get_msid_by_meid(self, meid):
+        return self.session.query(Meals.MSid).filter_by(MEid=meid).scalar()
+
