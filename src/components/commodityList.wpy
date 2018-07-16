@@ -33,7 +33,7 @@
         }
         .item-bd{
           padding-left: 22rpx;
-          width: 370rpx;
+          flex: 1;
           display: flex;
           flex-direction: column;
           justify-content: space-between;
@@ -43,7 +43,7 @@
           .line1{
             color: @nameColor;
 
-            .ellipsis();
+            .ellipsis(370rpx);
           }
           .line2{
             color: @detailColor;
@@ -87,7 +87,7 @@
       推荐
     </view>
     <view class="list">
-      <view wx:for="aaaaaaa" class="list-item">
+      <view wx:for="aaaaaaa" wx:key="*this" class="list-item">
         <view class="item-hd">
           <image src="../images/food.jpg"></image>
         </view>

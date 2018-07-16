@@ -75,21 +75,21 @@
 </style>
 <template>
   <view class="container">
-    <view class="position">
-      <image src="../images/position.png"></image>
-      <text class="text">杭州•xx食堂</text>
-    </view>
+    <navigator url="/pages/chooseCanteen" hover-class="none">
+      <view class="position">
+        <image src="../images/position.png"></image>
+        <text class="text">{{positionText}}</text>
+      </view>
+    </navigator>
     <view class="search">
       <image src="../images/food.jpg"></image>
 
-      <navigator url="/pages/search" hover-class="none">
         <view class="navigate-search-page" >
           <image src="../images/search.png"></image>
         </view>
-      </navigator>
     </view>
     <view class="nav-list">
-      <view class="nav-item">
+      <view class="nav-item" @tap="goCanteen">
         <image class="icon" src="../images/nav_fork.png"></image>
         <view class="name">进入食堂</view>
       </view>
@@ -117,10 +117,11 @@
   import api from '@/api/api'
   import CommodityList from "@/components/commodityList"
   import CommoditySwiper from "@/components/commoditySwiper"
+  import PositionMixin from "@/mixins/positionMixin"
 
   export default class Index extends wepy.page {
     config = {
-      navigationBarTitleText: 'test'
+      navigationBarTitleText: '智慧食堂'
     }
 
     components = {
@@ -128,15 +129,33 @@
       'commodity-swiper': CommoditySwiper
     }
 
-    onLoad(){
-      // wx.openSetting();
-      // if(wx.getStorageSync('test')){
-      //   console.log('缓存保留');
-      // }else{
-      //   console.log('缓存');
-      //   wx.setStorageSync('test', '测试');
-      // }
+    data={
+      locationCity: ''
     }
+
+    mixins = [PositionMixin]
+
+    computed={
+
+    }
+
+    methods={
+      goCanteen(){
+        // console.log('goCanteen');
+        wx.navigateTo({
+          url: '/pages/canteen'
+        })
+      }
+    }
+
+    onShow(){
+    }
+
+    onLoad(){
+      // console.log(PositionMixin);
+
+    }
+
 
   }
 </script>

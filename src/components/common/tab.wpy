@@ -1,67 +1,109 @@
-<style lang="less">
+<style scoped lang="less">
   @import "../../styles/base";
 
   .tab{
-    display: flex;
     border-bottom: 2rpx solid #e9e9e9;
     height: 88rpx;
     line-height: 88rpx;
-    /*font-size: 28rpx;*/
+    position: relative;
 
-    .tab-item{
-      flex: 1;
-      text-align: center;
-      color: #444444;
+    .tab-list{
+      display: flex;
+
+      .tab-item{
+        flex: 1;
+        text-align: center;
+        color: #444444;
+      }
+
+      .tab-item-active{
+        color: @mainColor;
+      }
     }
 
-    .tab-item-active{
-      color: @mainColor;
+    .tab-slider{
+      position: absolute;
+      bottom: 0;
+      width: 140rpx;
+      left: 70rpx;
+      height: 2rpx;
+      background-color: @mainColor;
+      content: "";
+      transition:transform .3s;
+
     }
   }
 </style>
 
 <template>
   <view class="tab">
-    <view  wx:for="{{tabList}}" wx:key="*this" class="tab-item {{currentTab == index ? 'tab-item-active': ''}}"
-    @tap="switchTab({{index}})">
-      {{item}}
+    <view class="tab-list">
+      <view wx:for="{{tabList}}" wx:key="*this" class="tab-item {{currentTab == index ? 'tab-item-active': ''}}"
+             @tap="switchTab({{index}})">
+        {{item}}
+      </view>
     </view>
+    <view wx:if="{{showSlider}}" class="tab-slider" style="left: {{sliderLeft}}rpx;-webkit-transform: translateX({{sliderOffset}}px);"></view>
   </view>
+
 </template>
 
 <script>
     import wepy from 'wepy'
 
+    const sliderWidth = 70;
+
     export default class Tab extends wepy.component {
       props = {
+        //  当前激活tab 索引
         currentTab: {
           type: Number,
           default: 0
         },
+        //  tab数组
         tabList: {
           type: Array,
           default: []
-        }
-      }
-        data = {}
-        computed = {}
+        },
+        //  显示slider  个人认为用于对应不同的panel使用
+        showSlider: {
+          type: Boolean,
+          default: false
+        },
 
-        methods = {
-          switchTab(index){
-            if(this.currentTab == index){
-              console.log('return');
-            }else{
-              this.currentTab = index;
-              this.$emit("switchTab", this.currentTab);
-            }
+      }
+      data = {
+        sliderOffset: 0,
+        sliderLeft: 0,
+      }
+
+      computed = {}
+
+      methods = {
+        switchTab(index,e) {
+          if (this.currentTab == index) {
+            console.log('return');
+          } else {
+            this.sliderOffset = e.currentTarget.offsetLeft;
+console.log(this.sliderOffset);
+            this.currentTab = index;
+            this.$emit("switchTab", this.currentTab);
           }
         }
+      }
 
-        events = {}
+      events = {}
 
-        onLoad() {
-    console.log(this.currentTab);
-        }
+      async  onLoad() {
+        let res = await wepy.getSystemInfo();
+
+        this.sliderLeft = res.windowWidth / this.tabList.length - sliderWidth;
+
+        console.log(this.sliderLeft);
+        this.sliderOffset = (res.windowWidth / this.tabList.length * this.currentTab)*2;
+
+        this.$apply();
+      }
     }
 </script>
 

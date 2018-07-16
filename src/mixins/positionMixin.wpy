@@ -1,0 +1,53 @@
+<style scoped lang="less">
+
+</style>
+
+<template>
+
+</template>
+
+<script>
+    import wepy from 'wepy'
+
+    export default class PositionMixin extends wepy.mixin {
+        data = {}
+        computed = {
+          positionText(){
+            let rst = ''
+            let length = 0
+            let selectCanteen = {}
+
+            if(this.locationCity){
+              length = this.locationCity.length;
+
+              rst += this.locationCity.slice(0, length-1)
+            }else{
+              rst +=  '选择城市'
+            }
+
+            rst += '·'
+
+            if(this.selectCanteen){
+              rst += this.selectCanteen.MSname
+            }else{
+              rst += '选择食堂'
+            }
+            return rst;
+          }
+        }
+
+        methods = {}
+
+        events = {}
+
+        onShow(){
+          this.locationCity = wx.getStorageSync('locationCity');
+          this.selectCanteen = wx.getStorageSync('selectCanteen');
+        }
+
+        onLoad() {
+          console.log('PositionMixin');
+        }
+    }
+</script>
+

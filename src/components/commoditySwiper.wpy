@@ -51,8 +51,8 @@
             color: @redPink;
           }
       }
-      .swiper-item:last-of-type{
-        margin-right: 0;
+      .swiper-item:first-of-type{
+        margin-left: 50rpx;
       }
 
       .swiper-item-active{

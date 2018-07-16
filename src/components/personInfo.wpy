@@ -1,4 +1,4 @@
-<style lang="less">
+<style scoped lang="less">
   .person-info{
     display: flex;
     padding: 48rpx 0  42rpx 46rpx;

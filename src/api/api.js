@@ -29,6 +29,34 @@ const updateMeal = params => wxRequest(params, host+'/group/meal/meal/update_mea
 const mealList = params => wxRequest(params, host+`/group/meal/meal/meal_list?MSid=${params.MSid}&MEtag=${params.MEtag}`);
 //  获取餐品详情  GET
 const mealAbo = params => wxRequest(params, host+`/group/meal/meal/meal_abo?MEid=${params.MEid}`);
+
+
+//  创建食堂
+const newMess = params => wxRequest(params, host+`/group/meal/mess/new_mess`);
+//  根据城市获取食堂  GET
+const getMessByCity = params => wxRequest(params, host+`/group/meal/mess/get_mess_by_city?MScity=${params.MScity}`);
+//  获取食堂详情  GET
+const getMessAbo = params => wxRequest(params, host+`/group/meal/mess/get_mess_abo?MSid=${params.MSid}`);
+//  获取已开放的城市  GET
+const getAllCity = params => wxRequest(params, host+`/group/meal/mess/get_all_city`);
+
+
 export default {
+  register,
+  login,
+  updateInfo,
+  updatePwd,
+  allInfo,
+  updateFirstUser,
+  forgetPwd,
+  getInforcode,
+  newMeal,
+  updateMeal,
+  mealList,
+  mealAbo,
+  newMess,
+  getMessByCity,
+  getMessAbo,
+  getAllCity
 
 }

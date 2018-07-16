@@ -1,0 +1,92 @@
+<style scoped lang="less">
+  @import "../styles/base";
+
+  .container{
+
+    .header{
+      padding: 26rpx 0 18rpx 36rpx;
+      display: flex;
+
+      .canteen-logo{
+        width: 140rpx;
+        height: 140rpx;
+
+        image{
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      .main-content{
+        padding-left: 26rpx;
+
+        .line1{
+          color: #0c0c0c;
+          .fz32();
+
+        }
+
+        .line2{
+          color: #444444;
+          .fz28();
+        }
+      }
+    }
+  }
+</style>
+
+<template>
+  <view class="container">
+    <view class="header">
+      <view class="canteen-logo">
+        <image src="../images/food.jpg"></image>
+      </view>
+      <view class="main-content">
+        <view class="line1">
+          海之鲜
+        </view>
+        <view class="line2">
+          优惠:
+        </view>
+      </view>
+    </view>
+
+    <tab :tabList="tabList" :showSlider="showSlider"></tab>
+    <view></view>
+    <choose-commodity-swiper></choose-commodity-swiper>
+  </view>
+</template>
+
+<script>
+    import wepy from 'wepy'
+    import tip from '@/utils/tip'
+    import api from '@/api/api'
+    import Tab from "@/components/common/tab"
+    import ChooseCommoditySwiper from "@/components/chooseCommoditySwiper"
+
+    export default class Canteen extends wepy.page {
+        config = {
+          navigationBarTitleText: '海之鲜(xx店)'
+        }
+
+        components = {
+          tab: Tab,
+          'choose-commodity-swiper': ChooseCommoditySwiper
+        }
+
+        data = {
+          tabList: ['点餐','评价','食堂'],
+          showSlider: true
+        }
+        computed = {}
+
+        methods = {}
+
+        events = {}
+
+        onLoad() {
+
+        }
+    }
+</script>
+

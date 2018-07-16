@@ -1,21 +1,25 @@
 <style lang="less">
-  @import "/styles/weui";
+  @import "/styles/weui/weui";
   @import "/styles/base";
 </style>
 
 <script>
 import wepy from 'wepy'
 import 'wepy-async-function'
-
+import { AMapWX } from './utils/amap-wx';
+import {Config as myconfig} from './utils/config';
 
 export default class extends wepy.app {
   config = {
     pages: [
+      'pages/chooseCanteen',
+
       'pages/index',
+      'pages/canteen',
       'pages/order',
       'pages/data',
+
       'pages/person',
-      'pages/search',
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -52,7 +56,8 @@ export default class extends wepy.app {
   }
 
   globalData = {
-    userInfo: null
+    userInfo: null,
+    locationCity: ''
   }
 
   constructor () {
@@ -63,6 +68,38 @@ export default class extends wepy.app {
 
   onLaunch() {
 
+  }
+
+  onShow(){
+    var myAmapFun = new AMapWX({key:myconfig.key});
+    let that = this;
+
+    wx.getLocation({
+      success:()=>{
+        myAmapFun.getRegeo({
+          success: function(data){
+            //成功回调
+
+            // console.log(data[0].regeocodeData.addressComponent.city);
+            // that.globalData.locationCity = data[0].regeocodeData.addressComponent.city;
+
+            console.log(data[0].regeocodeData.addressComponent.city);
+            let locationCity = wx.getStorageSync('locationCity');
+
+            if(!locationCity || locationCity != data[0].regeocodeData.addressComponent.city){
+              console.log('重新存储或位置改变');
+              wx.setStorageSync('locationCity', data[0].regeocodeData.addressComponent.city);
+            }else{
+              console.log('缓存',locationCity);
+            }
+          },
+          fail: function() {
+            console.log('失败');
+          }
+        })
+      },
+      fail:()=>{}
+    });
   }
 }
 </script>

@@ -1,0 +1,149 @@
+<style scoped lang="less">
+  @import "../styles/base";
+
+  .order-list{
+
+      .order-item{
+        height:140rpx;
+        display: flex;
+        border-bottom: 2rpx solid #e9e9e9;
+        padding:50rpx 18rpx 60rpx 40rpx;
+
+        .item-hd{
+          width: 160rpx;
+          height: 160rpx;
+
+          image{
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .item-bd{
+          padding-left: 24rpx;
+          flex: 1;
+
+          .fz28();
+
+          .line1{
+            color: #141414;
+          }
+
+          .line2{
+            color:   #7e7e7e
+          }
+
+          .line3{
+            color: @mainColor;
+            margin-top: 34rpx;
+          }
+        }
+        .item-ft{
+          display: flex;
+          flex-direction: column;
+
+          .fz24();
+
+          .order-status{
+            color: #525252;
+            text-align: center;
+          }
+
+          .order-action{
+            margin-top: 34rpx;
+
+            button{
+              height: 46rpx;
+              line-height: 46rpx;
+              border-radius: 23rpx;
+              background-color: #FFFFFF;
+              color: @mainColor;
+              border: solid 1px @mainColor;
+              .fz24();
+            }
+          }
+        }
+      }
+
+  }
+</style>
+
+<template>
+  <view class="order-list">
+    <view class="order-item">
+      <view class="item-hd">
+        <image src="../images/food.jpg"></image>
+      </view>
+      <view class="item-bd">
+        <view class="line1">菜品1+菜品2... 等三件菜品</view>
+        <view class="line2">2018-07-09 11:23</view>
+        <view class="line3">￥22.4</view>
+      </view>
+      <view class="item-ft">
+        <view class="order-status">
+          订单已完成
+        </view>
+        <view class="order-action">
+          <button>去评论</button>
+        </view>
+      </view>
+    </view>
+
+    <view class="order-item">
+      <view class="item-hd">
+        <image src="../images/food.jpg"></image>
+      </view>
+      <view class="item-bd">
+        <view class="line1">菜品1+菜品2... 等三件菜品</view>
+        <view class="line2">2018-07-09 11:23</view>
+        <view class="line3">￥22.4</view>
+      </view>
+      <view class="item-ft">
+        <view class="order-status">
+          待取餐
+        </view>
+        <view class="order-action">
+          <button>取餐码</button>
+        </view>
+      </view>
+    </view>
+
+    <view class="order-item">
+      <view class="item-hd">
+        <image src="../images/food.jpg"></image>
+      </view>
+      <view class="item-bd">
+        <view class="line1">菜品1+菜品2... 等三件菜品</view>
+        <view class="line2">2018-07-09 11:23</view>
+        <view class="line3">￥22.4</view>
+      </view>
+      <view class="item-ft">
+        <view class="order-status">
+          未支付
+        </view>
+        <view class="order-action">
+          <button>去支付</button>
+        </view>
+      </view>
+    </view>
+
+
+  </view>
+</template>
+
+<script>
+    import wepy from 'wepy'
+
+    export default class OrderList extends wepy.component {
+        data = {}
+        computed = {}
+
+        methods = {}
+
+        events = {}
+
+        onLoad() {
+
+        }
+    }
+</script>
+

@@ -1,0 +1,272 @@
+<style scoped lang="less">
+  @import "../styles/base";
+
+  .container{
+    padding: 20rpx 32rpx 0 34rpx;
+
+    .searchBar{
+      height: 60rpx;
+      padding: 12rpx 0 12rpx 20rpx;
+      background-color: #f0f0f0;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+
+      image{
+        width: 36rpx;
+        height: 36rpx;
+        margin-right: 2rpx;
+      }
+      input{
+        /*display: inline-block;*/
+        flex: 1;
+        height: 36rpx;
+        line-height: 36rpx;
+
+        .fz36();
+      }
+    }
+
+
+    .select-canteen{
+        border:1px solid  #c9c9c9;
+        margin-top: 22rpx;
+        height: 110rpx;
+        padding: 8rpx 20rpx 26rpx 14rpx;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .select-canteen-title{
+          color: #4f4f4f;
+
+          .fz24();
+        }
+        .main-content{
+          display: flex;
+          align-items: center;
+          position: relative;
+          margin-left: 6rpx;
+
+          .fz28();
+
+          .icon-location{
+            width: 24rpx;
+            height: 32rpx;
+          }
+
+          .icon-triangle {
+            width: 18rpx;
+            height: 10rpx;
+            /*transform: rotate(180deg);*/
+          }
+        }
+      }
+
+    .title{
+      color: #4f4f4f;
+      margin-top: 20rpx;
+      margin-bottom: 20rpx;
+
+      .fz24();
+    }
+
+    .section{
+      color: #4f4f4f;
+      text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+
+
+      .canteen-block{
+        height: 60rpx;
+        line-height: 60rpx;
+        margin-right: 52rpx;
+        margin-bottom: 20rpx;
+        border: solid 1px #c9c9c9;
+        border-radius: 6rpx;
+
+        .ellipsis(312rpx);
+        &:nth-child(even){
+          margin-right: 0;
+        }
+      }
+
+
+      .city-block{
+        width: 200rpx;
+        height: 80rpx;
+        line-height: 80rpx;
+        margin-right: 20rpx;
+        margin-bottom: 20rpx;
+        border: solid 1px #d7d7d7;
+        border-radius: 6rpx;
+
+        &:nth-child(3n){
+          margin-right: 0;
+        }
+      }
+
+
+      .block-active{
+        border-color: @redPink;
+        color: @redPink;
+      }
+    }
+    }
+</style>
+
+<template>
+  <view class="container">
+    <view class="searchBar">
+      <!--<icon type="search" size="18" color="rgb(246, 39, 118)"></icon>-->
+      <image src="../images/search.png"></image>
+      <input type="text" />
+    </view>
+
+    <view class="select-canteen">
+      <view class="select-canteen-title">
+        当前食堂
+      </view>
+      <view class="main-content">
+        <image src="../images/position.png" class="icon-location"></image>
+        <view>{{positionText}}</view>
+          <image src="../images/triangle.png" class="icon-triangle" animation="{{triangleAnimation}}" @tap="swtichShowCityBlock" ></image>
+      </view>
+
+    </view>
+
+    <view class="title">
+      附近的食堂
+    </view>
+    <view class="section">
+      <view wx:for="{{surroundCanteen}}" wx:key="MSid" class="canteen-block" @tap="selectCanteen({{item}})">
+        {{item.MSname}}
+      </view>
+    </view>
+
+    <block wx:if="{{showCityBlock}}">
+
+      <view class="title">
+        定位城市
+      </view>
+      <view class="section">
+        <view wx:if="{{removeLastWord}}" class="city-block block-active">
+          {{removeLastWord}}
+        </view>
+        <!--<view wx:else></view>-->
+      </view>
+
+      <view class="title">
+        合作城市
+      </view>
+      <view class="section">
+        <view wx:for="{{openCity}}" wx:index="index" wx:key="*this" class="city-block">
+          {{item}}
+        </view>
+      </view>
+
+    </block>
+
+  </view>
+
+</template>
+
+<script>
+    import wepy from 'wepy'
+    import api from '../api/api'
+    import PositionMixin from "@/mixins/positionMixin"
+
+    let app = getApp()
+    export default class ChooseCanteen extends wepy.page {
+        config = {}
+
+        components = {}
+
+        mixins = [PositionMixin]
+
+        data = {
+          locationCity: '',
+          selectCanteen: {},
+          surroundCanteen: [],
+          openCity: [],
+          showCityBlock: false,
+          triangleAnimation: {}
+        }
+        computed = {
+          removeLastWord(){
+            let length
+
+            if(this.locationCity){
+              length = this.locationCity.length;
+
+              return this.locationCity.slice(0, length-1)
+            }else{
+              return ''
+            }
+          }
+        }
+
+        methods = {
+          selectCanteen(item){
+            wx.setStorageSync('selectCanteen', item);
+          },
+
+          swtichShowCityBlock(){
+            this.showCityBlock = !this.showCityBlock;
+
+            console.log(this.triangleAnimation);
+            var animation = wx.createAnimation({
+              duration: 500,
+              delay: 0
+            })
+
+            this.triangleAnimation = animation;
+
+            // this.triangleAnimation.rotate(180).step();
+
+            if (this.showCityBlock) {
+              this.triangleAnimation.rotate(180).step();
+            } else {
+              this.triangleAnimation.rotate(360).step();
+            }
+
+            this.setData({
+              triangleAnimation: this.triangleAnimation.export()
+            })
+          }
+        }
+
+         async getMessByCity(MScity){
+            let res =await api.getMessByCity({MScity,method: 'GET'})
+
+           if(res.data.status == 200){
+            this.surroundCanteen = res.data.data;
+            this.$apply();
+           }
+         }
+
+         async getAllCity(){
+           let res =await api.getAllCity({method: 'GET'})
+
+           if(res.data.status == 200){
+             this.openCity = res.data.data;
+             console.log(this.openCity);
+             this.$apply();
+           }
+         }
+
+
+      onLoad() {
+          // var animation = wx.createAnimation({
+          //   duration: 500,
+          //   delay: 0
+          // })
+          // this.triangleAnimation = animation;
+
+          this.getMessByCity(wx.getStorageSync('locationCity'));
+          this.getAllCity()
+        }
+    }
+</script>
+

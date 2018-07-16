@@ -1,0 +1,144 @@
+<style scoped lang="less">
+  @import "../styles/base";
+
+  .choose-commodity-swiper{
+
+    .header{
+      padding: 12rpx 0 12rpx 30rpx;
+    }
+
+    .swiper{
+      white-space: nowrap;
+      width: 100%;
+      height: 300rpx;
+
+      .swiper-item{
+        height: 300rpx;
+        width: 200rpx;
+        display: inline-block;
+        position: relative;
+        margin-right: 70rpx;
+        text-align: center;
+
+        .fz24();
+
+        image{
+          width: 200rpx;
+          height: 200rpx;
+        }
+
+        .line1{
+          color: @nameColor;
+
+          .fz28()
+        }
+
+        .line2{
+          color: @redPink;
+          display: flex;
+          justify-content: space-between;
+
+          .price{
+            .fz24();
+          }
+
+          .add-btn{
+            width: 38rpx;
+            height: 38rpx;
+          }
+
+        }
+      }
+      .swiper-item:first-of-type{
+        margin-left: 30rpx;
+      }
+
+      .swiper-item:last-of-type{
+        margin-right: 30rpx;
+      }
+    }
+  }
+</style>
+
+<template>
+  <view class="choose-commodity-swiper">
+    <view class="header">
+      食堂推荐
+    </view>
+    <scroll-view  scroll-x="true"  class="swiper">
+      <view class="swiper-item">
+        <image src="../images/food.jpg"></image>
+        <view class="line1">
+          菜品
+        </view>
+        <view class="line2">
+          <view class="price">￥23</view>
+          <image src="../images/add.png" class="add-btn">+</image>
+        </view>
+      </view>
+
+     <view class="swiper-item">
+        <image src="../images/food.jpg"></image>
+        <view class="line1">
+          菜品
+        </view>
+        <view class="line2">
+          <view class="price">￥23</view>
+          <image src="../images/add.png" class="add-btn">+</image>
+        </view>
+      </view>
+
+     <view class="swiper-item">
+        <image src="../images/food.jpg"></image>
+        <view class="line1">
+          菜品
+        </view>
+        <view class="line2">
+          <view class="price">￥23</view>
+          <image src="../images/add.png" class="add-btn">+</image>
+        </view>
+      </view>
+
+     <view class="swiper-item">
+        <image src="../images/food.jpg"></image>
+        <view class="line1">
+          菜品
+        </view>
+        <view class="line2">
+          <view class="price">￥23</view>
+          <image src="../images/add.png" class="add-btn">+</image>
+        </view>
+      </view>
+
+     <view class="swiper-item">
+        <image src="../images/food.jpg"></image>
+        <view class="line1">
+          菜品
+        </view>
+        <view class="line2">
+          <view class="price">￥23</view>
+          <image src="../images/add.png" class="add-btn">+</image>
+        </view>
+      </view>
+    </scroll-view>
+
+  </view>
+</template>
+
+<script>
+    import wepy from 'wepy'
+
+    export default class ChooseCommoditySwiper extends wepy.component {
+        data = {}
+        computed = {}
+
+        methods = {}
+
+        events = {}
+
+        onLoad() {
+
+        }
+    }
+</script>
+
