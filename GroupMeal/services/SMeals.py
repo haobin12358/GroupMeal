@@ -43,3 +43,6 @@ class SMeals(SBase):
     def get_msid_by_meid(self, meid):
         return self.session.query(Meals.MSid).filter_by(MEid=meid).scalar()
 
+    @close_session
+    def get_mestatus_by_meid(self, meid):
+        return self.session.query(Meals.MEstatus).filter_by(MEid=meid).scalar()
