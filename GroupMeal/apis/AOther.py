@@ -8,7 +8,7 @@ from GroupMeal.common.import_status import import_status
 from GroupMeal.config.response import SYSTEM_ERROR
 import datetime
 
-class LBOther(Resource):
+class GMOther(Resource):
     def __init__(self):
         from GroupMeal.services.SOrders import SOrders
         self.sorders = SOrders()

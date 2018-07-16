@@ -39,7 +39,7 @@ class CReview():
         OMid = get_str(args, "OMid")
         OMstatus = self.service_order.get_omstatus_by_omid(OMid)
         if OMstatus != 305:
-            return import_status("ERROR_MESSAGE_WRONG_OMSTATUS", "LOVEBREAKFAST_ERROR", "ERROR_CODE_WRONG_OMSTATUS")
+            return import_status("ERROR_MESSAGE_WRONG_OMSTATUS", "GROUPMEAL_ERROR", "ERROR_CODE_WRONG_OMSTATUS")
 
         data = request.data
         data = json.loads(data)

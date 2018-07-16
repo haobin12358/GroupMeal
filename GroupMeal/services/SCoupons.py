@@ -15,7 +15,7 @@ class SCoupons(SBase):
     def get_cardpackage_by_uid(self, uid):
 
         return self.session.query(
-            Cardpackage.COid, Cardpackage.CAid,
+            Cardpackage.COid, Cardpackage.CPid,
             Cardpackage.USid
         ).filter(Cardpackage.USid == uid).all()
 
@@ -37,12 +37,12 @@ class SCoupons(SBase):
 
     @close_session
     def update_carbackage(self, cardid):
-        self.session.query(Cardpackage).filter(Cardpackage.CAid == cardid).update({"CAstatus": 2})
+        self.session.query(Cardpackage).filter(Cardpackage.CPid == cardid).update({"CAstatus": 2})
 
     @close_session
     def get_card_by_uid_couid(self, uid, couid):
         return self.session.query(
-            Cardpackage.COid, Cardpackage.CAid, Cardpackage.USid
+            Cardpackage.COid, Cardpackage.CPid, Cardpackage.USid
         ).filter(Cardpackage.USid == uid, Cardpackage.COid == couid).first()
 
     @close_session

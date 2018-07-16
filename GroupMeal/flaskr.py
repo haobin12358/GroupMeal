@@ -7,6 +7,8 @@ from GroupMeal.apis.AMess import GMMess
 from GroupMeal.apis.ACarts import GMCarts
 from GroupMeal.apis.AOrders import GMOrders
 from GroupMeal.apis.AReview import GMReview
+from GroupMeal.apis.ACoupons import GMCoupons
+from GroupMeal.apis.AOther import GMOther
 
 gm = Flask(__name__)
 api = flask_restful.Api(gm)
@@ -16,7 +18,9 @@ api.add_resource(GMMeals, "/group/meal/meal/<string:meals>")
 api.add_resource(GMMess, "/group/meal/mess/<string:mess>")
 api.add_resource(GMCarts, "/group/meal/cart/<string:cart>")
 api.add_resource(GMOrders, "/group/meal/order/<string:orders>")
-api.add_resource(GMReview, "/group/meal/order/<string:review>")
+api.add_resource(GMReview, "/group/meal/review/<string:review>")
+api.add_resource(GMCoupons, "/group/meal/coupon/<string:card>")
+api.add_resource(GMOther, "/group/meal/other/<string:other>")
 
 '''
 if __name__ == '__main__':

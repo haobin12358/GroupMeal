@@ -68,7 +68,7 @@ class CCoupons():
                 print(self.title.format("COtype"))
                 print(COtype)
                 print(self.title.format("COtype"))
-                cart["CAid"] = cart_pkg.CAid
+                cart["CPid"] = cart_pkg.CPid
                 cart["COid"] = cart_pkg.COid
                 if COtype == 801:
                     COfilter = coupon.COfilter

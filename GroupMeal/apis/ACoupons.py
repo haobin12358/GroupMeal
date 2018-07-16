@@ -6,7 +6,7 @@ from flask_restful import Resource
 from GroupMeal.control.CCoupons import CCoupons
 from GroupMeal.config.response import APIS_WRONG
 
-class LBCoupons(Resource):
+class GMCoupons(Resource):
 
     def __init__(self):
         self.title = "=========={0}=========="

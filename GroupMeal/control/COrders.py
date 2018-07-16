@@ -177,6 +177,11 @@ class COrders():
                     "MEid": op["MEid"],
                     "MEnumber": op["MEnumber"]
                 })
+                volume = self.smeal.get_mevolume_by_meid(op["MEid"])
+                volume = volume + 1
+                update_meal = self.smeal.update_meal(op["MEid"], {"MEvolume": volume})
+                if not update_meal:
+                    return SYSTEM_ERROR
 
                 cart = get_model_return_dict(
                     self.scart.get_cart_by_usid_meid(Uid, op["MEid"]))
