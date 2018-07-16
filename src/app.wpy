@@ -75,32 +75,22 @@ export default class extends wepy.app {
     var myAmapFun = new AMapWX({key:myconfig.key});
     let that = this;
 
-    wx.getLocation({
-      success:()=>{
-        myAmapFun.getRegeo({
-          success: function(data){
-            //成功回调
+    myAmapFun.getRegeo({
+      success: function(data){
+        console.log(data[0].regeocodeData.addressComponent.city);
+        let locationCity = wx.getStorageSync('locationCity');
 
-            // console.log(data[0].regeocodeData.addressComponent.city);
-            // that.globalData.locationCity = data[0].regeocodeData.addressComponent.city;
-
-            console.log(data[0].regeocodeData.addressComponent.city);
-            let locationCity = wx.getStorageSync('locationCity');
-
-            if(!locationCity || locationCity != data[0].regeocodeData.addressComponent.city){
-              console.log('重新存储或位置改变');
-              wx.setStorageSync('locationCity', data[0].regeocodeData.addressComponent.city);
-            }else{
-              console.log('缓存',locationCity);
-            }
-          },
-          fail: function() {
-            console.log('失败');
-          }
-        })
+        if(!locationCity || locationCity != data[0].regeocodeData.addressComponent.city){
+          console.log('重新存储或位置改变');
+          wx.setStorageSync('locationCity', data[0].regeocodeData.addressComponent.city);
+        }else{
+          console.log('缓存',locationCity);
+        }
       },
-      fail:()=>{}
-    });
+      fail: function() {
+        console.log('失败');
+      }
+    })
   }
 }
 </script>
