@@ -195,6 +195,19 @@ class CMeals():
             print(self.title.format("meal_list"))
             print(meal_list)
             print(self.title.format("meal_list"))
+        elif "MEtype" in args:
+            args["MEtype"] = self.num_word_change(word=args["MEtype"].encode("utf8"))
+            meal_list = get_model_return_list(self.smeals.get_all_meal_by_msid_and_metag(args["MSid"], args["MEtype"]))
+            print(self.title.format("meal_list"))
+            print(meal_list)
+            print(self.title.format("meal_list"))
+        elif "MEtype" in args and "MEtag" in args:
+            args["MEtype"] = self.num_word_change(word=args["MEtype"].encode("utf8"))
+            args["MEtag"] = self.tag_word_change(word=args["MEtag"].encode("utf8"))
+            meal_list = get_model_return_list(self.smeals.get_all_meal_by_msid_and_metag(args["MSid"], args["MEtag"], args["MEtype"]))
+            print(self.title.format("meal_list"))
+            print(meal_list)
+            print(self.title.format("meal_list"))
         else:
             meal_list = get_model_return_list(self.smeals.get_all_meal_by_msid(args["MSid"]))
             print(self.title.format("meal_list"))

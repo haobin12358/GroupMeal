@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c4493e9a-a4c3-409e-bf11-81e9ff9525a9" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GroupMeal/apis/AOrders.py" beforeDir="false" afterPath="$PROJECT_DIR$/GroupMeal/apis/AOrders.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GroupMeal/config/messages.py" beforeDir="false" afterPath="$PROJECT_DIR$/GroupMeal/config/messages.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GroupMeal/config/status_code.py" beforeDir="false" afterPath="$PROJECT_DIR$/GroupMeal/config/status_code.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GroupMeal/control/CCarts.py" beforeDir="false" afterPath="$PROJECT_DIR$/GroupMeal/control/CCarts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GroupMeal/flaskr.py" beforeDir="false" afterPath="$PROJECT_DIR$/GroupMeal/flaskr.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GroupMeal/control/CMeals.py" beforeDir="false" afterPath="$PROJECT_DIR$/GroupMeal/control/CMeals.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GroupMeal/services/SMeals.py" beforeDir="false" afterPath="$PROJECT_DIR$/GroupMeal/services/SMeals.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,11 +14,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GroupMeal/models/models.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="152">
-              <caret line="52" column="8" lean-forward="true" selection-start-line="52" selection-start-column="8" selection-end-line="52" selection-end-column="8" />
+              <caret line="52" column="62" lean-forward="true" selection-start-line="52" selection-start-column="62" selection-end-line="52" selection-end-column="62" />
             </state>
           </provider>
         </entry>
@@ -43,8 +38,8 @@
       <file leaf-file-name="CMeals.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GroupMeal/control/CMeals.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
-              <caret line="92" column="33" lean-forward="true" selection-start-line="92" selection-start-column="33" selection-end-line="92" selection-end-column="33" />
+            <state relative-caret-position="287">
+              <caret line="206" column="78" lean-forward="true" selection-start-line="206" selection-start-column="78" selection-end-line="206" selection-end-column="78" />
             </state>
           </provider>
         </entry>
@@ -94,11 +89,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="status_code.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GroupMeal/config/status_code.py">
+      <file leaf-file-name="SMeals.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/GroupMeal/services/SMeals.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
-              <caret line="5" column="30" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
+            <state relative-caret-position="249">
+              <caret line="47" column="18" lean-forward="true" selection-start-line="47" selection-start-column="18" selection-end-line="47" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -134,17 +129,17 @@
         <option value="$PROJECT_DIR$/GroupMeal/services/SMess.py" />
         <option value="$PROJECT_DIR$/GroupMeal/apis/AMess.py" />
         <option value="$PROJECT_DIR$/GroupMeal/control/CMess.py" />
-        <option value="$PROJECT_DIR$/GroupMeal/control/CMeals.py" />
         <option value="$PROJECT_DIR$/GroupMeal/services/SCarts.py" />
         <option value="$PROJECT_DIR$/GroupMeal/apis/ACarts.py" />
         <option value="$PROJECT_DIR$/GroupMeal/control/CCarts.py" />
         <option value="$PROJECT_DIR$/GroupMeal/flaskr.py" />
-        <option value="$PROJECT_DIR$/GroupMeal/services/SMeals.py" />
         <option value="$PROJECT_DIR$/GroupMeal/services/SOrders.py" />
         <option value="$PROJECT_DIR$/GroupMeal/apis/AOrders.py" />
         <option value="$PROJECT_DIR$/GroupMeal/config/messages.py" />
         <option value="$PROJECT_DIR$/GroupMeal/config/status_code.py" />
         <option value="$PROJECT_DIR$/GroupMeal/control/COrders.py" />
+        <option value="$PROJECT_DIR$/GroupMeal/control/CMeals.py" />
+        <option value="$PROJECT_DIR$/GroupMeal/services/SMeals.py" />
       </list>
     </option>
   </component>
@@ -298,7 +293,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24966975" />
@@ -622,13 +617,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GroupMeal/control/CMeals.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="92" column="33" lean-forward="true" selection-start-line="92" selection-start-column="33" selection-end-line="92" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/GroupMeal/services/SCarts.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="249">
@@ -646,31 +634,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GroupMeal/config/messages.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="16" column="21" selection-start-line="16" selection-end-line="16" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/GroupMeal/services/SOrders.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="45" column="24" selection-start-line="45" selection-start-column="8" selection-end-line="45" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GroupMeal/services/SMeals.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="16" column="8" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GroupMeal/config/status_code.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" column="30" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
         </state>
       </provider>
     </entry>
@@ -691,7 +658,35 @@
     <entry file="file://$PROJECT_DIR$/GroupMeal/models/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
-          <caret line="52" column="8" lean-forward="true" selection-start-line="52" selection-start-column="8" selection-end-line="52" selection-end-column="8" />
+          <caret line="52" column="62" lean-forward="true" selection-start-line="52" selection-start-column="62" selection-end-line="52" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GroupMeal/config/status_code.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="30" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GroupMeal/config/messages.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="16" column="21" selection-start-line="16" selection-end-line="16" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GroupMeal/control/CMeals.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="287">
+          <caret line="206" column="78" lean-forward="true" selection-start-line="206" selection-start-column="78" selection-end-line="206" selection-end-column="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GroupMeal/services/SMeals.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="249">
+          <caret line="47" column="18" lean-forward="true" selection-start-line="47" selection-start-column="18" selection-end-line="47" selection-end-column="18" />
         </state>
       </provider>
     </entry>

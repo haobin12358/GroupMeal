@@ -40,6 +40,18 @@ class SMeals(SBase):
             .filter_by(MSid=msid).filter_by(MEstatus=281).filter_by(MEtag=metag).all()
 
     @close_session
+    def get_all_meal_by_msid_and_metag(self, msid, metype):
+        return self.session.query(Meals.MEid, Meals.MEname, Meals.MEimage, Meals.MEprice, Meals.MEtag,
+                                  Meals.MEdprice, Meals.MEtype, Meals.MEvolume, Meals.MEfraction, Meals.MEinventory) \
+            .filter_by(MSid=msid).filter_by(MEstatus=281).filter_by(MEtype=metype).all()
+
+    @close_session
+    def get_all_meal_by_msid_and_metag(self, msid, metag, metype):
+        return self.session.query(Meals.MEid, Meals.MEname, Meals.MEimage, Meals.MEprice, Meals.MEtag,
+                                  Meals.MEdprice, Meals.MEtype, Meals.MEvolume, Meals.MEfraction, Meals.MEinventory) \
+            .filter_by(MSid=msid).filter_by(MEstatus=281).filter_by(MEtag=metag).filter_by(MEtype=metype).all()
+
+    @close_session
     def get_msid_by_meid(self, meid):
         return self.session.query(Meals.MSid).filter_by(MEid=meid).scalar()
 
