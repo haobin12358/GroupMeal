@@ -12,14 +12,15 @@ import {Config as myconfig} from './utils/config';
 export default class extends wepy.app {
   config = {
     pages: [
-      'pages/chooseCanteen',
-
       'pages/index',
       'pages/canteen',
       'pages/order',
       'pages/data',
 
-      'pages/person',
+      'pages/chooseCanteen',//  选择食堂
+
+
+      'pages/person',//  个人
     ],
     window: {
       backgroundTextStyle: 'light',

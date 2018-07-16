@@ -131,7 +131,7 @@
       <view class="main-content">
         <image src="../images/position.png" class="icon-location"></image>
         <view>{{positionText}}</view>
-          <image src="../images/triangle.png" class="icon-triangle" animation="{{triangleAnimation}}" @tap="swtichShowCityBlock" ></image>
+          <!--<image src="../images/triangle.png" class="icon-triangle" animation="{{triangleAnimation}}" @tap="swtichShowCityBlock" ></image>-->
       </view>
 
     </view>
@@ -145,7 +145,7 @@
       </view>
     </view>
 
-    <block wx:if="{{showCityBlock}}">
+    <!--<block wx:if="{{showCityBlock}}">-->
 
       <view class="title">
         定位城市
@@ -166,7 +166,6 @@
         </view>
       </view>
 
-    </block>
 
   </view>
 
@@ -210,6 +209,9 @@
         methods = {
           selectCanteen(item){
             wx.setStorageSync('selectCanteen', item);
+            wx.switchTab({
+              url: '/pages/index'
+            })
           },
 
           swtichShowCityBlock(){
