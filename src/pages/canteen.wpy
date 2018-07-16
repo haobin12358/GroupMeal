@@ -43,7 +43,7 @@
       </view>
       <view class="main-content">
         <view class="line1">
-          海之鲜 {{locationCity}}{{selectCanteen}}
+          {{selectCanteen.MSname}}
         </view>
         <view class="line2">
           优惠:
@@ -51,9 +51,20 @@
       </view>
     </view>
 
-    <tab :tabList="tabList" :showSlider="showSlider"></tab>
-    <view></view>
-    <choose-commodity-swiper></choose-commodity-swiper>
+    <tab :tabList="tabList" :currentTab.sync="currentIndex" @switchTab.user="switchTab" :showSlider="showSlider"></tab>
+    <swiper current="{{currentIndex}}" bindchange="swiperPage" >
+      <swiper-item>
+        <choose-commodity-swiper></choose-commodity-swiper>
+        <view>点餐</view>
+      </swiper-item>
+      <swiper-item>
+        评价
+      </swiper-item>
+      <swiper-item>
+        食堂
+      </swiper-item>
+    </swiper>
+
   </view>
 </template>
 
@@ -62,8 +73,8 @@
     import tip from '@/utils/tip'
     import api from '@/api/api'
     import Tab from "@/components/common/tab"
+    import Drawer from "@/components/common/drawer"
     import ChooseCommoditySwiper from "@/components/chooseCommoditySwiper"
-    import PositionMixin from "@/mixins/positionMixin"
 
     export default class Canteen extends wepy.page {
       config = {
@@ -72,23 +83,31 @@
 
       components = {
         tab: Tab,
-        'choose-commodity-swiper': ChooseCommoditySwiper
+        'choose-commodity-swiper': ChooseCommoditySwiper,
+        drawer: Drawer
       }
-
-      mixins = [PositionMixin]
 
       data = {
         tabList: ['点餐', '评价', '食堂'],
-        showSlider: true
+        showSlider: true,
+        currentIndex: 0
       }
       computed = {}
 
-      methods = {}
+      methods = {
+        swiperPage(e){
+          this.currentIndex = e.detail.current;
+        },
+        switchTab(currentIndex){
+          this. currentIndex = currentIndex
+        }
+      }
 
       events = {}
 
-      onShow() {
-        // console.log(this.locationCity, this.selectCanteen);
+      onShow(params) {
+        // console.log('MSid',params.MSid);
+        // console.log(wx.getStorageSync('locationCity'), wx.getStorageSync('selectCanteen'));
       }
     }
 </script>
