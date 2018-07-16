@@ -1,31 +1,25 @@
 <style scoped lang="less">
   @import "../styles/base";
-
   .container{
     .divide {
       height: 20rpx;
       background-color: #f2f2f2;
     }
-
     .cells{
       .fz32();
-
       .cell{
         box-sizing: border-box;
         padding: 32rpx 51rpx 30rpx 48rpx;
         display: flex;
         justify-content: space-between;
         border-bottom: 4rpx solid #f2f2f2;
-
         .cell-bd{
           flex: 1;
-
           .cell-image{
             width: 56rpx;
             height: 40rpx;
           }
         }
-
         .cell-ft-access{
           position: relative;
         }
@@ -46,7 +40,6 @@
       }
     }
   }
-
 </style>
 
 <template>
@@ -59,65 +52,35 @@
           会员中心
           <image src="../images/glod_crown.png" class="cell-image"></image>
         </view>
-        <view class="cell-ft">
-
-          <!--<view class="cell-ft-access"></view>-->
-        </view>
-      </view>
-    </view>
-
-    <view class="divide"></view>
-
-    <view class="cells">
-      <view class="cell">
-        <view class="cell-bd">
-          我的优惠券
-        </view>
-        <view class="cell-ft cell-ft-access">
-
-        </view>
-
-      </view>
-      <view class="cell">
-        <view class="cell-bd">
-          我的喜好
-        </view>
-        <view class="cell-ft cell-ft-access">
-
-        </view>
-
-      </view>
-      <view class="cell">
-        <view class="cell-bd">
-          基本信息
-        </view>
-        <view class="cell-ft cell-ft-access">
-
-        </view>
-
       </view>
     </view>
     <view class="divide"></view>
     <view class="cells">
       <view class="cell">
-        <view class="cell-bd">
-          设置
-        </view>
-        <view class="cell-ft">
-        </view>
+        <view class="cell-bd">我的优惠券</view>
+        <view class="cell-ft cell-ft-access"></view>
       </view>
       <view class="cell">
-        <view class="cell-bd">
-          联系我们
-        </view>
-        <view class="cell-ft">
-        </view>
-
+        <view class="cell-bd">我的喜好</view>
+        <view class="cell-ft cell-ft-access"></view>
+      </view>
+      <view class="cell">
+        <view class="cell-bd">基本信息</view>
+        <view class="cell-ft cell-ft-access"></view>
+      </view>
+    </view>
+    <view class="divide"></view>
+    <view class="cells">
+      <view class="cell">
+        <view class="cell-bd">设置</view>
+        <view class="cell-ft"></view>
+      </view>
+      <view class="cell">
+        <view class="cell-bd">联系我们</view>
+        <view class="cell-ft"></view>
       </view>
     </view>
   </view>
-
-
 </template>
 
 <script>
