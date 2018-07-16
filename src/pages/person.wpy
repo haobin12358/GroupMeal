@@ -44,7 +44,7 @@
 
 <template>
   <view class="container">
-    <person-info :isLogin.sync="isLogin"></person-info>
+    <person-info :isLogin.sync="isLogin" @goLogin.user="goLogin"></person-info>
     <view class="divide"></view>
     <view class="cells">
       <view class="cell">
@@ -91,20 +91,19 @@
 
     export default class Person extends wepy.page {
         config = {}
-
         components = {
           'person-info': PersonInfo
         }
-
         data = {
           isLogin: false
         }
         computed = {}
-
-        methods = {}
-
+        methods = {
+          goLogin() {
+            wx.navigateTo({url: '/pages/login'});
+          }
+        }
         events = {}
-
         onLoad() {
 
         }

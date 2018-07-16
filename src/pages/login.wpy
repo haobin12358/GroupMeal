@@ -1,0 +1,37 @@
+<template>
+  <view class="container">
+    <view class="logo-part">
+      <image src="../images/logo.png" class="logo-png"></image>
+      <view class="logo-text">智慧食堂</view>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  export default class Person extends wepy.page {
+    data = {
+
+    }
+    methods = {
+
+    }
+  }
+</script>
+
+<style scoped lang="less">
+  @import "../styles/base";
+  .container {
+    .logo-part {
+      text-align: center;
+      padding-top:20%;
+      .logo-png {
+        width: 142rpx;
+        height: 142rpx;
+      }
+      .logo-text {
+        font-size: 18px;
+      }
+    }
+  }
+</style>

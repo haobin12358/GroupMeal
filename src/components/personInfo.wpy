@@ -6,7 +6,7 @@
       float: left;
       width: 120rpx;
       height: 120rpx;
-      padding-right: 30rpx;
+      padding-right: 40rpx;
     }
     .main{
       flex: 1;
@@ -22,8 +22,8 @@
 
 <template>
   <view class="person-info">
+    <image src="../../images/default_head_image.png" class="head-image"></image>
     <view class="main" @tap="tapMainHandler">
-      <image src="../../images/default_head_image.png" class="head-image"></image>
       <view class="line1">点击登录</view>
       <view class="line2">VIP等级</view>
       <view class="line3">积分</view>
