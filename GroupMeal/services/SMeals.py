@@ -58,3 +58,11 @@ class SMeals(SBase):
     @close_session
     def get_mestatus_by_meid(self, meid):
         return self.session.query(Meals.MEstatus).filter_by(MEid=meid).scalar()
+
+    @close_session
+    def get_mevolume_by_meid(self, meid):
+        return self.session.query(Meals.MEvolume).filter_by(MEid=meid).scalar()
+
+    @close_session
+    def get_mefrac_by_meid(self, meid):
+        return self.session.query(Meals.MEfraction).filter_by(MEid=meid).scalar()
