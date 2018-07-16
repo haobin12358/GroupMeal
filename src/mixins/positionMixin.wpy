@@ -10,7 +10,10 @@
     import wepy from 'wepy'
 
     export default class PositionMixin extends wepy.mixin {
-        data = {}
+        data = {
+          locationCity: '',
+          selectCanteen: {}
+        }
         computed = {
           positionText(){
             let rst = ''
@@ -27,7 +30,7 @@
 
             rst += '·'
 
-            if(this.selectCanteen){
+            if(this.selectCanteen.MSname){
               rst += this.selectCanteen.MSname
             }else{
               rst += '选择食堂'

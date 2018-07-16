@@ -118,6 +118,8 @@
   import CommodityList from "@/components/commodityList"
   import CommoditySwiper from "@/components/commoditySwiper"
   import PositionMixin from "@/mixins/positionMixin"
+  import { AMapWX } from '@//utils/amap-wx';
+  import {Config as myconfig} from '@//utils/config';
 
   export default class Index extends wepy.page {
     config = {
@@ -141,10 +143,16 @@
 
     methods={
       goCanteen(){
-        // console.log('goCanteen');
-        wx.navigateTo({
-          url: '/pages/canteen'
-        })
+        if(this.selectCanteen){
+          wx.navigateTo({
+            url: '/pages/canteen'
+          });
+        }else{
+          wx.navigateTo({
+            url: '/pages/chooseCanteen'
+          });
+        }
+
       }
     }
 
@@ -152,8 +160,31 @@
     }
 
     onLoad(){
-      // console.log(PositionMixin);
+      var myAmapFun = new AMapWX({key:myconfig.key});
+      let that = this
 
+      myAmapFun.getRegeo({
+        success: function(data){
+          console.log(data[0].regeocodeData.addressComponent.city);
+          let locationCity = wx.getStorageSync('locationCity');
+
+          if(!locationCity || locationCity != data[0].regeocodeData.addressComponent.city){
+            console.log('重新存储或位置改变');
+            wx.setStorageSync('locationCity', data[0].regeocodeData.addressComponent.city);
+            wx.removeStorageSync('selectCanteen')
+          }else{
+            console.log('缓存',locationCity);
+          }
+
+          that.locationCity = wx.getStorageSync('locationCity')
+          that.selectCanteen = wx.getStorageSync('selectCanteen')
+
+          that.$apply()
+        },
+        fail: function() {
+          console.log('失败');
+        }
+      })
     }
 
 

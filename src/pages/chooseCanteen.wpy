@@ -161,7 +161,7 @@
         合作城市
       </view>
       <view class="section">
-        <view wx:for="{{openCity}}" wx:index="index" wx:key="*this" class="city-block">
+        <view wx:for="{{openCity}}" wx:index="index" wx:key="*this" class="city-block" @tap="chooseOpenCity({{item}})">
           {{item}}
         </view>
       </view>
@@ -214,10 +214,16 @@
             })
           },
 
+          chooseOpenCity(city){
+            wx.setStorageSync('locationCity', city);
+            this.locationCity = city;
+
+            this.getMessByCity(city)
+          },
+
           swtichShowCityBlock(){
             this.showCityBlock = !this.showCityBlock;
 
-            console.log(this.triangleAnimation);
             var animation = wx.createAnimation({
               duration: 500,
               delay: 0
@@ -252,8 +258,7 @@
            let res =await api.getAllCity({method: 'GET'})
 
            if(res.data.status == 200){
-             this.openCity = res.data.data;
-             console.log(this.openCity);
+             this.openCity = res.data.data.city;
              this.$apply();
            }
          }

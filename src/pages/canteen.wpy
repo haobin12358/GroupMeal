@@ -43,7 +43,7 @@
       </view>
       <view class="main-content">
         <view class="line1">
-          海之鲜
+          海之鲜 {{locationCity}}{{selectCanteen}}
         </view>
         <view class="line2">
           优惠:
@@ -63,30 +63,33 @@
     import api from '@/api/api'
     import Tab from "@/components/common/tab"
     import ChooseCommoditySwiper from "@/components/chooseCommoditySwiper"
+    import PositionMixin from "@/mixins/positionMixin"
 
     export default class Canteen extends wepy.page {
-        config = {
-          navigationBarTitleText: '海之鲜(xx店)'
-        }
+      config = {
+        navigationBarTitleText: '海之鲜(xx店)'
+      }
 
-        components = {
-          tab: Tab,
-          'choose-commodity-swiper': ChooseCommoditySwiper
-        }
+      components = {
+        tab: Tab,
+        'choose-commodity-swiper': ChooseCommoditySwiper
+      }
 
-        data = {
-          tabList: ['点餐','评价','食堂'],
-          showSlider: true
-        }
-        computed = {}
+      mixins = [PositionMixin]
 
-        methods = {}
+      data = {
+        tabList: ['点餐', '评价', '食堂'],
+        showSlider: true
+      }
+      computed = {}
 
-        events = {}
+      methods = {}
 
-        onLoad() {
+      events = {}
 
-        }
+      onShow() {
+        // console.log(this.locationCity, this.selectCanteen);
+      }
     }
 </script>
 
