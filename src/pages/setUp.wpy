@@ -1,0 +1,137 @@
+<style scoped lang="less">
+  @import "../styles/base";
+  .logo-part {
+    text-align: center;
+    padding-top:20%;
+    .logo-png {
+      width: 142rpx;
+      height: 142rpx;
+    }
+    .logo-text {
+      font-size: 36rpx;
+    }
+  }
+  .m-bar{
+    width: 70%;
+    margin-left: 15%;
+    margin-top: 10%;
+    font-size: 24rpx;
+    border-bottom: 1rpx solid #cccccc;
+    padding: 30rpx 0;
+    padding-right: 20rpx;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around;
+    align-items: center;
+    color: #666666;
+    &.m-top-border{
+      /*border-top: 1rpx solid #cccccc;*/
+    }
+    &.m-bottom{
+      margin-bottom: 20%;
+      margin-top: 1%;
+    }
+    .m-info-prefix{
+      width: 20%;
+      /*margin: 0 40rpx;*/
+    }
+    .m-info-content{
+      text-align: left;
+      width: 400rpx;
+      margin: 0 40rpx;
+    }
+  }
+  .m-info-button {
+    border: 1px solid #fff;
+    width: 450rpx;
+    height: 80rpx;
+    line-height: 80rpx;
+    font-size: 32rpx;
+    border-radius: 10px;
+    background-color: @redPink;
+    color: #ffffff;
+  }
+  .m-head{
+    margin: 20rpx 0 140rpx;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around;
+    .m-avatar {
+      width: 150rpx;
+      height: 150rpx;
+      border-radius: 100px;
+    }
+  }
+</style>
+<template>
+  <form bindsubmit="formSubmit">
+    <view class="logo-part">
+      <image src="../images/logo.png" class="logo-png"></image>
+      <view class="logo-text">智慧食堂</view>
+    </view>
+    <view class="m-setup">
+      <view class="m-bar m-top-border">
+        <view class="m-info-prefix">旧密码:</view>
+        <input class="m-info-content" password="{{!openPwdOne}}" name="old" focus="true" />
+        <image src="/images/icon-pwd-on.jpg" wx:if="{{openPwdOne}}" style="width: 30rpx;height: 20rpx;" @tap="openPwdOneChange"></image>
+        <image src="/images/icon-pwd-un.jpg" wx:else style="width: 30rpx;height: 20rpx;" @tap="openPwdOneChange"></image>
+      </view>
+      <view class="m-bar m-bottom">
+        <view class="m-info-prefix">新密码:</view>
+        <input class="m-info-content" password="{{!openPwdTwo}}" name="new"/>
+        <image src="/images/icon-pwd-on.jpg" wx:if="{{openPwdTwo}}" style="width: 30rpx;height: 20rpx;" @tap="openPwdTwoChange"></image>
+        <image src="/images/icon-pwd-un.jpg" wx:else style="width: 30rpx;height: 20rpx;" @tap="openPwdTwoChange"></image>
+      </view>
+      <button class="m-info-button" formType="submit">确认提交</button>
+    </view>
+  </form>
+</template>
+<script>
+
+  import tip from '../utils/tip'
+  import api from '../api/api'
+  import wepy from 'wepy'
+  export default class BaseInfo extends wepy.page {
+    config = {
+      navigationBarTitleText: '修改密码'
+    }
+    data = {
+      tel: '',
+      token: '',
+      openPwdOne:false,
+      openPwdTwo:false
+    }
+    onLoad(params) {
+      this.tel = params.tel;
+      this.sex = params.USsex;
+      let token =  wepy.getStorageSync('token');
+      this.token = token
+    }
+    async updatePass(params) {
+      tip.loading()
+      let res = await api.updatePwd({query: params, method: 'POST'})
+      if(res.data.status == '200'){
+        tip.success("修改密码成功")
+        setTimeout( wx.navigateBack, 1000)
+      }else tip.error(res.data.message)
+    }
+    async formSubmit(e){
+      let params = {
+        USpasswordold: e.detail.value.old,
+        USpasswordnew: e.detail.value.new,
+        UStelphone: this.tel
+      }
+      this.updatePass(params)
+    }
+    methods = {
+      openPwdOneChange(){
+        this.openPwdOne = !this.openPwdOne;
+        this.$apply();
+      },
+      openPwdTwoChange(){
+        this.openPwdTwo = !this.openPwdTwo;
+        this.$apply();
+      }
+    }
+  }
+</script>

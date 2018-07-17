@@ -18,7 +18,7 @@
         .line{
           font-size: 36rpx;
           color: #000000;
-          margin-top: 5%;
+          margin-top: 6%;
         }
         .line1{
           font-size: 36rpx;
@@ -71,7 +71,12 @@
   <view class="container">
     <!--<person-info :isLogin.sync="isLogin" @goLogin.user="goLogin"></person-info>-->
     <view class="person-info">
-      <image src="/images/default_head_image.png" class="head-image"></image>
+      <view wx:if="{{userInfo.USavatar == null}}">
+        <image src="/images/default_head_image.png" class="head-image"></image>
+      </view>
+      <view wx:if="{{userInfo.USavatar != null}}">
+        <image src="{{userInfo.USavatar}}" class="head-image"></image>
+      </view>
       <view class="main">
         <view wx:if="{{!isLogin}}">
           <view class="line" @tap="toLogin">点击登录</view>
@@ -102,17 +107,17 @@
         <view class="cell-bd">我的喜好</view>
         <view class="cell-ft cell-ft-access"></view>
       </view>
-      <view class="cell">
+      <navigator class="cell" url="../../baseInfo?name={{userInfo.USname}}&sex={{userInfo.Ussex}}">
         <view class="cell-bd">基本信息</view>
         <view class="cell-ft cell-ft-access"></view>
-      </view>
+      </navigator>
     </view>
     <view class="divide"></view>
     <view class="cells">
-      <view class="cell">
+      <navigator class="cell" url="../../settings">
         <view class="cell-bd">设置</view>
-        <view class="cell-ft"></view>
-      </view>
+        <view class="cell-ft cell-ft-access"></view>
+      </navigator>
       <view class="cell">
         <view class="cell-bd">联系我们</view>
         <view class="cell-ft"></view>

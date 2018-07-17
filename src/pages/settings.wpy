@@ -1,0 +1,91 @@
+<style scoped lang="less">
+  @import "../styles/base";
+  .container{
+    .cells{
+      .fz32();
+      .cell{
+        box-sizing: border-box;
+        padding: 32rpx 51rpx 30rpx 48rpx;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 4rpx solid #f2f2f2;
+        .cell-bd{
+          flex: 1;
+          .cell-image{
+            width: 56rpx;
+            height: 40rpx;
+          }
+        }
+        .cell-ft-access{
+          position: relative;
+        }
+        .cell-ft-access:after, .cell-ft-access:before {
+          width: 0;
+          height: 0;
+          border: 20rpx solid transparent;
+          border-left-color: @redPink;
+          position: absolute;
+          content: "";
+        }
+        .cell-ft-access:before{
+          z-index: 1;
+          top: 0;
+          left: -2rpx;
+          border-left-color: white;
+        }
+      }
+    }
+  }
+</style>
+
+<template>
+  <view class="container">
+    <view class="divide"></view>
+    <view class="cells">
+      <navigator class="cell" url="../../setUp">
+        <view class="cell-bd">修改密码</view>
+        <view class="cell-ft cell-ft-access"></view>
+      </navigator>
+      <view class="cell">
+        <view class="cell-bd">修改密码</view>
+        <view class="cell-ft cell-ft-access"></view>
+      </view>
+      <navigator class="cell">
+        <view class="cell-bd">修改密码</view>
+        <view class="cell-ft cell-ft-access"></view>
+      </navigator>
+    </view>
+    <view class="divide"></view>
+    <view class="cells">
+      <navigator class="cell">
+        <view class="cell-bd">修改密码</view>
+        <view class="cell-ft cell-ft-access"></view>
+      </navigator>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import tip from '@/utils/tip'
+  import api from '@/api/api'
+
+  export default class Person extends wepy.page {
+    config = {}
+    components = {
+    }
+    data = {
+      isLogin: false,
+      userInfo: [],
+    }
+    computed = {}
+    methods = {
+
+    }
+    events = {}
+    onLoad() {
+
+    }
+  }
+</script>
+
