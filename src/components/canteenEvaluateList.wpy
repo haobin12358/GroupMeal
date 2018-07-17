@@ -1,0 +1,117 @@
+<style scoped lang="less">
+  @import "../styles/base";
+
+  .canteen-evaluate-list{
+    .type-tags{
+      padding: 20rpx 0 26rpx 36rpx;
+      text-align: left;
+      border-bottom: 1px solid #e8e8e8;
+
+      .capsule{
+        height: 60rpx;
+        line-height: 60rpx;
+        padding: 0 32rpx;
+        border-radius: 8rpx;
+        display: inline-block;
+        margin-right: 20rpx;
+
+      }
+
+      .capsule-active{
+        .type-pink();
+      }
+
+      .capsule-type-empty-pink{
+        border: 1rpx solid @redPink;
+      }
+
+      .capsule-type-gray{
+        .type-gray();
+      }
+
+
+
+      .line1{
+        margin-bottom: 20rpx;
+      }
+    }
+
+    .evaluate-list{
+
+    }
+  }
+</style>
+
+<template>
+  <view class="canteen-evaluate-list">
+    <view class="type-tags">
+      <view class="line1">
+        <view class="capsule capsule-active">全部343</view>
+        <view class="capsule capsule-type-empty-pink">最新</view>
+        <view class="capsule capsule-type-empty-pink">好评</view>
+      </view>
+      <view class="line2">
+        <view class="capsule capsule-type-gray">差评</view>
+        <view class="capsule capsule-type-gray">一般般</view>
+      </view>
+    </view>
+    <view class="evaluate-list">
+      <repeat for="{{evaluateList}}">
+        <canteen-evaluate-item :item="item"></canteen-evaluate-item>
+      </repeat>
+    </view>
+  </view>
+</template>
+
+<script>
+    import wepy from 'wepy'
+    import Rate from "@/components/common/rate"
+    import CanteenEvaluateItem from "@/components/canteenEvaluateItem"
+
+    export default class CanteenEvaluateList extends wepy.component {
+      components = {
+        rate: Rate,
+        'canteen-evaluate-item': CanteenEvaluateItem
+      }
+        data = {
+
+          evaluateList: [
+            {
+              headimg: '../images/gm-headimage.png',
+              username: '用户名1',
+              time: '2018.07.10 12:34',
+              rate: 1,
+              content: '评价内容评价内容评价内容评价内容。'
+            },{
+              headimg: '../images/gm-headimage.png',
+              username: '用户名2',
+              time: '2018.07.11 12:34',
+              rate: 1,
+              content: '评价内容评价内容评价内容评价内容。'
+            },{
+              headimg: '../images/gm-headimage.png',
+              username: '用户名3',
+              time: '2018.07.12 12:34',
+              rate: 1,
+              content: '评价内容评价内容评价内容评价内容。'
+            },{
+              headimg: '../images/gm-headimage.png',
+              username: '用户名4',
+              time: '2018.07.13 12:34',
+              rate: 1,
+              content: '评价内容评价内容评价内容评价内容。'
+            },
+          ]
+        }
+        computed = {}
+
+        methods = {}
+
+        events = {}
+
+        onLoad() {
+
+        }
+    }
+</script>
+

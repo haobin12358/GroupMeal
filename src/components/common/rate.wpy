@@ -1,0 +1,116 @@
+<style scoped lang="less">
+  @import "../../styles/base";
+
+  .rate{
+    display: flex;
+    align-items: center;
+
+    .image-block{
+      .star-image {
+        position: relative;
+        src: "../../images/star.jpg";
+
+        .item {
+          position: absolute;
+          width: 25rpx;
+          top: 0;
+          height: 50rpx;
+        }
+      }
+
+      /*.star-image-read {*/
+        /*position: relative;*/
+        /*width: 30rpx;*/
+        /*height: 30rpx;*/
+        /*src: "../../images/star.jpg";*/
+      /*}*/
+    }
+
+    .grade{
+      margin-left: 50rpx;
+      color: @redPink;
+      font-size: 40rpx;
+    }
+  }
+
+</style>
+
+<template>
+  <view class="rate">
+    <view class="image-block">
+      <block wx:for="{{stars}}" wx:key="index">
+        <image class="star-image" style="left:{{item*10}}rpx;width: {{starSize}}rpx;height: {{starSize}}rpx;"
+               src="{{key > item ?(key-item <= 0.7?halfSrc:selectedSrc) : normalSrc}}">
+          <block wx:if="{{!readonly}}">
+            <view class="item" style="left:0rpx" data-key="{{item+0.5}}" @tap="selectLeft"></view>
+            <view class="item" style="left:25rpx" data-key="{{item+1}}" @tap="selectRight"></view>
+          </block>
+        </image>
+      </block>
+    </view>
+    <text wx:if="{{readonly && showKey}}" class="grade">{{key}}</text>
+  </view>
+
+</template>
+
+<script>
+  import wepy from 'wepy';
+  export default class Rate extends wepy.component {
+    props = {
+      key: {
+        type: Number,
+        default: 0
+      },
+      readonly: {
+        type:Boolean,
+        default:false
+      },
+      starSize: {
+        type: Number,
+        default: 50
+      },
+      showKey: {
+        type:Boolean,
+        default:false
+      },
+    }
+    data = {
+      stars: [0, 1, 2, 3, 4],
+      normalSrc: '../../images/star.png',
+      selectedSrc: '../../images/star_full.png',
+      halfSrc: '../../images/star_half.png',
+    }
+
+    events = {
+
+    }
+    methods = {
+      selectLeft(e){
+        let key = e.currentTarget.dataset.key;
+
+        //  最低0.5分好了
+        // if (this.key == 0.5 && e.currentTarget.dataset.key == 0.5) {
+          //只有一颗星的时候,再次点击,变为0颗
+          // key = 0;
+        // }
+
+        this.key = key;
+        this.$emit("change", this.key)
+      },
+      selectRight(e){
+        let key = e.currentTarget.dataset.key;
+
+        this.key = key;
+        this.$emit("change", this.key)
+      },
+    }
+
+    onLoad() {
+
+    }
+    events = {
+
+    }
+  }
+</script>
+
