@@ -9,7 +9,7 @@
     display: flex;
     flex-flow: column;
 
-    .header{
+    .container-header{
       padding: 26rpx 0 18rpx 36rpx;
       display: flex;
 
@@ -232,6 +232,55 @@
 
         }
       }
+
+      /*食堂*/
+      .swiper-item-detail{
+        .header{
+          padding: 28rpx 20rpx 0 36rpx;
+
+          .header-title{
+
+          }
+
+          .images-block{
+            image{
+              width: 140rpx;
+              height: 140rpx;
+              margin-right: 20rpx;
+            }
+          }
+        }
+
+        .body{
+
+          .detail-cells{
+            .fz28();
+
+            .cell{
+              box-sizing: border-box;
+              padding: 32rpx 51rpx 30rpx 48rpx;
+              display: flex;
+              justify-content: space-between;
+              border-bottom: 4rpx solid #f2f2f2;
+
+              .cell-bd{
+                flex: 1;
+
+                .cell-image{
+                  width: 56rpx;
+                  height: 40rpx;
+                }
+              }
+
+              .cell-ft{
+                color: #858585;
+
+                .fz24();
+              }
+            }
+          }
+        }
+      }
     }
 
     .divide{
@@ -244,7 +293,7 @@
 <template>
   <view class="container">
     <!-- 头部食堂信息-->
-    <view class="header">
+    <view class="container-header">
       <view class="canteen-logo">
         <image src="{{canteen.MSimage}}"></image>
       </view>
@@ -339,8 +388,38 @@
           </scroll-view>
       </swiper-item>
       <!--食堂-->
-      <swiper-item>
-        食堂
+      <swiper-item class="swiper-item-detail">
+        <view class="header">
+          <view class="header-title">
+            食堂图片
+          </view>
+          <view class="images-block">
+            <image src="{{canteen.MSimage}}"></image>
+            <image src="{{canteen.MShealthimage}}"></image>
+            <image src="{{canteen.MStrueimage}}"></image>
+          </view>
+        </view>
+        <view class="divide"></view>
+        <view class="body">
+          <view class="detail-cells">
+            <view class="cell">
+              <view class="cell-bd">食堂名称</view>
+              <view class="cell-ft">{{canteen.MSname}}</view>
+            </view>
+            <view class="cell">
+              <view class="cell-bd">食堂地址</view>
+              <view class="cell-ft">{{canteen.MSlocation}}</view>
+            </view>
+            <view class="cell">
+              <view class="cell-bd">食堂电话</view>
+              <view class="cell-ft" @tap="tapCallCanteen">{{canteen.MStelphone}}</view>
+            </view>
+            <view class="cell">
+              <view class="cell-bd">营业时间</view>
+              <view class="cell-ft">{{canteen.MStimestart}}-{{canteen.MStimeend}}</view>
+            </view>
+          </view>
+        </view>
       </swiper-item>
     </swiper>
 
@@ -376,7 +455,7 @@
       data = {
         tabList: ['点餐', '评价', '食堂'],  //  tab
         showSlider: true, //  显示滑动条
-        currentIndex: 1,  //  tabIndex
+        currentIndex: 0,  //  tabIndex
         canteen: {},  //  食堂
         activeMenuIndex: 0,
         shopList: [
@@ -445,7 +524,8 @@
         canteenRateShowKey: true,
 
       }
-      computed = {}
+      computed = {
+      }
 
       methods = {
         swiperPage(e){
@@ -457,6 +537,22 @@
         switchMenu(index){
           console.log(index);
           this.activeMenuIndex = index;
+        },
+        tapCallCanteen(){
+          let MStelphone = this.canteen.MStelphone;
+
+          wepy.showModal({
+            title: `联系食堂`,
+            content: `拨打${MStelphone}(食堂电话)?`,
+          }).then(
+            p => {
+              if (p.confirm) {
+                wx.makePhoneCall({
+                  phoneNumber: MStelphone
+                })
+              }
+            }
+          )
         }
       }
 

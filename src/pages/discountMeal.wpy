@@ -1,0 +1,30 @@
+<style scoped lang="less">
+
+</style>
+
+<template>
+  优惠产品
+
+</template>
+
+<script>
+    import wepy from 'wepy'
+
+    export default class DiscountMeal extends wepy.page {
+        config = {}
+
+        components = {}
+
+        data = {}
+        computed = {}
+
+        methods = {}
+
+        events = {}
+
+        onLoad() {
+
+        }
+    }
+</script>
+

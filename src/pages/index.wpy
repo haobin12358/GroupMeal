@@ -93,15 +93,15 @@
         <image class="icon" src="../images/nav_fork.png"></image>
         <view class="name">进入食堂</view>
       </view>
-      <view class="nav-item">
+      <view class="nav-item" @tap="goPurchaseRecently">
         <image class="icon" src="../images/nav_latest.png"></image>
         <view class="name">最近吃过</view>
       </view>
-      <view class="nav-item">
+      <view class="nav-item" @tap="goNutritionRecommend">
         <image class="icon" src="../images/nav_nutrition.png"></image>
         <view class="name">营养推荐</view>
       </view>
-      <view class="nav-item">
+      <view class="nav-item" @tap="goDiscount">
         <image class="icon" src="../images/nav_discounts.png"></image>
         <view class="name">优惠</view>
       </view>
@@ -142,6 +142,7 @@
     }
 
     methods={
+      //  进入食堂
       goCanteen(){
         if(this.selectCanteen){
           wx.navigateTo({
@@ -152,8 +153,44 @@
             url: '/pages/chooseCanteen'
           });
         }
+      },
+      //  最近吃过
+      goPurchaseRecently(){
+        if(this.selectCanteen){
+          wx.navigateTo({
+            url: '/pages/purchaseRecently'
+          });
+        }else{
+          wx.navigateTo({
+            url: '/pages/chooseCanteen'
+          });
+        }
+      },
+      //  营养推荐
+      goNutritionRecommend(){
+        if(this.selectCanteen){
+          wx.navigateTo({
+            url: '/pages/nutritionRecommend'
+          });
+        }else{
+          wx.navigateTo({
+            url: '/pages/chooseCanteen'
+          });
+        }
+      },
+      //  优惠
+      goDiscount(){
+        if(this.selectCanteen){
+          wx.navigateTo({
+            url: '/pages/discountMeal'
+          });
+        }else{
+          wx.navigateTo({
+            url: '/pages/chooseCanteen'
+          });
+        }
+      },
 
-      }
     }
 
     onShow(){

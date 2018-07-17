@@ -1,0 +1,84 @@
+<style scoped lang="less">
+  @import "../styles/base";
+
+  .container{
+
+    .container-header{
+      height: 100rpx;
+      line-height: 100rpx;
+      color: #444444;
+      text-align: center;
+      border-bottom: 1px solid #e8e8e8;
+
+      .fz24();
+    }
+
+    .meal-list{
+      padding: 20rpx 40rpx 0 40rpx;
+
+      .meal-item{
+        width: 320rpx;
+        height: 320rpx;
+        margin-bottom: 40rpx;
+        position: relative;
+        border-radius: 8rpx;
+
+        &:nth-child(odd){
+          margin-right: 30rpx;
+        }
+
+        .item-detail{
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          height: 68rpx;
+          opacity: 0.65;
+          background-color: #505050;
+
+
+        }
+      }
+    }
+  }
+</style>
+
+<template>
+  <view class="container">
+    <view class="container-header">
+      您最近点过以下餐品
+    </view>
+
+    <view class="meal-list">
+      <image wx:for="123456" class="meal-item" src="../images/food.jpg">
+        <view class="item-detail">
+
+        </view>
+      </image>
+    </view>
+  </view>
+
+</template>
+
+<script>
+    import wepy from 'wepy'
+
+    export default class PurchaseRecently extends wepy.page {
+        config = {
+          navigationBarTitleText: '最近吃过'
+        }
+
+        components = {}
+
+        data = {}
+        computed = {}
+
+        methods = {}
+
+        events = {}
+
+        onLoad() {
+
+        }
+    }
+</script>
+
