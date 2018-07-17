@@ -145,7 +145,7 @@
       goCanteen(){
         if(this.selectCanteen){
           wx.navigateTo({
-            url: `/pages/canteen?MSid=${wx.getStorageSync('selectCanteen').MSid}`
+            url: `/pages/canteen?MSid=${this.selectCanteen.MSid}&MSname=${ this.selectCanteen.MSname}`
           });
         }else{
           wx.navigateTo({
