@@ -1,13 +1,187 @@
-<template>
+<style scoped lang="less">
+  @import "../styles/base";
+  .container {
+    .logo-part {
+      text-align: center;
+      padding-top:20%;
+      .logo-png {
+        width: 142rpx;
+        height: 142rpx;
+      }
+      .logo-text {
+        font-size: 36rpx;
+        margin-bottom: 15%;
+      }
+    }
+    .register-from {
+      .from-text {
+        width: 15%;
+        float: left;
+        font-size: 28rpx;
+        line-height: 1.4rem;
+        margin-left: 17%;
+      }
+      .from-input {
+        width: 60%;
+        float: left;
+        font-size: 28rpx;
+        margin-bottom: 2%;
+      }
+      .line {
+        float:left;
+        height: 2rpx;
+        width: 70%;
+        margin-bottom: 7%;
+        margin-left: 15%;
+        background-color: #c5c5c5;
+      }
+      .m-form-selector {
+        margin-top: 350rpx;
+        margin-bottom: 20rpx;
+        text-align: center;
+        font-size: 24rpx;
+        color: #444444;
+        .checkbox {
+          zoom: 70%;
+        }
+        .m-xie {
+          color: @barbiePink;
+        }
+      }
+      .form-button {
+        font-size: 32rpx;
+        color: #ffffff;
+        width: 200rpx;
+        height: 80rpx;
+        line-height: 80rpx;
+        border-radius: 8rpx;
+        background-color: @redPink;
+      }
+      .m-btn {
+        color: #ffffff;
+        font-size: 28rpx;
+        display: inline-block;
+        background-color: @redPink;
+        margin-left: -215rpx;
+      }
+      button {
+        margin-top: -5rpx;
+        padding-right: 16rpx;
+        padding-left: 16rpx;
+        height: 56rpx;
+        line-height: 56rpx;
 
+      }
+      .m-btn-disab {
+
+      }
+    }
+  }
+</style>
+
+<template>
+  <view class="container">
+    <view class="logo-part">
+      <image src="../images/logo.png" class="logo-png"></image>
+      <view class="logo-text">智慧食堂</view>
+    </view>
+    <view class="register-from">
+      <form bindsubmit="formSubmit" bindreset="formReset">
+        <text class="from-text">手机号：</text>
+        <input placeholder-style="color:#fb88b4" class="from-input" name="phone" type="number" placeholder="请输入手机号" maxlength="11"/>
+        <button wx:if="{{disable}}" class="m-btn m-btn-disab" >{{time}}秒</button>
+        <button wx:else="{{disable}}" class="m-btn" @tap="sendCode">获取验证码</button>
+        <view class="line"></view>
+        <text class="from-text">验证码：</text>
+        <input placeholder-style="color:#fb88b4" class="from-input" password name="pass" placeholder="请输入验证码" maxlength="16"/>
+        <view class="line"></view>
+        <text class="from-text" space="emsp">密 码：</text>
+        <input placeholder-style="color:#fb88b4" class="from-input" password name="code" placeholder="请输入密码" maxlength="16"/>
+        <view class="line" style="margin-bottom: 12%"></view>
+        <view class="m-form-selector">
+          <checkbox-group bindchange="checkboxChange">
+            <checkbox value="clause" color="#e5473c"/>我已阅读，并同意<span class="m-xie" @tap="showM">用户协议</span>
+          </checkbox-group>
+        </view>
+        <button class="form-button" formType="submit" disabled="{{agree}}">注 册</button>
+      </form>
+    </view>
+    <view class="m-modal" wx:if="{{showModal}}" @tap="cancelM">
+      <view class="m-text-box" scroll-y="true" scroll-top="{{scrollTop}}" >
+        <text class="m-text">{{ text }}</text>
+      </view>
+    </view>
+  </view>
 </template>
 
-<script>
-    export default {
-        name: "register.wpy"
+<script >
+  import wepy from 'wepy';
+  import tip from '../utils/tip';
+  import api from '../api/api';
+  export default class Register extends wepy.page{
+    config = {
+      navigationBarTitleText: '注册'
     }
+    data = {
+      text: '',
+      disable: false,
+      phone: '',
+      time: 60,
+      agree: true,
+      showModal: false
+    }
+    async sendVerifyCode() {
+      let that = this;
+      const res = await api.getValidate({
+        query: {
+          UStelphone: this.phone
+        },
+        method: 'POST'
+      });
+      console.log(res)
+      if(res.data.status == '200'){
+        tip.success('发送成功');
+        that.disableSend();
+      } else {
+        tip.error(res.data.message)
+      }
+    }
+    methods = {
+      sendCode(e) {
+        if (this.phone == "") {
+          tip.alert("请输入手机号码");
+          return false;
+        }
+        this.sendVerifyCode();
+      },
+      formSubmit (e) {
+        console.log(e)
+        let that = this;
+        let phone = e.detail.value.phone;
+        let pass = e.detail.value.pass;
+        let code = e.detail.value.code;
+        let vali = e.detail.value.vali;
+        if(phone == ''){ tip.alert("请输入手机号"); return false;}
+        if(pass == ''){ tip.alert("请输入密码"); return false;}
+        if(vali == ''){ tip.alert("请输入验证码"); return false;}
+        that.register(phone, pass, code, vali)
+        console.log('form发生了submit事件，携带数据为：', e.detail.value)
+      },
+      checkboxChange(e){
+        if(e.detail.value.length == 0){
+          this.agree = true;
+        }
+        else this.agree = false;
+        this.$apply();
+      },
+      showM(){
+        this.showModal = true;
+        this.$apply();
+      },
+      cancelM(){
+        this.showModal = false;
+        this.$apply();
+      }
+    }
+  }
 </script>
-
-<style scoped>
-
-</style>
