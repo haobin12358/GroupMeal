@@ -76,14 +76,14 @@
     .logo-form {
       margin-top: 17%;
       .from-text {
-        width: 15%;
+        width: 13%;
         float: left;
         font-size: 28rpx;
         line-height: 1.4rem;
         margin-left: 25%;
       }
       .from-input {
-        width: 60%;
+        width: 50%;
         float: left;
         font-size: 28rpx;
         margin-bottom: 2%;
@@ -102,7 +102,7 @@
         width: 200rpx;
         height: 80rpx;
         border-radius: 8rpx;
-        background-color: @barbiePink;
+        background-color: @redPink;
       }
     }
     .text-url {
@@ -114,13 +114,13 @@
       }
       .line1 {
         float: left;
-        width: 60rpx;
+        width: 55rpx;
         height: 2rpx;
         background-color: @redPink;
       }
       .line2 {
         float: left;
-        width: 120rpx;
+        width: 110rpx;
         height: 2rpx;
         background-color: @redPink;
       }
