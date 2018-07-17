@@ -1,7 +1,13 @@
-<style scoped lang="less">
+<style lang="less">
   @import "../styles/base";
 
+  page{
+    height: 100%;
+  }
   .container{
+    height: 100%;
+    display: flex;
+    flex-flow: column;
 
     .header{
       padding: 26rpx 0 18rpx 36rpx;
@@ -10,6 +16,7 @@
       .canteen-logo{
         width: 140rpx;
         height: 140rpx;
+        box-shadow: 0 4rpx 8rpx 0 rgba(141, 141, 141, 0.5);
 
         image{
           width: 100%;
@@ -32,38 +39,230 @@
         }
       }
     }
+
+    .tab-short{
+      height: 60rpx;
+      line-height: 60rpx;
+    }
+    .swiper{
+      flex: 1;
+
+      .swiper-item-order{
+
+        .scroll-block{
+          display: flex;
+          border-top: solid 1px #e8e8e8;
+          /*侧滑菜单栏*/
+          .order-slider-bar{
+            height: 652rpx;
+            width: 160rpx;
+            background-color: #f7f7f7;
+
+            .slider-bar-item{
+              text-align: center;
+              color: #444444;
+              height: 60rpx;
+              line-height: 60rpx;
+
+              .fz24();
+            }
+
+            .slider-bar-item-active{
+              color: @redPink;
+              background-color: #ffffff;
+            }
+          }
+          /*菜品列表*/
+          .order-food-list{
+            height: 632rpx;
+            width: 590rpx;
+            .select-type{
+              padding: 12rpx 0 20rpx 22rpx;
+              .fz24()
+            }
+
+            .food-list{
+              padding: 0 44rpx 0 22rpx;
+
+              .food-item{
+                display: flex;
+
+                image{
+                  width: 160rpx;
+                  height: 160rpx;
+                }
+
+                .main-content{
+                  flex: 1;
+                  .fz28();
+
+                  .line1{
+                    color: #141414;
+                  }
+                  .line2{
+                    .fz24();
+                  }
+                  .line3{
+                    border: 1px solid @redPink;
+                    color: @redPink;
+                    line-height: 30rpx;
+                    vertical-align: center;
+                    display: inline-block;
+                    padding: 0 14rpx;
+                    .fz20();
+                  }
+                  .line4{
+                    display: flex;
+                    justify-content: space-between;
+
+                    .price{
+                      color: @redPink;
+                    }
+
+                    .num-handler-block{
+                      display: flex;
+                      align-items: center;
+
+                      image{
+                        width: 44rpx;
+                        height: 44rpx;
+                      }
+
+                      text{
+                        margin: 0 26rpx;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          .footer{
+            height: 98rpx;
+            background: #6a6a6a;
+            display: flex;
+            /*position: absolute;*/
+            /*bottom: 0;*/
+            /*width: 100%;*/
+
+            .footer-left{
+              width: 558rpx;
+              padding: 24rpx 0 28rpx 50rpx;
+
+              .num{
+                width: 46rpx;
+                height: 46rpx;
+                line-height: 46rpx;
+                text-align: center;
+                border-radius: 50%;
+
+                .type-pink();
+              }
+            }
+            .footer-right{
+              flex: 1;
+              line-height: 98rpx;
+              text-align: center;
+
+              .type-pink();
+            }
+
+          }
+
+        }
+
+
+      }
+    }
+
   }
 </style>
 
 <template>
   <view class="container">
+    <!-- 头部食堂信息-->
     <view class="header">
       <view class="canteen-logo">
-        <image src="../images/food.jpg"></image>
+        <image src="{{canteen.MSimage}}"></image>
       </view>
       <view class="main-content">
         <view class="line1">
-          {{selectCanteen.MSname}}
+          {{canteen.MSname}}
         </view>
         <view class="line2">
           优惠:
         </view>
       </view>
     </view>
-
-    <tab :tabList="tabList" :currentTab.sync="currentIndex" @switchTab.user="switchTab" :showSlider="showSlider"></tab>
-    <swiper current="{{currentIndex}}" bindchange="swiperPage" >
-      <swiper-item>
+    <!--点餐 评价 食堂-->
+    <tab class="tab-short" :tabList="tabList" :currentTab.sync="currentIndex" @switchTab.user="switchTab" :showSlider="showSlider"></tab>
+    <swiper class="swiper" current="{{currentIndex}}" bindchange="swiperPage" >
+      <!--点餐-->
+      <swiper-item class="swiper-item-order" style="height: 100%">
+        <!--推荐餐品滚动区域-->
         <choose-commodity-swiper></choose-commodity-swiper>
-        <view>点餐</view>
+        <!--菜单区域-->
+        <view class="scroll-block">
+          <!--view-->
+          <scroll-view scroll-y="true" class="order-slider-bar">
+            <view wx:for="{{menu}}" wx:key="typeName" class="slider-bar-item {{index == activeMenuIndex ? 'slider-bar-item-active':''}}"
+            @tap = "switchMenu({{index}})">
+              {{item.typeName}}
+            </view>
+          </scroll-view>
+          <scroll-view scroll-y="true" class="order-food-list">
+            <view class="select-type">{{menu[activeMenuIndex].typeName}}</view>
+
+            <view class="food-list">
+              <view wx:for="{{menu[activeMenuIndex].content}}" wx:key="MEid" class="food-item">
+                <image src="{{item.MEimage}}"></image>
+                <view class="main-content">
+                  <view class="line1">{{item.MEname}}</view>
+                  <view class="line2">
+                    <text>月售: {{item.MEvolume}}</text>
+                    <text>评分: {{item.MEvolume}}</text>
+                  </view>
+                  <view class="line3">
+                    {{item.MEtag}}
+                  </view>
+                  <view class="line4">
+                    <view class="price">
+                      ￥{{item.MEdprice}}
+                    </view>
+                    <view class="num-handler-block">
+                      <image src="../images/minus.png"></image>
+                      <text>1</text>
+                      <image src="../images/add.png"></image>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </scroll-view>
+
+          <view class="footer">
+            <view class="footer-left">
+              <view class="num">1</view>
+              <view class="total-price"></view>
+              <view class="original-cost"></view>
+            </view>
+            <view class="footer-right">
+              去支付
+            </view>
+          </view>
+        </view>
       </swiper-item>
+      <!--评价-->
       <swiper-item>
         评价
       </swiper-item>
+      <!--食堂-->
       <swiper-item>
         食堂
       </swiper-item>
     </swiper>
+
 
   </view>
 </template>
@@ -75,10 +274,11 @@
     import Tab from "@/components/common/tab"
     import Drawer from "@/components/common/drawer"
     import ChooseCommoditySwiper from "@/components/chooseCommoditySwiper"
+    import ShoppingList from "@/components/shoppingList"
 
     export default class Canteen extends wepy.page {
       config = {
-        navigationBarTitleText: '海之鲜(xx店)'
+        navigationBarTitleText: ''
       }
 
       components = {
@@ -88,9 +288,72 @@
       }
 
       data = {
-        tabList: ['点餐', '评价', '食堂'],
-        showSlider: true,
-        currentIndex: 0
+        tabList: ['点餐', '评价', '食堂'],  //  tab
+        showSlider: true, //  显示滑动条
+        currentIndex: 0,  //  tabIndex
+        canteen: {},  //  食堂
+        activeMenuIndex: 0,
+        shopList: [
+
+        ],
+        menu: [
+          {
+            typeName: '热销',
+            content: [
+              {
+                MEid: 1,
+                MEimage: 'https://h878.cn/xc25987.png',
+                MEname: '菜品1',
+                MEfraction: '3',
+                MEvolume: 0,
+                MEtag: '新品',
+                MEdprice: '12'
+              },{
+                MEid: 2,
+
+                MEimage: 'https://h878.cn/xc25987.png',
+                MEname: '菜品1',
+                MEfraction: '3',
+                MEvolume: 0,
+                MEtag: '新品',
+                MEdprice: '123'
+              },
+            ]
+          },{
+            typeName: '优惠',
+            content: [
+              {
+                MEid: 3,
+
+                MEimage: 'https://h878.cn/xc25987.png',
+                MEname: '菜品1',
+                MEfraction: '3',
+                MEvolume: 0,
+                MEtag: '新品',
+                MEdprice: '12'
+              },{
+                MEid: 4,
+
+                MEimage: 'https://h878.cn/xc25987.png',
+                MEname: '菜品1',
+                MEfraction: '3',
+                MEvolume: 0,
+                MEtag: '新品',
+                MEdprice: '123'
+              },{
+                MEid: 5,
+
+                MEimage: 'https://h878.cn/xc25987.png',
+                MEname: '菜品1',
+                MEfraction: '3',
+                MEvolume: 0,
+                MEtag: '新品',
+                MEdprice: '11'
+              },
+            ]
+          },
+        ],
+
       }
       computed = {}
 
@@ -100,14 +363,29 @@
         },
         switchTab(currentIndex){
           this. currentIndex = currentIndex
+        },
+        switchMenu(index){
+          console.log(index);
+          this.activeMenuIndex = index;
+        }
+      }
+
+      async getMessAbo(MSid){
+        let res =await api.getMessAbo({method: 'GET', MSid ,query:{}})
+
+        if(res.data.status == 200){
+          this.canteen = res.data.data;
+          this.$apply()
         }
       }
 
       events = {}
 
-      onShow(params) {
-        // console.log('MSid',params.MSid);
-        // console.log(wx.getStorageSync('locationCity'), wx.getStorageSync('selectCanteen'));
+      onLoad(params) {
+        this.getMessAbo(params.MSid)
+        wx.setNavigationBarTitle({
+          title: params.MSname
+        })
       }
     }
 </script>

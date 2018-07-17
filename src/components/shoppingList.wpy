@@ -1,0 +1,25 @@
+<style scoped lang="less">
+
+</style>
+
+<template>
+  购物清单
+</template>
+
+<script>
+    import wepy from 'wepy'
+
+    export default class ShoppingList extends wepy.component {
+        data = {}
+        computed = {}
+
+        methods = {}
+
+        events = {}
+
+        onLoad() {
+
+        }
+    }
+</script>
+
