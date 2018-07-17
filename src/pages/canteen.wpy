@@ -30,7 +30,6 @@
         .line1{
           color: #0c0c0c;
           .fz32();
-
         }
 
         .line2{
@@ -47,89 +46,106 @@
     .swiper{
       flex: 1;
 
+      /*点餐*/
       .swiper-item-order{
+        display: flex;
+        flex-direction: column;
 
         .scroll-block{
+          flex: 1;
           display: flex;
+          flex-direction: column;
           border-top: solid 1px #e8e8e8;
-          /*侧滑菜单栏*/
-          .order-slider-bar{
-            height: 652rpx;
-            width: 160rpx;
-            background-color: #f7f7f7;
+          height: 100%;
 
-            .slider-bar-item{
-              text-align: center;
-              color: #444444;
-              height: 60rpx;
-              line-height: 60rpx;
+          /*菜单和菜品wrap 为了撑满*/
+          .maintain-height{
+            flex: 1;
+            width: 100%;
+            display: flex;
 
-              .fz24();
+            /*侧滑菜单栏*/
+            .order-slider-bar{
+              height: 100%;
+              width: 160rpx;
+              background-color: #f7f7f7;
+
+              .slider-bar-item{
+                text-align: center;
+                color: #444444;
+                height: 60rpx;
+                line-height: 60rpx;
+
+                .fz24();
+              }
+
+              .slider-bar-item-active{
+                color: @redPink;
+                background-color: #ffffff;
+              }
             }
+            /*菜品列表*/
+            .order-food-list{
+              height: 100%;
+              width: 590rpx;
+              padding-bottom: 20rpx;
+              box-sizing: border-box;
 
-            .slider-bar-item-active{
-              color: @redPink;
-              background-color: #ffffff;
-            }
-          }
-          /*菜品列表*/
-          .order-food-list{
-            height: 632rpx;
-            width: 590rpx;
-            .select-type{
-              padding: 12rpx 0 20rpx 22rpx;
-              .fz24()
-            }
+              .select-type{
+                padding: 12rpx 0 20rpx 22rpx;
+                .fz24()
+              }
 
-            .food-list{
-              padding: 0 44rpx 0 22rpx;
+              .food-list{
+                padding: 0 44rpx 0 22rpx;
 
-              .food-item{
-                display: flex;
+                .food-item{
+                  display: flex;
 
-                image{
-                  width: 160rpx;
-                  height: 160rpx;
-                }
-
-                .main-content{
-                  flex: 1;
-                  .fz28();
-
-                  .line1{
-                    color: #141414;
+                  image{
+                    width: 160rpx;
+                    height: 160rpx;
                   }
-                  .line2{
-                    .fz24();
-                  }
-                  .line3{
-                    border: 1px solid @redPink;
-                    color: @redPink;
-                    line-height: 30rpx;
-                    vertical-align: center;
-                    display: inline-block;
-                    padding: 0 14rpx;
-                    .fz20();
-                  }
-                  .line4{
-                    display: flex;
-                    justify-content: space-between;
 
-                    .price{
-                      color: @redPink;
+                  .main-content{
+                    flex: 1;
+                    .fz28();
+
+                    .line1{
+                      color: #141414;
                     }
-
-                    .num-handler-block{
+                    .line2{
+                      .fz24();
+                    }
+                    .line3{
+                      border: 1px solid @redPink;
+                      color: @redPink;
+                      line-height: 30rpx;
+                      vertical-align: center;
+                      display: inline-block;
+                      padding: 0 14rpx;
+                      .fz20();
+                    }
+                    .line4{
                       display: flex;
-                      align-items: center;
+                      justify-content: space-around;
 
-                      image{
-                        width: 44rpx;
-                        height: 44rpx;
+                      .price{
+                        color: @redPink;
                       }
 
-                      text{
-                        margin: 0 26rpx;
+                      .num-handler-block{
+                        display: flex;
+                        align-items: center;
+
+                        image{
+                          width: 44rpx;
+                          height: 44rpx;
+                        }
+
+                        text{
+                          margin: 0 26rpx;
+                        }
                       }
                     }
                   }
@@ -138,6 +154,7 @@
             }
           }
 
+          /*购物清单*/
           .footer{
             height: 98rpx;
             background: #6a6a6a;
@@ -174,8 +191,53 @@
 
 
       }
+
+      /*评价*/
+      .swiper-item-evaluate{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+
+        .evaluate-scroll-view{
+          height: 100%;
+
+          .evaluate-overview{
+            display: flex;
+            justify-content: space-around;
+            padding: 24rpx 0 26rpx;
+
+            .grade{
+              .line1{
+
+              }
+              .line2{
+                color: #919191;
+                margin-top: 18rpx;
+              }
+            }
+
+            .passenger-volume{
+              .line1{
+                color: #444444;
+
+                .fz40();
+              }
+              .line2{
+                color: #919191;
+                margin-top: 18rpx;
+              }
+            }
+          }
+
+
+        }
+      }
     }
 
+    .divide{
+      height: 20rpx;
+      background-color: #f2f2f2;
+    }
   }
 </style>
 
@@ -204,42 +266,43 @@
         <choose-commodity-swiper></choose-commodity-swiper>
         <!--菜单区域-->
         <view class="scroll-block">
-          <!--view-->
-          <scroll-view scroll-y="true" class="order-slider-bar">
-            <view wx:for="{{menu}}" wx:key="typeName" class="slider-bar-item {{index == activeMenuIndex ? 'slider-bar-item-active':''}}"
-            @tap = "switchMenu({{index}})">
-              {{item.typeName}}
-            </view>
-          </scroll-view>
-          <scroll-view scroll-y="true" class="order-food-list">
-            <view class="select-type">{{menu[activeMenuIndex].typeName}}</view>
+          <view class="maintain-height">
+            <scroll-view scroll-y="true" class="order-slider-bar">
+              <view wx:for="{{menu}}" wx:key="typeName" class="slider-bar-item {{index == activeMenuIndex ? 'slider-bar-item-active':''}}"
+                    @tap = "switchMenu({{index}})">
+                {{item.typeName}}
+              </view>
+            </scroll-view>
+            <scroll-view scroll-y="true" class="order-food-list">
+              <view class="select-type">{{menu[activeMenuIndex].typeName}}</view>
 
-            <view class="food-list">
-              <view wx:for="{{menu[activeMenuIndex].content}}" wx:key="MEid" class="food-item">
-                <image src="{{item.MEimage}}"></image>
-                <view class="main-content">
-                  <view class="line1">{{item.MEname}}</view>
-                  <view class="line2">
-                    <text>月售: {{item.MEvolume}}</text>
-                    <text>评分: {{item.MEvolume}}</text>
-                  </view>
-                  <view class="line3">
-                    {{item.MEtag}}
-                  </view>
-                  <view class="line4">
-                    <view class="price">
-                      ￥{{item.MEdprice}}
+              <view class="food-list">
+                <view wx:for="{{menu[activeMenuIndex].content}}" wx:key="MEid" class="food-item">
+                  <image src="{{}}"></image>
+                  <view class="main-content">
+                    <view class="line1">{{item.MEname}}</view>
+                    <view class="line2">
+                      <text>月售: {{item.MEvolume}}</text>
+                      <text>评分: {{item.MEvolume}}</text>
                     </view>
-                    <view class="num-handler-block">
-                      <image src="../images/minus.png"></image>
-                      <text>1</text>
-                      <image src="../images/add.png"></image>
+                    <view class="line3">
+                      {{item.MEtag}}
+                    </view>
+                    <view class="line4">
+                      <view class="price">
+                        ￥{{item.MEdprice}}
+                      </view>
+                      <view class="num-handler-block">
+                        <image src="../images/minus.png"></image>
+                        <text>1</text>
+                        <image src="../images/add.png"></image>
+                      </view>
                     </view>
                   </view>
                 </view>
               </view>
-            </view>
-          </scroll-view>
+            </scroll-view>
+          </view>
 
           <view class="footer">
             <view class="footer-left">
@@ -254,8 +317,26 @@
         </view>
       </swiper-item>
       <!--评价-->
-      <swiper-item>
-        评价
+      <swiper-item class="swiper-item-evaluate">
+          <scroll-view scroll-y="true" class="evaluate-scroll-view">
+            <view class="evaluate-overview">
+              <view class="grade">
+                <view class="line1">
+                  <rate :starSize.sync="canteenRateStarSize" :key.sync="canteenRate"
+                        :readonly.sync="canteenRateReadonly" :showKey="canteenRateShowKey"></rate>
+                </view>
+                <view class="line2">
+                  综合评分
+                </view>
+              </view>
+              <view class="passenger-volume">
+                <view class="line1">23423</view>
+                <view class="line2">就餐人次</view>
+              </view>
+            </view>
+            <view class="divide"></view>
+            <canteen-evaluate-list></canteen-evaluate-list>
+          </scroll-view>
       </swiper-item>
       <!--食堂-->
       <swiper-item>
@@ -273,8 +354,10 @@
     import api from '@/api/api'
     import Tab from "@/components/common/tab"
     import Drawer from "@/components/common/drawer"
+    import Rate from "@/components/common/rate"
     import ChooseCommoditySwiper from "@/components/chooseCommoditySwiper"
     import ShoppingList from "@/components/shoppingList"
+    import CanteenEvaluateList from "@/components/canteenEvaluateList"
 
     export default class Canteen extends wepy.page {
       config = {
@@ -284,13 +367,16 @@
       components = {
         tab: Tab,
         'choose-commodity-swiper': ChooseCommoditySwiper,
-        drawer: Drawer
+        drawer: Drawer,
+        'shopping-list': ShoppingList,
+        rate: Rate,
+        'canteen-evaluate-list': CanteenEvaluateList
       }
 
       data = {
         tabList: ['点餐', '评价', '食堂'],  //  tab
         showSlider: true, //  显示滑动条
-        currentIndex: 0,  //  tabIndex
+        currentIndex: 1,  //  tabIndex
         canteen: {},  //  食堂
         activeMenuIndex: 0,
         shopList: [
@@ -353,6 +439,10 @@
             ]
           },
         ],
+        canteenRateStarSize: 20,
+        canteenRate: 4.6,
+        canteenRateReadonly: true,
+        canteenRateShowKey: true,
 
       }
       computed = {}
@@ -382,7 +472,8 @@
       events = {}
 
       onLoad(params) {
-        this.getMessAbo(params.MSid)
+        this.getMessAbo('ed68478f-8675-11e8-b4c5-5800e3119d4a')
+        // this.getMessAbo(params.MSid)
         wx.setNavigationBarTitle({
           title: params.MSname
         })

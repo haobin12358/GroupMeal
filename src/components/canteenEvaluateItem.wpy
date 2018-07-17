@@ -1,0 +1,128 @@
+<style scoped lang="less">
+  @import "../styles/base";
+
+  .evaluate-item{
+    padding: 20rpx 44rpx 18rpx 36rpx;
+    text-align: left;
+
+    .evaluate-item-header{
+      display: flex;
+      .fz24();
+
+      image{
+        width: 76rpx;
+        height: 76rpx;
+        margin-right: 18rpx;
+      }
+
+      .main-content{
+        flex: 1;
+
+        .line1{
+          color:  #444444;
+        }
+
+        .line2{
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          .evaluate-time{
+            color: #b2b2b2;
+          }
+          .evaluate-rate{
+
+          }
+        }
+
+      }
+    }
+    .evaluate-item-body{
+      padding-left: 94rpx;
+
+      .evaluate-content{
+        color: #444444;
+        margin-bottom: 20rpx;
+
+        .fz24();
+      }
+
+      .evaluate-images-block{
+        image{
+          width: 180rpx;
+          height: 180rpx;
+          margin-right: 10rpx;
+        }
+      }
+    }
+  }
+</style>
+
+<template>
+  <view class="evaluate-item">
+    <view class="evaluate-item-header">
+      <image class="user-head-image" src="{{item.headimg}}"></image>
+      <view class="main-content">
+        <view class="line1">
+          <view class="user-name">{{item.username}}</view>
+        </view>
+        <view class="line2">
+          <view class="evaluate-time">
+            {{item.time}}
+          </view>
+          <view class="evaluate-rate">
+            <rate :starSize.sync="canteenRateStarSize" :key.sync="canteenRate" :readonly.sync="canteenRateReadonly"></rate>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="evaluate-item-body">
+      <view class="evaluate-content">
+        {{item.content}}
+      </view>
+      <view class="evaluate-images-block">
+        <image src="../images/food.jpg"></image>
+        <image src="../images/food.jpg"></image>
+        <image src="../images/food.jpg"></image>
+        <image src="../images/food.jpg"></image>
+        <image src="../images/food.jpg"></image>
+      </view>
+    </view>
+
+  </view>
+
+</template>
+
+<script>
+    import wepy from 'wepy'
+    import Rate from "@/components/common/rate"
+
+    export default class CanteenEvaluateItem extends wepy.component {
+      props = {
+        item: {
+          type: Object,
+        }
+      }
+
+      components = {
+        rate: Rate,
+      }
+
+      data = {
+        canteenRateStarSize: 20,
+        canteenRate: 4.6,
+        canteenRateReadonly: true,
+      }
+
+      computed = {}
+
+      methods = {}
+
+      events = {}
+
+      onLoad() {
+
+      }
+    }
+</script>
+
