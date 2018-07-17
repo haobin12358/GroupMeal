@@ -228,7 +228,6 @@
     methods = {
       phoneInput(e) {
         this.phone = e.detail.value;
-        console.log(this.phone)
       },
       sendCode(e) {
         if (this.phone == "") {
