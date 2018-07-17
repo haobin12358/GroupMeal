@@ -2,22 +2,20 @@
   .person-info{
     display: flex;
     padding: 48rpx 0  42rpx 46rpx;
-
     .head-image{
-        width: 120rpx;
-        height: 120rpx;
+      float: left;
+      width: 120rpx;
+      height: 120rpx;
+      padding-right: 40rpx;
     }
     .main{
       flex: 1;
-      padding-left: 28rpx;
       font-size: 24rpx;
       color: #646464;
-
       .line1{
         font-size: 36rpx;
         color: #000000;
       }
-
     }
   }
 </style>
@@ -36,7 +34,6 @@
 <script>
     import wepy from 'wepy'
 
-
     export default class PersonInfo extends wepy.component {
       props={
         isLogin: {
@@ -44,26 +41,22 @@
           default: false
         }
       }
-        data = {}
+      data = {}
+      computed = {}
+      methods = {
+        tapMainHandler(){
+          if(this.isLogin){
 
-        computed = {}
-
-        methods = {
-          tapMainHandler(){
-            if(this.isLogin){
-
-            }else{
-              console.log('组件登录')
-              this.$emit('goLogin');
-            }
+          }else{
+            console.log('组件登录')
+            this.$emit('goLogin');
           }
         }
+      }
+      events = {}
+      onLoad() {
 
-        events = {}
-
-        onLoad() {
-
-        }
+      }
     }
 </script>
 

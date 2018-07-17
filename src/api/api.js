@@ -6,6 +6,10 @@ const host = 'https://h878.cn';
 
 //  注册  UStelphone   USpassword  UScode  USinvatecode
 const register = params => wxRequest(params, host+'/group/meal/user/register');
+// 用户协议
+const getText = () => wxRequest('', host+'/love/breakfast/other/disclaimer');
+// 获取验证码
+const getValidate = (params) => wxRequest(params, host+'/love/breakfast/users/get_inforcode');
 //  登录  UStelphone  USpassword
 const login = params => wxRequest(params, host+'/group/meal/user/login');
 //  更新基础信息
@@ -43,6 +47,8 @@ const getAllCity = params => wxRequest(params, host+`/group/meal/mess/get_all_ci
 
 export default {
   register,
+  getText,
+  getValidate,
   login,
   updateInfo,
   updatePwd,

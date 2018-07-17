@@ -17,7 +17,9 @@ export default class extends wepy.app {
 
       'pages/chooseCanteen',//  选择食堂
 
-
+      'pages/login',// 登录
+      'pages/register',// 注册
+      'pages/forgetPwd',// 忘记密码
       'pages/person',//  个人
     ],
     window: {
