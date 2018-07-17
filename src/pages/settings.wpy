@@ -46,21 +46,6 @@
         <view class="cell-bd">修改密码</view>
         <view class="cell-ft cell-ft-access"></view>
       </navigator>
-      <view class="cell">
-        <view class="cell-bd">修改密码</view>
-        <view class="cell-ft cell-ft-access"></view>
-      </view>
-      <navigator class="cell">
-        <view class="cell-bd">修改密码</view>
-        <view class="cell-ft cell-ft-access"></view>
-      </navigator>
-    </view>
-    <view class="divide"></view>
-    <view class="cells">
-      <navigator class="cell">
-        <view class="cell-bd">修改密码</view>
-        <view class="cell-ft cell-ft-access"></view>
-      </navigator>
     </view>
   </view>
 </template>

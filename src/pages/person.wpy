@@ -114,10 +114,17 @@
     </view>
     <view class="divide"></view>
     <view class="cells">
-      <navigator class="cell" url="../../settings">
-        <view class="cell-bd">设置</view>
-        <view class="cell-ft cell-ft-access"></view>
-      </navigator>
+      <view wx:if="{{isLogin}}">
+        <navigator class="cell" url="../../settings">
+          <view class="cell-bd">设置</view>
+          <view class="cell-ft cell-ft-access"></view>
+        </navigator>
+      </view>
+      <view wx:if="{{!isLogin}}">
+        <view class="cell">
+          <view class="cell-bd">设置</view>
+        </view>
+      </view>
       <view class="cell">
         <view class="cell-bd">联系我们</view>
         <view class="cell-ft"></view>

@@ -73,14 +73,14 @@
       <view class="m-bar m-top-border">
         <view class="m-info-prefix">旧密码:</view>
         <input class="m-info-content" password="{{!openPwdOne}}" name="old" focus="true" />
-        <image src="/images/icon-pwd-on.jpg" wx:if="{{openPwdOne}}" style="width: 30rpx;height: 20rpx;" @tap="openPwdOneChange"></image>
-        <image src="/images/icon-pwd-un.jpg" wx:else style="width: 30rpx;height: 20rpx;" @tap="openPwdOneChange"></image>
+        <image src="../images/pwd_on.jpg" wx:if="{{openPwdOne}}" style="width: 30rpx;height: 20rpx;" @tap="openPwdOneChange"></image>
+        <image src="../images/pwd_un.jpg" wx:else style="width: 30rpx;height: 20rpx;" @tap="openPwdOneChange"></image>
       </view>
       <view class="m-bar m-bottom">
         <view class="m-info-prefix">新密码:</view>
         <input class="m-info-content" password="{{!openPwdTwo}}" name="new"/>
-        <image src="/images/icon-pwd-on.jpg" wx:if="{{openPwdTwo}}" style="width: 30rpx;height: 20rpx;" @tap="openPwdTwoChange"></image>
-        <image src="/images/icon-pwd-un.jpg" wx:else style="width: 30rpx;height: 20rpx;" @tap="openPwdTwoChange"></image>
+        <image src="../images/pwd_on.jpg" wx:if="{{openPwdTwo}}" style="width: 30rpx;height: 20rpx;" @tap="openPwdTwoChange"></image>
+        <image src="../images/pwd_un.jpg" wx:else style="width: 30rpx;height: 20rpx;" @tap="openPwdTwoChange"></image>
       </view>
       <button class="m-info-button" formType="submit">确认提交</button>
     </view>
@@ -101,11 +101,22 @@
       openPwdOne:false,
       openPwdTwo:false
     }
-    onLoad(params) {
-      this.tel = params.tel;
-      this.sex = params.USsex;
+    async getPersonInfo(token) {
+      let that = this;
+      tip.loading();
+      let res = await api.allInfo({query: {token: token}})
+      if (res.data.status == '200') {
+        that.userInfo = res.data.data;
+        this.tel = that.userInfo.UStelphone
+        tip.loaded();
+        that.$apply();
+      }
+      else tip.error("加载失败")
+    }
+    onLoad() {
       let token =  wepy.getStorageSync('token');
       this.token = token
+      this.getPersonInfo(token)
     }
     async updatePass(params) {
       tip.loading()
