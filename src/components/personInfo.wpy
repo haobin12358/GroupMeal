@@ -33,30 +33,48 @@
 
 <script>
     import wepy from 'wepy'
+    import api from '../api/api'
+    import tip from '../utils/tip'
 
     export default class PersonInfo extends wepy.component {
       props={
-        isLogin: {
-          type: Boolean,
-          default: false
-        }
+        isLogin: false,
+        userInfo: {USname: '', USsex: '', UScoin: '', USinvatecode: ''},
       }
       data = {}
       computed = {}
       methods = {
         tapMainHandler(){
+          console.log(this.isLogin)
           if(this.isLogin){
 
           }else{
-            console.log('组件登录')
             this.$emit('goLogin');
           }
         }
       }
       events = {}
-      onLoad() {
-
+      async getPersonInfo(token) {
+        let that = this;
+        tip.loading();
+        let res = await api.allInfo({query: {token: token}})
+        if (res.data.status == '200') {
+          that.userInfo = res.data.data;
+          tip.loaded();
+          that.$apply();
+        }
+        else tip.error("加载失败")
       }
+      onLoad() {
+        let that = this;
+        let token = wepy.getStorageSync('token')
+        if(token){
+          that.getPersonInfo(token)
+          // that.$parent.globalData.token = token;
+          that.$apply()
+        }
+      }
+
     }
 </script>
 

@@ -1,6 +1,31 @@
 <style scoped lang="less">
   @import "../styles/base";
   .container{
+    .person-info{
+      display: flex;
+      padding: 48rpx 0  42rpx 46rpx;
+      .head-image{
+        float: left;
+        width: 120rpx;
+        height: 120rpx;
+        padding-right: 40rpx;
+      }
+      .main{
+        flex: 1;
+        font-size: 24rpx;
+        color: #646464;
+        margin-top:-1%;
+        .line{
+          font-size: 36rpx;
+          color: #000000;
+          margin-top: 5%;
+        }
+        .line1{
+          font-size: 36rpx;
+          color: #000000;
+        }
+      }
+    }
     .divide {
       height: 20rpx;
       background-color: #f2f2f2;
@@ -44,7 +69,20 @@
 
 <template>
   <view class="container">
-    <person-info :isLogin.sync="isLogin" @goLogin.user="goLogin"></person-info>
+    <!--<person-info :isLogin.sync="isLogin" @goLogin.user="goLogin"></person-info>-->
+    <view class="person-info">
+      <image src="/images/default_head_image.png" class="head-image"></image>
+      <view class="main">
+        <view wx:if="{{!isLogin}}">
+          <view class="line" @tap="toLogin">点击登录</view>
+        </view>
+        <view wx:if="{{isLogin}}">
+          <view class="line1">{{userInfo.USname}}</view>
+          <view class="line2">VIP等级:{{userInfo.USlevel}}</view>
+          <view class="line3">积分:{{userInfo.UScoin}}</view>
+        </view>
+      </view>
+    </view>
     <view class="divide"></view>
     <view class="cells">
       <view class="cell">
@@ -87,26 +125,51 @@
     import wepy from 'wepy'
     import tip from '@/utils/tip'
     import api from '@/api/api'
-    import PersonInfo from "@/components/personInfo"
+    // import PersonInfo from "@/components/personInfo"
 
     export default class Person extends wepy.page {
-        config = {}
-        components = {
-          'person-info': PersonInfo
+      config = {}
+      components = {
+        // 'person-info': PersonInfo
+      }
+      data = {
+        isLogin: false,
+        userInfo: [],
+      }
+      computed = {}
+      methods = {
+        /*goLogin() {
+          wx.navigateTo({url: '/pages/login'});
+        },*/
+        toLogin(){
+          wx.navigateTo({url: '/pages/login'});
         }
-        data = {
-          isLogin: false
+      }
+      async getPersonInfo(token) {
+        let that = this;
+        tip.loading();
+        let res = await api.allInfo({query: {token: token}})
+        if (res.data.status == '200') {
+          that.userInfo = res.data.data;
+          tip.loaded();
+          that.$apply();
         }
-        computed = {}
-        methods = {
-          goLogin() {
-            wx.navigateTo({url: '/pages/login'});
-          }
-        }
-        events = {}
-        onLoad() {
+        else tip.error("加载失败")
+      }
+      events = {}
+      onLoad() {
 
+      }
+      onShow() {
+        let that = this;
+        let token =  wepy.getStorageSync('token')
+        if(token){
+          that.getPersonInfo(token)
+          this.isLogin = true
+          // that.$parent.globalData.token = token;
+          that.$apply()
         }
+      }
     }
 </script>
 
