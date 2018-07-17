@@ -1,0 +1,84 @@
+<style scoped lang="less">
+  @import "../styles/base";
+  .container {
+
+  }
+</style>
+<template>
+  <view class="container">
+
+  </view>
+</template>
+<script>
+
+  import tip from '../utils/tip';
+  import api from '../api/api'
+  import wepy from 'wepy';
+
+  export default class BaseInfo extends wepy.page {
+    config = {
+      navigationBarTitleText: '基本信息'
+    }
+    data = {
+      token: '',
+      name: '',
+      tel:'',
+      array: ['男', '女'],
+      index: 0,
+      userInfo:{}
+    }
+    bindPickerChange(e){
+      this.index = e.detail.value
+    }
+    async getPersonInfo(token) {
+      let that = this;
+      tip.loading();
+      let res = await api.allInfo({query: {token: token}})
+      if (res.data.status == '200') {
+        that.userInfo = res.data.data;
+        tip.loaded();
+        that.$apply();
+      }
+      else tip.error("加载失败")
+    }
+
+    async updateUserInfo(params){
+      let that = this;
+      tip.loading();
+      let res = await api.updateInfo({query: params, token : that.token, method: 'POST'})
+      if(res.data.status == '200'){
+        tip.success("修改信息成功")
+        setTimeout( wx.navigateBack, 1000)
+
+      }
+      else tip.error(res.data.message)
+    }
+    async formSubmit(e){
+      let that = this
+      let params = {
+        USsex: that.array[this.index],
+        USname: e.detail.value.name
+      }
+      this.updateUserInfo(params)
+
+    }
+    onLoad(params) {
+      let that = this;
+      this.name = params.name;
+      this.sex = params.sex;
+      let token =  wepy.getStorageSync('token');
+      this.token = token;
+      this.getPersonInfo(token);
+      for(let i=0; i<2; i++){
+        if(params.sex == that.array[i])
+          that.index = i;
+      }
+    }
+
+    methods = {
+      sexTap(v){
+        this.index = v
+      }
+    };
+  }
+</script>
