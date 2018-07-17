@@ -1,0 +1,124 @@
+<style scoped lang="less">
+  @import "../styles/base";
+  .container{
+    .title {
+      color: #646464;
+      font-size: 28rpx;
+      text-align: center;
+      margin-top: 5%;
+      margin-bottom: 10%;
+    }
+    .cells{
+      .cell{
+        padding: 3% 0 3% 15%;
+        border-bottom: 4rpx solid #f2f2f2;
+        .cell-bd{
+          width: 18%;
+          float: left;
+          font-size: 28rpx;
+        }
+        .from-input {
+          width: 50%;
+          height: 28rpx;
+          font-size: 28rpx;
+          line-height: 28rpx;
+          text-align: center;
+        }
+        .right-text {
+          float: right;
+          margin-top: -7%;
+          margin-right: 15%;
+        }
+        .picker {
+          margin-left: 200rpx;
+          margin-top: 8rpx;
+          height: 40rpx;
+        }
+      }
+      .form-button {
+        width: 270rpx;
+        height: 80rpx;
+        border-radius: 8px;
+        background-color: @redPink;
+        color: #ffffff;
+        line-height: 80rpx;
+        margin-top: 20%;
+      }
+    }
+  }
+</style>
+
+<template>
+  <view class="container">
+    <view class="title">
+      <view>填写个人信息</view>
+      <view>方便我们为您制定您的个人食谱</view>
+    </view>
+    <view class="cells">
+      <form bindsubmit="formSubmit">
+        <view class="cell">
+          <text class="cell-bd" space="emsp">身 高：</text>
+          <input class="from-input" name="height" type="number" maxlength="3"/>
+          <text class="right-text">cm</text>
+        </view>
+        <view class="cell">
+          <text class="cell-bd" space="emsp">体 重：</text>
+          <input class="from-input" name="weight" type="number" maxlength="3"/>
+          <text class="right-text">kg</text>
+        </view>
+        <view class="cell">
+          <text class="cell-bd" space="emsp">年 龄：</text>
+          <input class="from-input" name="age" type="number" maxlength="3"/>
+          <text class="right-text">岁</text>
+        </view>
+        <view class="cell">
+          <text class="cell-bd" space="emsp">生 日：</text>
+          <picker mode="date" value="1995-10-03" name="date" start="1900-01-01" end="2018-07-01" bindchange="bindDateChange">
+            <view class="picker">{{date}}</view>
+          </picker>
+        </view>
+        <view class="cell">
+          <text class="cell-bd">身份证：</text>
+          <input class="from-input" name="idcard" type="idcard" maxlength="18"/>
+        </view>
+        <view class="cell">
+          <text class="cell-bd" space="emsp">职 业：</text>
+          <input class="from-input" name="professional"/>
+        </view>
+        <button class="form-button" formType="submit">注 册</button>
+      </form>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import tip from '@/utils/tip'
+  import api from '@/api/api'
+
+  export default class Person extends wepy.page {
+    config = {}
+    components = {
+
+    }
+    data = {
+
+    }
+    computed = {}
+    methods = {
+      bindDateChange: function(e) {
+        this.setData({
+          date: e.detail.value
+        })
+      },
+      formSubmit (e) {
+        console.log(e.detail.value)
+      }
+    }
+    events = {}
+    onLoad() {
+
+    }
+  }
+</script>
+

@@ -20,7 +20,11 @@ export default class extends wepy.app {
       'pages/login',// 登录
       'pages/register',// 注册
       'pages/forgetPwd',// 忘记密码
-      'pages/person',//  个人
+      'pages/baseInfo',// 基本信息
+      'pages/settings',// 设置
+      'pages/person',// 个人
+      'pages/setUp',// 修改密码
+      'pages/firstQuestionnaire',// 第一份问卷
     ],
     window: {
       backgroundTextStyle: 'light',

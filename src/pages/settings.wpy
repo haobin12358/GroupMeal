@@ -46,6 +46,10 @@
         <view class="cell-bd">修改密码</view>
         <view class="cell-ft cell-ft-access"></view>
       </navigator>
+      <navigator class="cell" url="../../firstQuestionnaire">
+        <view class="cell-bd">第一份问卷</view>
+        <view class="cell-ft cell-ft-access"></view>
+      </navigator>
     </view>
   </view>
 </template>
