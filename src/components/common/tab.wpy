@@ -73,19 +73,25 @@
 
       }
       data = {
-        sliderOffset: 0,
+        // sliderOffset: 0,
         sliderLeft: 0,
       }
 
-      computed = {}
+      computed = {
+        sliderOffset() {
+          let res = this.windowWidth / this.tabList.length * this.currentTab
+
+          console.log(res);
+          return res
+        }
+      }
 
       methods = {
-        switchTab(index,e) {
+       switchTab(index,e) {
+
           if (this.currentTab == index) {
             console.log('return');
           } else {
-            this.sliderOffset = e.currentTarget.offsetLeft;
-console.log(this.sliderOffset);
             this.currentTab = index;
             this.$emit("switchTab", this.currentTab);
           }
@@ -97,10 +103,11 @@ console.log(this.sliderOffset);
       async  onLoad() {
         let res = await wepy.getSystemInfo();
 
+        this.windowWidth = res.windowWidth
         this.sliderLeft = res.windowWidth / this.tabList.length - sliderWidth;
 
         console.log(this.sliderLeft);
-        this.sliderOffset = (res.windowWidth / this.tabList.length * this.currentTab)*2;
+        // this.sliderOffset = (res.windowWidth / this.tabList.length * this.currentTab)*2;
 
         this.$apply();
       }
