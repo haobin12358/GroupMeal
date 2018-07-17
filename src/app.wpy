@@ -16,6 +16,9 @@ export default class extends wepy.app {
       'pages/data',
 
       'pages/chooseCanteen',//  选择食堂
+      'pages/purchaseRecently',//  营养推荐
+      'pages/nutritionRecommend',//  营养推荐
+      'pages/discountMeal',//  营养推荐
 
       'pages/login',// 登录
       'pages/register',// 注册
