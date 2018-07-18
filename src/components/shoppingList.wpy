@@ -1,21 +1,248 @@
 <style scoped lang="less">
+  @import "../styles/base";
+
+
   /*购物清单*/
-  .footer{
+  .shopping-list{
+    position: fixed;
+    bottom: 0;
+    z-index: 10;
+    width: 100%;
+
+    /*购物清单  弹出*/
+    .footer-popup{
+      height: 100%;
+      position: absolute;
+      bottom: 100rpx;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+
+      .outside-area{
+        flex: 1;
+        opacity: 0.63;
+        background-color: #5b5b5b;
+      }
+
+      .content-area{
+        /*height: 200rpx;*/
+
+        .content-area-scroll{
+          max-height: 500rpx;
+          /*min-height: 200rpx;*/
+
+          /*购物列表*/
+          .cart-list{
+            /*头部*/
+            .cart-list-header{
+              padding: 10rpx 16rpx 16rpx 38rpx;
+              display: flex;
+              justify-content: space-between;
+              background: #e8e8e8;
+              color: #4f4f4f;
+
+              .fz24();
+
+              .header-left{
+
+              }
+              .header-right{
+                image{
+                  width: 24rpx;
+                  height: 24rpx;
+                  margin-right: 20rpx;
+                }
+
+              }
+
+            }
+            /*真列表*/
+            .cart-item{
+              background: #ffffff;
+              padding: 30rpx 26rpx 30rpx 40rpx;
+              display: flex;
+
+              .cart-item-name{
+                flex: 1;
+
+              }
+              .cart-item-price{
+                color: @redPink;
+                margin-right: 50rpx;
+              }
+              .cart-item-num{
+                display: flex;
+                align-items: center;
+
+                image{
+                  width: 44rpx;
+                  height: 44rpx;
+                }
+
+                text{
+                  margin: 0 26rpx;
+                  color: #6f6f6f;
+
+                  .fz24();
+                }
+              }
+
+            }
+            /*分隔线*/
+            .cart-list-ft-divide{
+              background: #e8e8e8;
+              height: 30rpx;
+            }
+          }
+        }
+      }
+    }
+
+
+    .footer-resident{
+      background: #6a6a6a;
+      display: flex;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 100rpx;
+
+      .footer-left{
+        width: 558rpx;
+        padding: 24rpx 0 28rpx 50rpx;
+        display: flex;
+        box-sizing: border-box;
+
+        .num{
+          width: 46rpx;
+          height: 46rpx;
+          line-height: 46rpx;
+          text-align: center;
+          border-radius: 50%;
+          margin-right: 22rpx;
+
+          .type-pink();
+        }
+
+        .total-price{
+          color: #ffffff;
+
+          .fz32();
+        }
+      }
+      .footer-right{
+        flex: 1;
+        line-height: 98rpx;
+        text-align: center;
+
+        .type-pink();
+      }
+    }
 
   }
 </style>
 
 <template>
+
+  <view class="shopping-list" style="height: {{shopListIsPopup ? '100%' : '100rpx'}};">
+    <view wx:if="{{shopListIsPopup}}" class="footer-popup">
+      <view class="outside-area" @tap="popShopList"></view>
+      <view class="content-area">
+        <!--<scroll-view scroll-y class="content-area-scroll" style="height: {{Math.random()*500}}rpx">-->
+        <scroll-view scroll-y class="content-area-scroll" >
+          <view class="cart-list">
+            <view class="cart-list-header">
+              <view>已选商品</view>
+              <view class="header-right">
+                <image src="../images/trash.png"></image>
+                <text>清空</text>
+              </view>
+            </view>
+            <view wx:for="{{shopListCmp}}" wx:key="MEid" class="cart-item">
+              <view class="cart-item-name">{{item.MEname}}</view>
+              <view class="cart-item-price">{{item.MEprice}}</view>
+              <view class="cart-item-num">
+                <image src="../images/minus.png" @tap="minusCart({{item.MEid}})"></image>
+                <text>{{item.CAnumber}}</text>
+                <image src="../images/add.png" @tap="addCart({{item.MEid}})"></image>
+              </view>
+            </view>
+          </view>
+        </scroll-view>
+      </view>
+    </view>
+    <view class="footer-resident" @tap="popShopList">
+      <view class="footer-left">
+        <view class="num">{{shopListLength}}</view>
+        <view class="total-price">￥{{shopListTotal}}</view>
+        <view class="original-cost"></view>
+      </view>
+      <view class="footer-right">
+        去支付
+      </view>
+    </view>
+  </view>
 </template>
 
 <script>
     import wepy from 'wepy'
 
     export default class ShoppingList extends wepy.component {
-        data = {}
-        computed = {}
+        poops = {
+          //  购物车信息
+          shopList: {
+            type: Array,
+            default: []
+          }
+        }
 
-        methods = {}
+        data = {
+          shopListIsPopup: false, //  购物车信息
+        }
+
+        computed = {
+          //  计算购物车总价
+          shopListTotal(){
+            let total = 0;
+
+            if(this.shopList && this.shopList.length){
+              for (let i =0; i < this.shopList.length; i++) {
+                let currentShop = this.shopList[i]
+
+                total += currentShop.CAnumber * currentShop.MEprice;
+              }
+            }
+
+            // console.log(total);
+            return total.toFixed(2);
+          },
+
+          shopListLength(){
+            return this.shopList?this.shopList.length:0 ;
+          },
+
+          shopListCmp(){
+            return this.shopList;
+          }
+        }
+
+        methods = {
+          //  弹出/收起购物车
+          popShopList(){
+            this.shopListIsPopup = !this.shopListIsPopup;
+            console.log('弹出/收起购物车',this.shopListIsPopup);
+          },
+
+          minusCart(MEid) {
+            console.log('组件➖', MEid);
+            this.$emit('updateCart',MEid, -1)
+          },
+          addCart(MEid) {
+            console.log('组件➕', MEid);
+            this.$emit('updateCart',MEid, 1)
+          }
+
+        }
 
         events = {}
 

@@ -9,6 +9,15 @@
     display: flex;
     flex-flow: column;
 
+    .fixed-block{
+      position: fixed;
+      width: 100%;
+      height: 100rpx;
+      bottom: 0;
+      background: #141414;
+      z-index: 10;
+    }
+
     .container-header{
       padding: 26rpx 0 18rpx 36rpx;
       display: flex;
@@ -151,6 +160,9 @@
 
                         text{
                           margin: 0 26rpx;
+                          color: #6f6f6f;
+
+                          .fz24();
                         }
                       }
                     }
@@ -163,17 +175,17 @@
 
           /*购物清单*/
           .footer{
-            /*height: 98rpx;*/
+            height: 100rpx;
 
             /*position: absolute;*/
             /*bottom: 0;*/
             /*width: 100%;*/
 
             /*购物清单  弹出*/
-            .footer-popup{
-              height: 400rpx;
-              background: #141414;
-            }
+            /*.footer-popup{*/
+              /*height: 400rpx;*/
+              /*background: #141414;*/
+            /*}*/
 
             .footer-resident{
               background: #6a6a6a;
@@ -319,6 +331,8 @@
 
 <template>
   <view class="container">
+
+    <shopping-list :shopList.sync="shopList" @updateCart.user="updateCart"></shopping-list>
     <!-- 头部食堂信息-->
     <view class="container-header">
       <view class="canteen-logo">
@@ -384,21 +398,8 @@
           </view>
 
 
-          <view class="footer" @tap="popShopList" >
-            <view wx:if="{{shopListIsPopup}}" class="footer-popup">
-              shoplist
-            </view>
+          <view class="footer" >
 
-            <view class="footer-resident">
-              <view class="footer-left">
-                <view class="num">{{shopList.length}}</view>
-                <view class="total-price">￥{{shopListTotal}}</view>
-                <view class="original-cost"></view>
-              </view>
-              <view class="footer-right">
-                去支付
-              </view>
-            </view>
           </view>
         </view>
       </swiper-item>
@@ -670,6 +671,11 @@
         //  弹出/收起购物车
         popShopList(){
           this.shopListIsPopup = !this.shopListIsPopup;
+        },
+      //    shoplist组件updateCart
+        updateCart(MEid, CAnumber){
+          console.log('页面',MEid,CAnumber)
+          this.updateCart(wx.getStorageSync('token'), this.canteen.MSid, MEid, CAnumber);
         }
       }
 
@@ -740,6 +746,7 @@
 
         if(res.data.status){
           this.shopList = res.data.data;
+          console.log(this.shopList);
           this.$apply();
         }
       }
