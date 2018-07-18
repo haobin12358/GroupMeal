@@ -44,12 +44,13 @@
         }
       }
       .form-button {
-        width: 270rpx;
-        height: 80rpx;
-        border-radius: 8px;
+        width: 140rpx;
+        height: 60rpx;
+        font-size: 28rpx;
+        line-height: 60rpx;
+        border-radius: 4rpx;
         background-color: @redPink;
         color: #ffffff;
-        line-height: 80rpx;
         margin-top: 20%;
       }
     }
