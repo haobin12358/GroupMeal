@@ -42,9 +42,21 @@
             .fz24();
           }
 
-          .add-btn{
-            width: 38rpx;
-            height: 38rpx;
+          .num-handler-block{
+            display: flex;
+            align-items: center;
+
+            image{
+              width: 30rpx;
+              height: 30rpx;
+            }
+
+            text{
+              margin: 0 16rpx;
+              color: #6f6f6f;
+
+              .fz24();
+            }
           }
 
         }
@@ -73,7 +85,14 @@
         </view>
         <view class="line2">
           <view class="price">￥{{item.MEprice}}</view>
-          <image src="../images/add.png" class="add-btn">+</image>
+          <view class="num-handler-block">
+            <block wx:if="{{item.CAnumber}}">
+              <image src="../images/minus.png" @tap="minusCart({{item.MEid}})"></image>
+              <text>{{item.CAnumber}}</text>
+            </block>
+
+            <image src="../images/add.png" @tap="addCart({{item.MEid}})"></image>
+          </view>
         </view>
       </view>
     </scroll-view>

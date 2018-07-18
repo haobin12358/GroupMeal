@@ -352,8 +352,8 @@
     <swiper class="swiper" current="{{currentIndex}}" bindchange="swiperPage" >
       <!--点餐-->
       <swiper-item class="swiper-item-order" style="height: 100%">
-        <!--推荐餐品滚动区域-->
-        <choose-commodity-swiper :list.sync="recommendMealList"></choose-commodity-swiper>
+        <!--推荐餐品滚动区域  合并到菜单区域-->
+        <!--<choose-commodity-swiper :list.sync="recommendMealList"></choose-commodity-swiper>-->
         <!--菜单区域-->
         <view class="scroll-block">
           <view class="maintain-height">
@@ -498,63 +498,7 @@
         recommendMealList: [],
 
         activeMenuIndex: 0,
-        menu: [
-          {
-            typeName: '热销',
-            content: [
-              {
-                MEid: 1,
-                MEimage: 'https://h878.cn/xc25987.png',
-                MEname: '菜品1',
-                MEfraction: '3',
-                MEvolume: 0,
-                MEtag: '新品',
-                MEdprice: '12'
-              },{
-                MEid: 2,
-
-                MEimage: 'https://h878.cn/xc25987.png',
-                MEname: '菜品1',
-                MEfraction: '3',
-                MEvolume: 0,
-                MEtag: '新品',
-                MEdprice: '123'
-              },
-            ]
-          },{
-            typeName: '优惠',
-            content: [
-              {
-                MEid: 3,
-
-                MEimage: 'https://h878.cn/xc25987.png',
-                MEname: '菜品1',
-                MEfraction: '3',
-                MEvolume: 0,
-                MEtag: '新品',
-                MEdprice: '12'
-              },{
-                MEid: 4,
-
-                MEimage: 'https://h878.cn/xc25987.png',
-                MEname: '菜品1',
-                MEfraction: '3',
-                MEvolume: 0,
-                MEtag: '新品',
-                MEdprice: '123'
-              },{
-                MEid: 5,
-
-                MEimage: 'https://h878.cn/xc25987.png',
-                MEname: '菜品1',
-                MEfraction: '3',
-                MEvolume: 0,
-                MEtag: '新品',
-                MEdprice: '11'
-              },
-            ]
-          },
-        ],
+        menu: [],
 
         shopList: [], //  购物车信息
         shopListIsPopup: false, //  购物车信息
@@ -571,12 +515,23 @@
         mealList(){
           let menuList = []
           let typeNameList = []
+          //  选择显示在侧边栏顶部tag
+          let tagNameList = ['热销']
           let data = this.menu;
+
+          //  将tag放在前面
+          for (let i = 0; i <tagNameList.length; i++) {
+            menuList.push({
+              typeName: tagNameList[i],
+              content: []
+            })
+          }
 
           for (let i = 0; i < data.length; i++) {
             let currentData = data[i];
             let listIndex = 0
 
+            //  重置并合并CAnumber
             currentData.CAnumber = 0;
             if(this.shopList.length){
               for (let j = 0; j< this.shopList.length; j++) {
@@ -588,6 +543,14 @@
               }
             }
 
+            //  tag组合 ['热销']
+            if(tagNameList.includes(currentData.MEtag)){
+              listIndex = tagNameList.indexOf(currentData.MEtag);
+
+              menuList[listIndex].content.push(currentData)
+            }
+
+             // type组合结构数据
             if(typeNameList.includes(currentData.MEtype)){
               listIndex = typeNameList.indexOf(currentData.MEtype);
 
@@ -603,7 +566,6 @@
             }
           }
 
-          // console.log('menuList',menuList);
           return menuList;
         },
 
@@ -746,7 +708,7 @@
 
         if(res.data.status){
           this.shopList = res.data.data;
-          console.log(this.shopList);
+          console.log('购物车数据',this.shopList);
           this.$apply();
         }
       }
