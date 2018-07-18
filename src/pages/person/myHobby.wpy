@@ -1,0 +1,95 @@
+<style scoped lang="less">
+  @import "../../styles/base";
+  .container{
+    .top {
+      .top-item {
+        .item-text {
+          padding: 30rpx 0 30rpx 15%;
+          font-size: 32rpx;
+        }
+        .line {
+          height: 2rpx;
+          width: 100%;
+          background-color: #e8e8e8;
+        }
+      }
+    }
+    .bottom {
+      padding-top: 20%;
+      .bottom-button {
+        color: #FFFFFF;
+        width: 270rpx;
+        height: 80rpx;
+        font-size: 28rpx;
+        line-height: 80rpx;
+        border-radius: 16rpx;
+        background-color: @redPink;
+      }
+    }
+  }
+</style>
+
+<template>
+  <view class="container">
+    <view class="top">
+      <view class="top-item">
+        <view wx:for="{{myHobbyList}}" wx:key="item">
+          <view class="item-text">{{item}}</view>
+          <view class="line"></view>
+        </view>
+      </view>
+    </view>
+    <view class="bottom">
+      <button class="bottom-button" @tap="toChoose">修 改</button>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import tip from '@/utils/tip'
+  import api from '@/api/api'
+
+  export default class Person extends wepy.page {
+    config = {}
+    components = {
+
+    }
+    data = {
+      myHobbyList: ['酸', '川菜', '杭帮菜', '粤菜']
+    }
+    computed = {}
+    methods = {
+      toChoose() {
+        wx.navigateTo({
+          url: 'chooseHobby'
+        })
+      }
+    }
+    async getMyHobby(token) {
+      let that = this;
+      tip.loading();
+      let res = await api.allInfo({query: {token: token}})
+      if (res.data.status == '200') {
+        // that.myHobbyList = res.data.data;
+        tip.loaded();
+        that.$apply();
+      }
+      else tip.error("加载失败")
+    }
+    events = {}
+    onLoad() {
+
+    }
+    onShow() {
+      let that = this;
+      let token =  wepy.getStorageSync('token')
+      if(token){
+        that.getMyHobby(token)
+        // that.$parent.globalData.token = token;
+        that.$apply()
+      }
+    }
+  }
+</script>
+
