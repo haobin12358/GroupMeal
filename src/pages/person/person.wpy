@@ -1,5 +1,5 @@
 <style scoped lang="less">
-  @import "../styles/base";
+  @import "../../styles/base";
   .container{
     .person-info{
       display: flex;
@@ -93,7 +93,7 @@
       <view class="cell">
         <view class="cell-bd">
           会员中心
-          <image src="../images/glod_crown.png" class="cell-image"></image>
+          <image src="../../images/glod_crown.png" class="cell-image"></image>
         </view>
       </view>
     </view>
@@ -108,7 +108,7 @@
           <view class="cell-bd">我的喜好</view>
           <view class="cell-ft cell-ft-access"></view>
         </view>
-        <navigator class="cell" url="../../baseInfo?name={{userInfo.USname}}&sex={{userInfo.Ussex}}">
+        <navigator class="cell" url="baseInfo?name={{userInfo.USname}}&sex={{userInfo.Ussex}}">
           <view class="cell-bd">基本信息</view>
           <view class="cell-ft cell-ft-access"></view>
         </navigator>
@@ -128,7 +128,7 @@
     <view class="divide"></view>
     <view class="cells">
       <view wx:if="{{isLogin}}">
-        <navigator class="cell" url="../../settings">
+        <navigator class="cell" url="settings">
           <view class="cell-bd">设置</view>
           <view class="cell-ft cell-ft-access"></view>
         </navigator>
@@ -155,12 +155,11 @@
     import wepy from 'wepy'
     import tip from '@/utils/tip'
     import api from '@/api/api'
-    // import PersonInfo from "@/components/personInfo"
 
     export default class Person extends wepy.page {
       config = {}
       components = {
-        // 'person-info': PersonInfo
+
       }
       data = {
         isLogin: false,
@@ -169,11 +168,8 @@
       }
       computed = {}
       methods = {
-        /*goLogin() {
-          wx.navigateTo({url: '/pages/login'});
-        },*/
         toLogin(){
-          wx.navigateTo({url: '/pages/login'});
+          wx.navigateTo({url: '/pages/person/login'});
         },
         tapCallUs(){
           wepy.showModal({

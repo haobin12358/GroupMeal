@@ -1,5 +1,5 @@
 <style scoped lang="less">
-  @import "../styles/base";
+  @import "../../styles/base";
   .container{
     .cells{
       padding-top: 10%;
