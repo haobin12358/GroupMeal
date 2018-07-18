@@ -1,9 +1,11 @@
 <style scoped lang="less">
+  /*购物清单*/
+  .footer{
 
+  }
 </style>
 
 <template>
-  购物清单
 </template>
 
 <script>
