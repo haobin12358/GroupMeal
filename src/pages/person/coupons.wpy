@@ -12,7 +12,7 @@
       position: fixed;*/
       width: 750rpx;
       height: 110rpx;
-      padding: 42rpx 0 0 0;
+      padding: 40rpx 0 0 0;
       background-color: #ffffff;
       .top-input {
         float: left;
@@ -42,26 +42,26 @@
         .item-image {
           width: 648rpx;
           height: 200rpx;
-          margin: 40rpx 0 0 50rpx;
+          padding: 20rpx 0 20rpx 50rpx;
           /*position: absolute;*/
           top: 0;
           left: 0;
         }
         .item-cocut-symbol {
-          top: 41%;
+          top: 32%;
           left: 13%;
           color: @redPink;
           position: absolute;
         }
         .item-cocut {
-          top: 20%;
+          top: 11%;
           left: 18%;
           color: @redPink;
           font-size: 72rpx;
           position: absolute;
         }
         .item-couse {
-          top: 41%;
+          top: 33%;
           left: 44%;
           color: #727272;
           font-size: 24rpx;
@@ -73,21 +73,21 @@
           /*justify-content: center;*/
         }
         .item-costart {
-          top: 74%;
+          top: 66%;
           left: 14%;
           color: #2e2e2e;
           font-size: 24rpx;
           position: absolute;
         }
         .item-text {
-          top: 74%;
+          top: 66%;
           left: 34%;
           color: #2e2e2e;
           font-size: 24rpx;
           position: absolute;
         }
         .item-coend {
-          top: 74%;
+          top: 66%;
           left: 40%;
           color: #2e2e2e;
           font-size: 24rpx;
