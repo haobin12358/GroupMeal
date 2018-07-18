@@ -1,21 +1,21 @@
 <style scoped lang="less">
-  @import "../styles/base";
+  @import "../../styles/base";
   .container {
-    .logo-part {
-      text-align: center;
-      padding-top:15%;
-      .logo-png {
-        width: 142rpx;
-        height: 142rpx;
-      }
-      .logo-text {
-        font-size: 36rpx;
-        margin-bottom: 13%;
-      }
-    }
     .register-from {
+      .logo-part {
+        text-align: center;
+        padding-top:15%;
+        .logo-png {
+          width: 142rpx;
+          height: 142rpx;
+        }
+        .logo-text {
+          font-size: 36rpx;
+          margin-bottom: 13%;
+        }
+      }
       .from-text {
-        width: 16%;
+        width: 19%;
         float: left;
         font-size: 28rpx;
         line-height: 1.4rem;
@@ -43,34 +43,12 @@
         margin-left: 15%;
         background-color: #c5c5c5;
       }
-      .m-form-selector {
-        margin-top: 300rpx;
-        margin-bottom: 40rpx;
-        text-align: center;
-        font-size: 24rpx;
-        color: #444444;
-        .checkbox {
-          zoom: 70%;
-        }
-        .m-xie {
-          color: @barbiePink;
-        }
-      }
-      .form-button {
-        font-size: 32rpx;
-        color: #ffffff;
-        width: 200rpx;
-        height: 80rpx;
-        line-height: 80rpx;
-        border-radius: 8rpx;
-        background-color: @redPink;
-      }
       .m-btn {
         color: #ffffff;
         font-size: 28rpx;
         display: inline-block;
         background-color: @redPink;
-        margin-left: -3%;
+        margin-left: -6%;
       }
       .m-btn-disab {
         margin-top: 13%;
@@ -83,34 +61,15 @@
         height: 56rpx;
         line-height: 56rpx;
       }
-    }
-    .m-modal{
-      z-index: 10;
-      background-color: rgba(0,0,0,0.5);
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      height: 100%;
-      position: fixed;
-      top: 0;
-      left: 0;
-      align-items: center;
-      .m-text-box {
-        margin: 70rpx 40rpx 0 ;
-        padding: 30rpx 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        font-size: 25rpx;
-        color: #353535;
-        line-height: 2em;
-        height: 500rpx;
-        background-color: #fff;
-        .m-text {
-          overflow: scroll;
-          height: 500rpx;
-        }
+      .form-button {
+        font-size: 32rpx;
+        color: #ffffff;
+        width: 200rpx;
+        height: 80rpx;
+        margin-left: 37%;
+        line-height: 80rpx;
+        border-radius: 8rpx;
+        background-color: @redPink;
       }
     }
   }
@@ -118,74 +77,60 @@
 
 <template>
   <view class="container">
-    <view class="logo-part">
-      <image src="../images/logo.png" class="logo-png"></image>
-      <view class="logo-text">智慧食堂</view>
-    </view>
     <view class="register-from">
+      <view class="logo-part">
+        <image src="../../images/logo.png" class="logo-png"></image>
+        <view class="logo-text">智慧食堂</view>
+      </view>
       <form bindsubmit="formSubmit" bindreset="formReset">
-        <text class="from-text">手机号：</text>
+        <text class="from-text">手 机 号：</text>
         <input placeholder-style="color:#fb88b4" class="from-input" name="phone" type="number" placeholder="请输入手机号" maxlength="11" bindinput="phoneInput"/>
         <view class="line"></view>
-        <text class="from-text">验证码：</text>
+        <text class="from-text">验 证 码：</text>
         <input placeholder-style="color:#fb88b4" class="from-pw" type="number" name="code" placeholder="请输入验证码" maxlength="6"/>
         <button wx:if="{{disable}}" class="m-btn m-btn-disab" >{{time}}秒</button>
         <button wx:else="{{disable}}" class="m-btn" @tap="sendCode">获取验证码</button>
         <view class="line"></view>
-        <text class="from-text" space="emsp">密 码：</text>
-        <input placeholder-style="color:#fb88b4" class="from-input" password name="pass" placeholder="请输入密码" maxlength="16"/>
+        <text class="from-text">新 密 码：</text>
+        <input placeholder-style="color:#fb88b4" class="from-input" password name="pass" placeholder="请输入新密码" maxlength="16"/>
         <view class="line"></view>
-        <text class="from-text">邀请码：</text>
-        <input placeholder-style="color:#fb88b4" class="from-input" name="vali" placeholder="请输入邀请码（选填）"/>
-        <view class="line"></view>
-        <view class="m-form-selector">
-          <checkbox-group bindchange="checkboxChange">
-            <checkbox value="clause" color="#e5473c"/>我已阅读，并同意<span class="m-xie" @tap="showM">用户协议</span>
-          </checkbox-group>
-        </view>
-        <button class="form-button" formType="submit" disabled="{{agree}}">注 册</button>
+        <text class="from-text">再次输入：</text>
+        <input placeholder-style="color:#fb88b4" class="from-input" password name="passNew" placeholder="请再次输入新密码" maxlength="16"/>
+        <view class="line" style="margin-bottom: 20%"></view>
+        <button class="form-button" formType="submit">确认修改</button>
       </form>
-    </view>
-    <view class="m-modal" wx:if="{{showModal}}" @tap="cancelM">
-      <view class="m-text-box" scroll-y="true" scroll-top="{{scrollTop}}" >
-        <text class="m-text">{{ text }}</text>
-      </view>
     </view>
   </view>
 </template>
 
 <script >
   import wepy from 'wepy';
-  import tip from '../utils/tip';
-  import api from '../api/api';
+  import tip from '../../utils/tip';
+  import api from '../../api/api';
   export default class Register extends wepy.page{
     config = {
-      navigationBarTitleText: '注册'
+      navigationBarTitleText: '忘记密码'
     }
     data = {
-      text: '',
       disable: false,
       phone: '',
       time: 60,
-      agree: true,
-      showModal: false
     }
-    async register (phone, pass, code, vali) {
+    async forgetPwd (pwd, newPwd, tel, vali) {
       let that = this;
-      const res = await api.register({
+      const res = await api.forgetPwd({
         query: {
-          UStelphone: phone,
-          USpassword: pass,
-          UScode: code,
-          USinvate: vali
+          USpasswordnew: pwd,
+          USpasswordnewrepeat: newPwd,
+          UStelphone: tel,
+          UScode: vali
         },
         method: 'POST'
       })
-      console.log(res)
       if(res.data.status == '200'){
-        tip.success("注册成功")
-        wepy.navigateBack()
-        that.$apply()
+        tip.success("更新密码成功");
+        wepy.navigateBack();
+        that.$apply();
       }else tip.error(res.data.message)
     }
     async sendVerifyCode() {
@@ -223,11 +168,12 @@
       this.text = res.data
     }
     onLoad(){
-      this.getText();
+
     }
     methods = {
       phoneInput(e) {
         this.phone = e.detail.value;
+        console.log(this.phone)
       },
       sendCode(e) {
         if (this.phone == "") {
@@ -237,32 +183,19 @@
         this.sendVerifyCode();
       },
       formSubmit (e) {
-        // console.log(e)
+        console.log(e)
         let that = this;
         let phone = e.detail.value.phone;
         let pass = e.detail.value.pass;
+        let passnew = e.detail.value.passNew;
         let code = e.detail.value.code;
-        let vali = e.detail.value.vali;
         if(phone == ''){ tip.alert("请输入手机号"); return false;}
         if(pass == ''){ tip.alert("请输入密码"); return false;}
+        console.log(passnew,pass)
+        if(pass != passnew){ tip.alert("密码不一致"); return false;}
         if(code == ''){ tip.alert("请输入验证码"); return false;}
-        that.register(phone, pass, code, vali)
+        that.forgetPwd( pass,passnew, phone, code)
         console.log('form发生了submit事件，携带数据为：', e.detail.value)
-      },
-      checkboxChange(e){
-        if(e.detail.value.length == 0){
-          this.agree = true;
-        }
-        else this.agree = false;
-        this.$apply();
-      },
-      showM(){
-        this.showModal = true;
-        this.$apply();
-      },
-      cancelM(){
-        this.showModal = false;
-        this.$apply();
       }
     }
   }

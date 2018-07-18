@@ -1,7 +1,7 @@
 <template>
   <view class="container">
     <view class="logo-part">
-      <image src="../images/logo.png" class="logo-png"></image>
+      <image src="../../images/logo.png" class="logo-png"></image>
       <view class="logo-text">智慧食堂</view>
     </view>
     <view class="logo-form">
@@ -16,11 +16,11 @@
       </form>
     </view>
     <view class="text-url">
-      <navigator class="text-item" url="/pages/register">
+      <navigator class="text-item" url="/pages/person/register">
         <view class="m-forget">注册</view>
         <view class="line1"></view>
       </navigator>
-      <navigator class="text-item" url="/pages/forgetPwd">
+      <navigator class="text-item" url="/pages/person/forgetPwd">
         <view class="m-forget">忘记密码</view>
         <view class="line2"></view>
       </navigator>
@@ -30,8 +30,8 @@
 
 <script>
   import wepy from 'wepy'
-  import api from '../api/api'
-  import tip from '../utils/tip'
+  import api from '../../api/api'
+  import tip from '../../utils/tip'
   export default class Person extends wepy.page {
     data = {
     }
@@ -60,7 +60,7 @@
 </script>
 
 <style scoped lang="less">
-  @import "../styles/base";
+  @import "../../styles/base";
   .container {
     .logo-part {
       text-align: center;

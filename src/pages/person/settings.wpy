@@ -1,5 +1,5 @@
 <style scoped lang="less">
-  @import "../styles/base";
+  @import "../../styles/base";
   .container{
     .cells{
       .fz32();
@@ -42,11 +42,11 @@
   <view class="container">
     <view class="divide"></view>
     <view class="cells">
-      <navigator class="cell" url="../../setUp">
+      <navigator class="cell" url="setUp">
         <view class="cell-bd">修改密码</view>
         <view class="cell-ft cell-ft-access"></view>
       </navigator>
-      <navigator class="cell" url="../../firstQuestionnaire">
+      <navigator class="cell" url="firstQuestionnaire">
         <view class="cell-bd">第一份问卷</view>
         <view class="cell-ft cell-ft-access"></view>
       </navigator>

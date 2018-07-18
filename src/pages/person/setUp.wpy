@@ -1,5 +1,5 @@
 <style scoped lang="less">
-  @import "../styles/base";
+  @import "../../styles/base";
   .logo-part {
     text-align: center;
     padding-top:20%;
@@ -66,21 +66,21 @@
 <template>
   <form bindsubmit="formSubmit">
     <view class="logo-part">
-      <image src="../images/logo.png" class="logo-png"></image>
+      <image src="../../images/logo.png" class="logo-png"></image>
       <view class="logo-text">智慧食堂</view>
     </view>
     <view class="m-setup">
       <view class="m-bar m-top-border">
         <view class="m-info-prefix">旧密码:</view>
         <input class="m-info-content" password="{{!openPwdOne}}" name="old" focus="true" />
-        <image src="../images/pwd_on.jpg" wx:if="{{openPwdOne}}" style="width: 30rpx;height: 20rpx;" @tap="openPwdOneChange"></image>
-        <image src="../images/pwd_un.jpg" wx:else style="width: 30rpx;height: 20rpx;" @tap="openPwdOneChange"></image>
+        <image src="../../images/pwd_on.jpg" wx:if="{{openPwdOne}}" style="width: 30rpx;height: 20rpx;" @tap="openPwdOneChange"></image>
+        <image src="../../images/pwd_un.jpg" wx:else style="width: 30rpx;height: 20rpx;" @tap="openPwdOneChange"></image>
       </view>
       <view class="m-bar m-bottom">
         <view class="m-info-prefix">新密码:</view>
         <input class="m-info-content" password="{{!openPwdTwo}}" name="new"/>
-        <image src="../images/pwd_on.jpg" wx:if="{{openPwdTwo}}" style="width: 30rpx;height: 20rpx;" @tap="openPwdTwoChange"></image>
-        <image src="../images/pwd_un.jpg" wx:else style="width: 30rpx;height: 20rpx;" @tap="openPwdTwoChange"></image>
+        <image src="../../images/pwd_on.jpg" wx:if="{{openPwdTwo}}" style="width: 30rpx;height: 20rpx;" @tap="openPwdTwoChange"></image>
+        <image src="../../images/pwd_un.jpg" wx:else style="width: 30rpx;height: 20rpx;" @tap="openPwdTwoChange"></image>
       </view>
       <button class="m-info-button" formType="submit">确认提交</button>
     </view>
@@ -88,8 +88,8 @@
 </template>
 <script>
 
-  import tip from '../utils/tip'
-  import api from '../api/api'
+  import tip from '../../utils/tip'
+  import api from '../../api/api'
   import wepy from 'wepy'
   export default class BaseInfo extends wepy.page {
     config = {
