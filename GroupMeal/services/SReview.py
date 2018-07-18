@@ -15,8 +15,8 @@ class SReview(SBase):
 
     @close_session
     def get_review(self, oid):
-        return  self.session.query(Review.MEid, Review.REscore,
-                                             Review.REcontent).filter_by(OMid=oid).all()
+        return  self.session.query(Review.MEid, Review.REscore, Review.REimage,
+                                             Review.REcontent, Review.REfscore).filter_by(OMid=oid).all()
 
     @close_session
     def get_rid_by_uid(self, uid):

@@ -74,7 +74,7 @@ class CCoupons():
                     COfilter = coupon.COfilter
                     cart["COuse"] = "满{0}元可用".format(COfilter)
                     COcut = coupon.COamount
-                    cart["COcut"] = str(COcut) + "元"
+                    cart["COcut"] = str(COcut)
                     COstart = coupon.COstart
                     cart["COstart"] = get_web_time_str(COstart, format_forweb_no_HMS)
                     COend = coupon.COend
@@ -90,14 +90,14 @@ class CCoupons():
                 elif COtype == 803:
                     CObrand = coupon.CObrand.encode("utf8")
                     cart["COuse"] = "限{0}商品可用".format(str(CObrand))
-                    cart["COcut"] = str(coupon.COamount) + "元"
+                    cart["COcut"] = str(coupon.COamount)
                     COstart = coupon.COstart
                     cart["COstart"] = get_web_time_str(COstart, format_forweb_no_HMS)
                     COend = coupon.COend
                     cart["COend"] = get_web_time_str(COend, format_forweb_no_HMS)
                 elif COtype == 804:
                     cart["COuse"] = "无限制"
-                    cart["COcut"] = str(coupon.COamount) + "元"
+                    cart["COcut"] = str(coupon.COamount)
                     COstart = coupon.COstart
                     cart["COstart"] = get_web_time_str(COstart, format_forweb_no_HMS)
                     COend = coupon.COend

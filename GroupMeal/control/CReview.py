@@ -51,7 +51,7 @@ class CReview():
             print(self.title.format("data_item"))
             print(row)
             print(self.title.format("data_item"))
-            if "MEid" not in row or "REscore" not in row:
+            if "MEid" not in row or "REscore" not in row or "REfscore" not in row:
                 return PARAMS_MISS
             if "REcontent" in row:
                 REcontent = row["REcontent"]
@@ -69,7 +69,8 @@ class CReview():
                               "OMid": OMid,
                               "MEid": PRid,
                               "REscore": REscore,
-                              "REcontent": REcontent
+                              "REcontent": REcontent,
+                              "REfscore": row["REfscore"]
                           })
             except Exception as e:
                 print(self.title.format("add_review"))

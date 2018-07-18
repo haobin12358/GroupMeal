@@ -91,6 +91,8 @@ class CCarts():
         CAnumber = data["CAnumber"]
         if CAnumber <= 0:
             PBnumber = self.scart.get_canumber_by_meid_and_usid(MEid, USid)
+            if not PBnumber:
+                return SYSTEM_ERROR
             pnum = int(CAnumber) + int(PBnumber)
             if pnum <= 0:
                 return self.del_cart(USid, MEid)
@@ -102,30 +104,31 @@ class CCarts():
                 if not cart:
                     return SYSTEM_ERROR
                 self.scart.update_num_cart(pnum, cart.CAid)
-        try:
-            if not self.smeal.get_meal_by_meid(MEid):
-                return import_status("ERROR_MESSAGE_NONE_PRODUCT", "GROUPMEAL_ERROR", "ERROR_NONE_PRODUCT")
-            cart = self.scart.get_cart_by_usid_meid(USid, MEid)
-            print(self.title.format("cart"))
-            print(cart)
-            print(self.title.format("cart"))
-            if cart:
-                PBnumber = self.scart.get_canumber_by_meid_and_usid(MEid, USid)
-                pnum = int(CAnumber) + int(PBnumber)
-                self.scart.update_num_cart(pnum, cart.CAid)
-            else:
-                add_model("Cart",
-                          **{
-                              "CAid": str(uuid.uuid1()),
-                              "CAnumber": CAnumber,
-                              "USid": USid,
-                              "MEid": MEid
-                          })
-        except dberror:
-            return SYSTEM_ERROR
-        except Exception as e:
-            print(e.message)
-            return SYSTEM_ERROR
+        else:
+            try:
+                if not self.smeal.get_meal_by_meid(MEid):
+                    return import_status("ERROR_MESSAGE_NONE_PRODUCT", "GROUPMEAL_ERROR", "ERROR_NONE_PRODUCT")
+                cart = self.scart.get_cart_by_usid_meid(USid, MEid)
+                print(self.title.format("cart"))
+                print(cart)
+                print(self.title.format("cart"))
+                if cart:
+                    PBnumber = self.scart.get_canumber_by_meid_and_usid(MEid, USid)
+                    pnum = int(CAnumber) + int(PBnumber)
+                    self.scart.update_num_cart(pnum, cart.CAid)
+                else:
+                    add_model("Cart",
+                              **{
+                                  "CAid": str(uuid.uuid1()),
+                                  "CAnumber": CAnumber,
+                                  "USid": USid,
+                                  "MEid": MEid
+                              })
+            except dberror:
+                return SYSTEM_ERROR
+            except Exception as e:
+                print(e.message)
+                return SYSTEM_ERROR
 
         return import_status("SUCCESS_MESSAGE_UPDATE_CART", "OK")
 

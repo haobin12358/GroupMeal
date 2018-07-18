@@ -56,7 +56,7 @@ class CUsers():
                       "USname": UStelphone,
                       "UStelphone": data["UStelphone"],
                       "USpassword": data["USpassword"],
-                      "USlevel": 0,
+                      "USlevel": 1,
                       "UScoin": 0,
                       "USinvatecode": USinvatecode
                   })

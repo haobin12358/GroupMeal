@@ -108,8 +108,10 @@ class Review(Base):
     REid = Column(String(64), primary_key=True)         # 主键
     OMid = Column(String(64), nullable=False)           # 订单id
     MEid = Column(String(64), nullable=False)           # 餐品id
-    REscore = Column(Float, nullable=False)             # 餐品评分
+    REscore = Column(Float, nullable=False)             # 餐品口味评分
     REcontent = Column(Text)                            # 评价内容
+    REfscore = Column(String(64))                       # 用餐体验评分
+    REimage = Column(Text)                              # 评价图
 
 class Coupons(Base):
     __tablename__ = "Coupon"

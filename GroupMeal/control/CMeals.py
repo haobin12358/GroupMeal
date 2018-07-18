@@ -81,7 +81,7 @@ class CMeals():
                     return row[1]
         if word:
             for row in num_word:
-                if row[1] == word.encode("utf8"):
+                if row[1] == word:
                     return row[0]
 
     def tag_word_change(self, tag=None, word=None):
@@ -187,28 +187,35 @@ class CMeals():
         print(self.title.format("args"))
         print(args)
         print(self.title.format("args"))
+
         if "MSid" not in args:
             return PARAMS_MISS
-        if "MEtag" in args:
+        if "MEtag" in args and "MEtype" not in args:
+            print(0)
             args["MEtag"] = self.tag_word_change(word=args["MEtag"].encode("utf8"))
             meal_list = get_model_return_list(self.smeals.get_all_meal_by_msid_and_metag(args["MSid"], args["MEtag"]))
             print(self.title.format("meal_list"))
             print(meal_list)
             print(self.title.format("meal_list"))
-        elif "MEtype" in args:
+        elif "MEtype" in args and "MEtag" not in args:
+            print(1)
             args["MEtype"] = self.num_word_change(word=args["MEtype"].encode("utf8"))
-            meal_list = get_model_return_list(self.smeals.get_all_meal_by_msid_and_metag(args["MSid"], args["MEtype"]))
+            meal_list = get_model_return_list(self.smeals.get_all_meal_by_msid_and_metype(args["MSid"], args["MEtype"]))
             print(self.title.format("meal_list"))
             print(meal_list)
             print(self.title.format("meal_list"))
         elif "MEtype" in args and "MEtag" in args:
+            print(2)
             args["MEtype"] = self.num_word_change(word=args["MEtype"].encode("utf8"))
             args["MEtag"] = self.tag_word_change(word=args["MEtag"].encode("utf8"))
-            meal_list = get_model_return_list(self.smeals.get_all_meal_by_msid_and_metag(args["MSid"], args["MEtag"], args["MEtype"]))
+            meal_list = get_model_return_list(self.smeals.get_all_meal_by_msid_and_metag_metype(args["MSid"],
+                                                                                                args["MEtag"],
+                                                                                                args["MEtype"]))
             print(self.title.format("meal_list"))
             print(meal_list)
             print(self.title.format("meal_list"))
         else:
+            print(3)
             meal_list = get_model_return_list(self.smeals.get_all_meal_by_msid(args["MSid"]))
             print(self.title.format("meal_list"))
             print(meal_list)

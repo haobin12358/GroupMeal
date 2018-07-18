@@ -73,8 +73,6 @@ class SUsers(SBase):
         new_infocode.ICcode = code
         new_infocode.ICtime = time
         self.session.add(new_infocode)
-        self.session.commit()
-        self.session.close()
         return True
 
     @close_session

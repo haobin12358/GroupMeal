@@ -2,14 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c4493e9a-a4c3-409e-bf11-81e9ff9525a9" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/GroupMeal/apis/ACoupons.py" beforeDir="false" afterPath="$PROJECT_DIR$/GroupMeal/apis/ACoupons.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GroupMeal/apis/AOther.py" beforeDir="false" afterPath="$PROJECT_DIR$/GroupMeal/apis/AOther.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GroupMeal/config/messages.py" beforeDir="false" afterPath="$PROJECT_DIR$/GroupMeal/config/messages.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GroupMeal/control/CCarts.py" beforeDir="false" afterPath="$PROJECT_DIR$/GroupMeal/control/CCarts.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GroupMeal/control/CCoupons.py" beforeDir="false" afterPath="$PROJECT_DIR$/GroupMeal/control/CCoupons.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GroupMeal/control/COrders.py" beforeDir="false" afterPath="$PROJECT_DIR$/GroupMeal/control/COrders.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GroupMeal/control/CMeals.py" beforeDir="false" afterPath="$PROJECT_DIR$/GroupMeal/control/CMeals.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GroupMeal/control/CReview.py" beforeDir="false" afterPath="$PROJECT_DIR$/GroupMeal/control/CReview.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GroupMeal/control/CUsers.py" beforeDir="false" afterPath="$PROJECT_DIR$/GroupMeal/control/CUsers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GroupMeal/flaskr.py" beforeDir="false" afterPath="$PROJECT_DIR$/GroupMeal/flaskr.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GroupMeal/services/SCoupons.py" beforeDir="false" afterPath="$PROJECT_DIR$/GroupMeal/services/SCoupons.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GroupMeal/models/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/GroupMeal/models/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GroupMeal/services/SMeals.py" beforeDir="false" afterPath="$PROJECT_DIR$/GroupMeal/services/SMeals.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GroupMeal/services/SOrders.py" beforeDir="false" afterPath="$PROJECT_DIR$/GroupMeal/services/SOrders.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GroupMeal/services/SReview.py" beforeDir="false" afterPath="$PROJECT_DIR$/GroupMeal/services/SReview.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GroupMeal/services/SUsers.py" beforeDir="false" afterPath="$PROJECT_DIR$/GroupMeal/services/SUsers.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -23,17 +28,17 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GroupMeal/models/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="798">
-              <caret line="86" column="67" lean-forward="true" selection-start-line="86" selection-start-column="43" selection-end-line="86" selection-end-column="67" />
+            <state relative-caret-position="190">
+              <caret line="86" column="31" lean-forward="true" selection-start-line="86" selection-start-column="31" selection-end-line="86" selection-end-column="34" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="flaskr.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="flaskr.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GroupMeal/flaskr.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="21" selection-start-line="21" selection-end-line="22" selection-end-column="61" />
+            <state relative-caret-position="152">
+              <caret line="14" column="27" lean-forward="true" selection-start-line="14" selection-start-column="27" selection-end-line="14" selection-end-column="27" />
               <folding>
                 <element signature="e#20#43#0" expanded="true" />
               </folding>
@@ -41,11 +46,47 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SCoupons.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GroupMeal/services/SCoupons.py">
+      <file leaf-file-name="SReview.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GroupMeal/services/SReview.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
-              <caret line="48" column="42" lean-forward="true" selection-start-line="48" selection-start-column="42" selection-end-line="48" selection-end-column="42" />
+            <state relative-caret-position="287">
+              <caret line="22" column="64" selection-start-line="22" selection-start-column="64" selection-end-line="22" selection-end-column="64" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SUsers.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/GroupMeal/services/SUsers.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="152">
+              <caret line="9" column="20" lean-forward="true" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SOrders.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GroupMeal/services/SOrders.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="325">
+              <caret line="53" column="18" lean-forward="true" selection-start-line="53" selection-start-column="18" selection-end-line="53" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SMeals.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GroupMeal/services/SMeals.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-93">
+              <caret line="25" column="74" selection-start-line="25" selection-start-column="74" selection-end-line="25" selection-end-column="74" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ABigData.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GroupMeal/apis/ABigData.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="268">
+              <caret line="17" column="48" lean-forward="true" selection-start-line="17" selection-start-column="48" selection-end-line="17" selection-end-column="48" />
             </state>
           </provider>
         </entry>
@@ -53,44 +94,26 @@
       <file leaf-file-name="CCoupons.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GroupMeal/control/CCoupons.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2">
-              <caret line="92" column="62" lean-forward="true" selection-start-line="92" selection-start-column="62" selection-end-line="92" selection-end-column="62" />
+            <state relative-caret-position="368">
+              <caret line="60" column="74" lean-forward="true" selection-start-line="60" selection-start-column="74" selection-end-line="60" selection-end-column="74" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ACoupons.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GroupMeal/apis/ACoupons.py">
+      <file leaf-file-name="CBigdata.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GroupMeal/control/CBigdata.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="30" column="24" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="24" />
+            <state relative-caret-position="152">
+              <caret line="9" column="52" lean-forward="true" selection-start-line="9" selection-start-column="52" selection-end-line="9" selection-end-column="52" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AReview.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GroupMeal/apis/AReview.py">
+      <file leaf-file-name="messages.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GroupMeal/config/messages.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="401">
-              <caret line="29" column="48" lean-forward="true" selection-start-line="29" selection-start-column="48" selection-end-line="29" selection-end-column="48" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="COrders.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GroupMeal/control/COrders.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="249">
-              <caret line="179" column="68" lean-forward="true" selection-start-line="179" selection-start-column="68" selection-end-line="179" selection-end-column="68" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CReview.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GroupMeal/control/CReview.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="876">
-              <caret line="75" column="32" lean-forward="true" selection-start-line="75" selection-start-column="32" selection-end-line="75" selection-end-column="32" />
+            <state relative-caret-position="95">
+              <caret line="17" column="15" selection-start-line="17" selection-end-line="17" selection-end-column="15" />
             </state>
           </provider>
         </entry>
@@ -119,31 +142,33 @@
         <option value="$PROJECT_DIR$/GroupMeal/config/dbconfig.py" />
         <option value="$PROJECT_DIR$/GroupMeal/apis/AUsers.py" />
         <option value="$PROJECT_DIR$/GroupMeal/services/DBSession.py" />
-        <option value="$PROJECT_DIR$/GroupMeal/services/SUsers.py" />
-        <option value="$PROJECT_DIR$/GroupMeal/control/CUsers.py" />
         <option value="$PROJECT_DIR$/GroupMeal/apis/AMeals.py" />
-        <option value="$PROJECT_DIR$/GroupMeal/models/models.py" />
         <option value="$PROJECT_DIR$/GroupMeal/services/SMess.py" />
         <option value="$PROJECT_DIR$/GroupMeal/apis/AMess.py" />
         <option value="$PROJECT_DIR$/GroupMeal/control/CMess.py" />
         <option value="$PROJECT_DIR$/GroupMeal/services/SCarts.py" />
         <option value="$PROJECT_DIR$/GroupMeal/apis/ACarts.py" />
-        <option value="$PROJECT_DIR$/GroupMeal/control/CCarts.py" />
-        <option value="$PROJECT_DIR$/GroupMeal/services/SOrders.py" />
         <option value="$PROJECT_DIR$/GroupMeal/apis/AOrders.py" />
-        <option value="$PROJECT_DIR$/GroupMeal/config/messages.py" />
         <option value="$PROJECT_DIR$/GroupMeal/config/status_code.py" />
-        <option value="$PROJECT_DIR$/GroupMeal/control/CMeals.py" />
-        <option value="$PROJECT_DIR$/GroupMeal/services/SMeals.py" />
         <option value="$PROJECT_DIR$/GroupMeal/apis/AReview.py" />
         <option value="$PROJECT_DIR$/GroupMeal/apis/ACoupons.py" />
         <option value="$PROJECT_DIR$/GroupMeal/apis/AOther.py" />
         <option value="$PROJECT_DIR$/GroupMeal/services/SCoupons.py" />
-        <option value="$PROJECT_DIR$/GroupMeal/control/CCoupons.py" />
-        <option value="$PROJECT_DIR$/GroupMeal/flaskr.py" />
-        <option value="$PROJECT_DIR$/GroupMeal/services/SReview.py" />
         <option value="$PROJECT_DIR$/GroupMeal/control/COrders.py" />
+        <option value="$PROJECT_DIR$/GroupMeal/services/SUsers.py" />
+        <option value="$PROJECT_DIR$/GroupMeal/services/SMeals.py" />
+        <option value="$PROJECT_DIR$/GroupMeal/control/CMeals.py" />
+        <option value="$PROJECT_DIR$/GroupMeal/models/models.py" />
+        <option value="$PROJECT_DIR$/GroupMeal/services/SReview.py" />
         <option value="$PROJECT_DIR$/GroupMeal/control/CReview.py" />
+        <option value="$PROJECT_DIR$/GroupMeal/control/CUsers.py" />
+        <option value="$PROJECT_DIR$/GroupMeal/control/CCarts.py" />
+        <option value="$PROJECT_DIR$/GroupMeal/control/CCoupons.py" />
+        <option value="$PROJECT_DIR$/GroupMeal/services/SOrders.py" />
+        <option value="$PROJECT_DIR$/GroupMeal/config/messages.py" />
+        <option value="$PROJECT_DIR$/GroupMeal/flaskr.py" />
+        <option value="$PROJECT_DIR$/GroupMeal/apis/ABigData.py" />
+        <option value="$PROJECT_DIR$/GroupMeal/control/CBigdata.py" />
       </list>
     </option>
   </component>
@@ -214,7 +239,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="E:/LoveBreakfast" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -304,13 +329,13 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.501321" side_tool="true" weight="0.32952926" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32952926" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49867898" visible="true" weight="0.32952926" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="8" weight="0.32952926" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49867898" visible="true" weight="0.32952926" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="9" />
-      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -328,27 +353,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/GroupMeal/config/messages.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="3" column="19" selection-start-line="3" selection-end-line="3" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GroupMeal/config/status.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="15" selection-start-line="2" selection-end-line="2" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GroupMeal/config/status_code.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" column="15" selection-start-line="1" selection-end-line="1" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/GroupMeal/config/dbconfig.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="114">
@@ -471,13 +475,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GroupMeal/config/dbconfig.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="6" column="31" selection-start-line="6" selection-start-column="31" selection-end-line="6" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/GroupMeal/apis/AUsers.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="230">
@@ -534,27 +531,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GroupMeal/control/CUsers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="577">
-          <caret line="353" column="71" selection-start-line="353" selection-start-column="71" selection-end-line="353" selection-end-column="71" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GroupMeal/services/SUsers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="80" column="24" selection-start-line="80" selection-start-column="8" selection-end-line="80" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GroupMeal/control/CCarts.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="11" column="52" lean-forward="true" selection-start-line="11" selection-start-column="52" selection-end-line="11" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/GroupMeal/config/status_code.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
@@ -562,45 +538,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GroupMeal/config/messages.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="16" column="21" selection-start-line="16" selection-end-line="16" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GroupMeal/services/SCarts.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="29" column="18" lean-forward="true" selection-start-line="29" selection-start-column="18" selection-end-line="29" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GroupMeal/control/CMeals.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
-          <caret line="206" column="78" lean-forward="true" selection-start-line="206" selection-start-column="78" selection-end-line="206" selection-end-column="78" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/GroupMeal/apis/AOrders.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
           <caret line="18" column="27" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GroupMeal/services/SOrders.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="45" column="24" selection-start-line="45" selection-start-column="8" selection-end-line="45" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GroupMeal/services/SMeals.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="952">
-          <caret line="67" column="81" selection-start-line="67" selection-start-column="81" selection-end-line="67" selection-end-column="81" />
         </state>
       </provider>
     </entry>
@@ -613,22 +554,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/GroupMeal/apis/ACoupons.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
+        <state relative-caret-position="551">
           <caret line="30" column="24" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/GroupMeal/services/SCoupons.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
+        <state relative-caret-position="893">
           <caret line="48" column="42" lean-forward="true" selection-start-line="48" selection-start-column="42" selection-end-line="48" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GroupMeal/control/CCoupons.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2">
-          <caret line="92" column="62" lean-forward="true" selection-start-line="92" selection-start-column="62" selection-end-line="92" selection-end-column="62" />
         </state>
       </provider>
     </entry>
@@ -639,55 +573,146 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GroupMeal/services/SBase.py">
+    <entry file="file://$PROJECT_DIR$/GroupMeal/control/COrders.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="18" selection-start-line="18" selection-end-line="18" />
+        <state relative-caret-position="3382">
+          <caret line="179" column="68" lean-forward="true" selection-start-line="179" selection-start-column="68" selection-end-line="179" selection-end-column="68" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GroupMeal/services/SReview.py">
+    <entry file="file://$PROJECT_DIR$/GroupMeal/config/dbconfig.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="15" column="18" lean-forward="true" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
+        <state relative-caret-position="114">
+          <caret line="6" column="31" selection-start-line="6" selection-start-column="31" selection-end-line="6" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GroupMeal/services/SBase.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="121">
+          <caret line="9" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GroupMeal/control/CMeals.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="196" column="49" lean-forward="true" selection-start-line="196" selection-start-column="49" selection-end-line="196" selection-end-column="49" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/GroupMeal/apis/AReview.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="401">
-          <caret line="29" column="48" lean-forward="true" selection-start-line="29" selection-start-column="48" selection-end-line="29" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GroupMeal/models/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="798">
-          <caret line="86" column="67" lean-forward="true" selection-start-line="86" selection-start-column="43" selection-end-line="86" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GroupMeal/control/COrders.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="179" column="68" lean-forward="true" selection-start-line="179" selection-start-column="68" selection-end-line="179" selection-end-column="68" />
+        <state relative-caret-position="57">
+          <caret line="4" column="32" lean-forward="true" selection-start-line="4" selection-start-column="32" selection-end-line="4" selection-end-column="32" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/GroupMeal/control/CReview.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="876">
-          <caret line="75" column="32" lean-forward="true" selection-start-line="75" selection-start-column="32" selection-end-line="75" selection-end-column="32" />
+        <state relative-caret-position="311">
+          <caret line="64" column="16" lean-forward="true" selection-start-line="64" selection-start-column="16" selection-end-line="64" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GroupMeal/control/CUsers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="534">
+          <caret line="65" column="36" lean-forward="true" selection-start-line="65" selection-start-column="36" selection-end-line="65" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GroupMeal/services/SCarts.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="406">
+          <caret line="38" column="8" selection-start-line="38" selection-start-column="8" selection-end-line="38" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GroupMeal/control/CCarts.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="127" column="35" lean-forward="true" selection-start-line="127" selection-start-column="35" selection-end-line="127" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GroupMeal/common/timeformate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="8" column="29" lean-forward="true" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GroupMeal/control/CCoupons.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="60" column="74" lean-forward="true" selection-start-line="60" selection-start-column="74" selection-end-line="60" selection-end-column="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GroupMeal/models/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="86" column="31" lean-forward="true" selection-start-line="86" selection-start-column="31" selection-end-line="86" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GroupMeal/config/messages.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="17" column="15" selection-start-line="17" selection-end-line="17" selection-end-column="15" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/GroupMeal/flaskr.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="21" selection-start-line="21" selection-end-line="22" selection-end-column="61" />
+        <state relative-caret-position="152">
+          <caret line="14" column="27" lean-forward="true" selection-start-line="14" selection-start-column="27" selection-end-line="14" selection-end-column="27" />
           <folding>
             <element signature="e#20#43#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GroupMeal/apis/ABigData.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="17" column="48" lean-forward="true" selection-start-line="17" selection-start-column="48" selection-end-line="17" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GroupMeal/control/CBigdata.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="9" column="52" lean-forward="true" selection-start-line="9" selection-start-column="52" selection-end-line="9" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GroupMeal/services/SOrders.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="325">
+          <caret line="53" column="18" lean-forward="true" selection-start-line="53" selection-start-column="18" selection-end-line="53" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GroupMeal/services/SMeals.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-93">
+          <caret line="25" column="74" selection-start-line="25" selection-start-column="74" selection-end-line="25" selection-end-column="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GroupMeal/services/SReview.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="287">
+          <caret line="22" column="64" selection-start-line="22" selection-start-column="64" selection-end-line="22" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GroupMeal/services/SUsers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="9" column="20" lean-forward="true" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
         </state>
       </provider>
     </entry>

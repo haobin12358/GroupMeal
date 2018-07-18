@@ -45,3 +45,10 @@ class SOrders(SBase):
     @close_session
     def get_usid_by_omid(self, omid):
         return self.session.query(OrderMain.USid).filter_by(OMid=omid).scalar()
+
+    @close_session
+    def get_all_order_by_time(self, timestart, timeend, usid):
+        return self.session.query(OrderMain.OMid)\
+            .filter(OrderMain.OMtime >= timestart, OrderMain.USid == usid, OrderMain.OMtime <= timeend,
+                    OrderMain.OMstatus >= 305, OrderMain.OMstatus <= 306)\
+            .all()
