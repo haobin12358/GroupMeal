@@ -51,7 +51,9 @@
   import api from '@/api/api'
 
   export default class Person extends wepy.page {
-    config = {}
+    config = {
+      navigationBarTitleText: '我的喜好'
+    }
     components = {
 
     }
