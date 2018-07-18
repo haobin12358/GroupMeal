@@ -30,7 +30,7 @@ const newMeal = params => wxRequest(params, host+'/group/meal/meal/new_meal');
 //  更新餐品
 const updateMeal = params => wxRequest(params, host+'/group/meal/meal/update_meal');
 //  获取某食堂餐品列表 GET
-const mealList = params => wxRequest(params, host+`/group/meal/meal/meal_list?MSid=${params.MSid}&MEtag=${params.MEtag}`);
+const mealList = params => wxRequest(params, host + `/group/meal/meal/meal_list?MSid=${params.MSid}${params.MEtag ? '&MEtag=' + params.MEtag : ''}${params.MEtype ? '&MEtype=' + params.MEtype : ''}`);
 //  获取餐品详情  GET
 const mealAbo = params => wxRequest(params, host+`/group/meal/meal/meal_abo?MEid=${params.MEid}`);
 
@@ -43,6 +43,30 @@ const getMessByCity = params => wxRequest(params, host+`/group/meal/mess/get_mes
 const getMessAbo = params => wxRequest(params, host+`/group/meal/mess/get_mess_abo?MSid=${params.MSid}`);
 //  获取已开放的城市  GET
 const getAllCity = params => wxRequest(params, host+`/group/meal/mess/get_all_city`);
+
+//  获取购物车信息 GET
+const getCartInfo = params => wxRequest(params, host+`/group/meal/cart/get_all?token=${params.token}&MSid=${params.MSid}`);
+//  添加/减少购物车
+const updateCart = params => wxRequest(params, host+`/group/meal/cart/update`);
+
+//  创建订单
+const makeMainOrder = params => wxRequest(params, host+`/group/meal/order/make_main_order`);
+//  修改订单状态
+const updateOrderStatus = params => wxRequest(params, host+`/group/meal/order/update_order_status`);
+//  获取订单价格
+const orderPrice = params => wxRequest(params, host+`/group/meal/order/order_price`);
+//  获取订单列表  GET
+const getOrderList = params => wxRequest(params, host+`/group/meal/order/get_order_list?token=${params.token}`);
+//  获取订单详情  GET
+const getOrderAbo = params => wxRequest(params, host+`/group/meal/order/get_order_abo?token=${params.token}&OMid=${params.OMid}`);
+//  获取优惠券列表  GET
+const getCardpkg = params => wxRequest(params, host+`/group/meal/coupon/get_cardpkg?token=${params.token}`);
+//  评论订单
+const createReview = params => wxRequest(params, host+`/group/meal/review/create_review`);
+//  获取评论详情  GET
+const getReview = params => wxRequest(params, host+`/group/meal/review/get_review?token=${params.token}&OMid=${params.OMid}`);
+//  获取评论详情  GET
+const payConfig = params => wxRequest(params, host+`/love/breakfast/other/payconfig?code=${params.code}&OMid=${params.OMid}`);
 
 
 export default {
@@ -63,6 +87,16 @@ export default {
   newMess,
   getMessByCity,
   getMessAbo,
-  getAllCity
-
+  getAllCity,
+  getCartInfo,
+  updateCart,
+  makeMainOrder,
+  updateOrderStatus,
+  orderPrice,
+  getOrderList,
+  getOrderAbo,
+  getCardpkg,
+  createReview,
+  getReview,
+  payConfig
 }

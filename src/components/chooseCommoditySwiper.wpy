@@ -65,63 +65,18 @@
     <view class="header">
       食堂推荐
     </view>
-    <scroll-view  scroll-x="true"  class="swiper">
-      <view class="swiper-item">
-        <image src="../images/food.jpg"></image>
+    <scroll-view scroll-x="true" class="swiper">
+      <view wx:for="{{list}}" wx:key="MEid" class="swiper-item">
+        <image src="{{item.MEimage}}"></image>
         <view class="line1">
-          菜品
+          {{item.MEname}}
         </view>
         <view class="line2">
-          <view class="price">￥23</view>
-          <image src="../images/add.png" class="add-btn">+</image>
-        </view>
-      </view>
-
-     <view class="swiper-item">
-        <image src="../images/food.jpg"></image>
-        <view class="line1">
-          菜品
-        </view>
-        <view class="line2">
-          <view class="price">￥23</view>
-          <image src="../images/add.png" class="add-btn">+</image>
-        </view>
-      </view>
-
-     <view class="swiper-item">
-        <image src="../images/food.jpg"></image>
-        <view class="line1">
-          菜品
-        </view>
-        <view class="line2">
-          <view class="price">￥23</view>
-          <image src="../images/add.png" class="add-btn">+</image>
-        </view>
-      </view>
-
-     <view class="swiper-item">
-        <image src="../images/food.jpg"></image>
-        <view class="line1">
-          菜品
-        </view>
-        <view class="line2">
-          <view class="price">￥23</view>
-          <image src="../images/add.png" class="add-btn">+</image>
-        </view>
-      </view>
-
-     <view class="swiper-item">
-        <image src="../images/food.jpg"></image>
-        <view class="line1">
-          菜品
-        </view>
-        <view class="line2">
-          <view class="price">￥23</view>
+          <view class="price">￥{{item.MEprice}}</view>
           <image src="../images/add.png" class="add-btn">+</image>
         </view>
       </view>
     </scroll-view>
-
   </view>
 </template>
 
@@ -129,16 +84,23 @@
     import wepy from 'wepy'
 
     export default class ChooseCommoditySwiper extends wepy.component {
-        data = {}
-        computed = {}
-
-        methods = {}
-
-        events = {}
-
-        onLoad() {
-
+      props = {
+        list: {
+          //  Object String Number Boolean Array
+          type: Array
         }
+      }
+
+      data = {}
+      computed = {}
+
+      methods = {}
+
+      events = {}
+
+      onLoad() {
+
+      }
     }
 </script>
 

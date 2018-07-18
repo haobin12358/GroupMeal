@@ -106,8 +106,8 @@
         <view class="name">优惠</view>
       </view>
     </view>
-    <commodity-swiper></commodity-swiper>
-    <commodity-list></commodity-list>
+    <commodity-swiper :list.sync="setMealList"></commodity-swiper>
+    <commodity-list :list.sync="recommendMealList"></commodity-list>
   </view>
 </template>
 
@@ -132,7 +132,9 @@
     }
 
     data={
-      locationCity: ''
+      locationCity: '',
+      recommendMealList: [],
+      setMealList: []
     }
 
     mixins = [PositionMixin]
@@ -194,7 +196,29 @@
     }
 
     onShow(){
+
     }
+    //  套餐
+    async getSetMeal(MSid){
+      let res =await api.mealList({method: 'GET',MEtype: '套餐',MEtag: '热销',MSid})
+
+      if(res.data.status == 200){
+        this.setMealList = res.data.data;
+        this.$apply();
+      }
+    }
+
+    //  推荐
+     async getRecommendMeal(MSid){
+      let res =await api.mealList({method: 'GET',MEtag: '热销',MEtype: '',MSid})
+
+      if(res.data.status == 200){
+        this.recommendMealList = res.data.data;
+        this.$apply();
+      }
+    }
+
+
 
     onLoad(){
       var myAmapFun = new AMapWX({key:myconfig.key});
@@ -216,6 +240,11 @@
           that.locationCity = wx.getStorageSync('locationCity')
           that.selectCanteen = wx.getStorageSync('selectCanteen')
 
+          if(that.selectCanteen.MSid){
+            that.getSetMeal(that.selectCanteen.MSid)
+            that.getRecommendMeal(that.selectCanteen.MSid)
+          }
+
           that.$apply()
         },
         fail: function() {
@@ -223,7 +252,5 @@
         }
       })
     }
-
-
   }
 </script>
