@@ -66,14 +66,14 @@
           <input class="from-input" name="weight" type="number" maxlength="3"/>
           <text class="right-text">kg</text>
         </view>
-        <view class="cell">
+        <!--<view class="cell">
           <text class="cell-bd" space="emsp">年 龄：</text>
           <input class="from-input" name="age" type="number" maxlength="3"/>
           <text class="right-text">岁</text>
-        </view>
+        </view>-->
         <view class="cell">
           <text class="cell-bd" space="emsp">生 日：</text>
-          <picker mode="date" value="1995-10-03" name="date" start="1900-01-01" end="2018-07-01" bindchange="bindDateChange">
+          <picker mode="date" value="1990-01-01" name="birthday" start="1900-01-01" end="2018-07-01" bindchange="bindDateChange">
             <view class="picker">{{date}}</view>
           </picker>
         </view>
@@ -85,7 +85,7 @@
           <text class="cell-bd" space="emsp">职 业：</text>
           <input class="from-input" name="professional"/>
         </view>
-        <button class="form-button" formType="submit">注 册</button>
+        <button class="form-button" formType="submit">完 成</button>
       </form>
     </view>
   </view>
@@ -105,6 +105,25 @@
 
     }
     computed = {}
+    async questions (height, weight, birthday, idcard, professional, token) {
+      let that = this;
+      const res = await api.updateFirstUser({
+        query: {
+          USheight: height,
+          USweight: weight,
+          USbirthday: birthday,
+          UScardno: idcard,
+          USworker: professional
+        },
+        token: token,
+        method: 'POST'
+      })
+      if(res.data.status == '200'){
+        tip.success("问卷提交成功")
+        wepy.navigateBack()
+        that.$apply()
+      }else tip.error(res.data.message)
+    }
     methods = {
       bindDateChange: function(e) {
         this.setData({
@@ -112,8 +131,22 @@
         })
       },
       formSubmit (e) {
-        console.log(e.detail.value)
-      }
+        let that = this;
+        let height = e.detail.value.height;
+        let weight = e.detail.value.weight;
+        let birthday = e.detail.value.birthday;
+        let idcard = e.detail.value.idcard;
+        let professional = e.detail.value.professional;
+        birthday = birthday.replace("-", "")
+        birthday = birthday.replace("-", "")
+        if(height == ''){ tip.alert("请输入身高"); return false;}
+        if(weight == ''){ tip.alert("请输入体重"); return false;}
+        if(birthday == ''){ tip.alert("请输入生日"); return false;}
+        if(idcard == ''){ tip.alert("请输入身份证号"); return false;}
+        if(professional == ''){ tip.alert("请输入职业"); return false;}
+        let token =  wepy.getStorageSync('token')
+        that.questions(height, weight, birthday, idcard, professional, token)
+      },
     }
     events = {}
     onLoad() {

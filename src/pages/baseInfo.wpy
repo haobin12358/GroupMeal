@@ -1,84 +1,181 @@
 <style scoped lang="less">
   @import "../styles/base";
-  .container {
-
+  .container{
+    .cells{
+      padding-top: 10%;
+      .cell{
+        padding: 3% 0 3% 8%;
+        border-bottom: 4rpx solid #f2f2f2;
+        .cell-bd{
+          width: 30%;
+          float: left;
+          font-size: 28rpx;
+        }
+        .picker {
+          text-align: right;
+          padding-right:10%;
+        }
+        .head-image{
+          width: 120rpx;
+          height: 120rpx;
+          margin-left: 300rpx;
+        }
+        .from-text {
+          width: 30%;
+          float: right;
+          height: 80px;
+        }
+        .from-input {
+          width: 60%;
+          height: 28rpx;
+          font-size: 28rpx;
+          line-height: 28rpx;
+          text-align: right;
+        }
+        .right-text {
+          float: right;
+          margin-top: -7%;
+          margin-right: 10%;
+        }
+        .picker {
+          margin-left: 200rpx;
+          margin-top: 8rpx;
+          height: 40rpx;
+        }
+      }
+      .form-button {
+        width: 270rpx;
+        height: 80rpx;
+        border-radius: 8px;
+        background-color: @redPink;
+        color: #ffffff;
+        line-height: 80rpx;
+        margin-top: 20%;
+      }
+    }
   }
 </style>
+
 <template>
   <view class="container">
-
+    <view class="cells">
+      <form bindsubmit="formSubmit">
+        <view class="cell">
+          <text class="cell-bd" style="margin-top: 40rpx">头像：</text>
+          <image src="/images/default_head_image.png" class="head-image"></image>
+        </view>
+        <view class="cell">
+          <text class="cell-bd">昵称：</text>
+          <input class="from-input" name="nickName" value="{{userInfo.USname}}"/>
+        </view>
+        <view class="cell">
+          <text class="cell-bd">性别：</text>
+          <picker bindchange="bindPickerChange" name="sex" value="{{userInfo.USsex}}" range="{{array}}">
+            <view class="picker">{{array[index]}}</view>
+          </picker>
+        </view>
+        <view class="cell">
+          <text class="cell-bd">积分：</text>
+          <input class="from-input" value="{{userInfo.UScoin}}" disabled/>
+        </view>
+        <view class="cell">
+          <text class="cell-bd"> 邀请码：</text>
+          <input class="from-input" value="{{userInfo.USinvatecode}}" disabled/>
+        </view>
+        <view class="cell">
+          <text class="cell-bd">联系方式：</text>
+          <input class="from-input" value="{{userInfo.UStelphone}}" disabled/>
+        </view>
+        <button class="form-button" formType="submit">保 存</button>
+      </form>
+    </view>
   </view>
 </template>
+
 <script>
+  import wepy from 'wepy'
+  import tip from '@/utils/tip'
+  import api from '@/api/api'
 
-  import tip from '../utils/tip';
-  import api from '../api/api'
-  import wepy from 'wepy';
+  export default class Person extends wepy.page {
+    config = {}
+    components = {
 
-  export default class BaseInfo extends wepy.page {
-    config = {
-      navigationBarTitleText: '基本信息'
     }
     data = {
-      token: '',
-      name: '',
-      tel:'',
       array: ['男', '女'],
-      index: 0,
-      userInfo:{}
+      index: '',
+      userInfo: [
+        {
+          Ussex: '',
+          UStelphone:''
+        }
+      ]
     }
-    bindPickerChange(e){
-      this.index = e.detail.value
-    }
+    computed = {}
     async getPersonInfo(token) {
       let that = this;
       tip.loading();
       let res = await api.allInfo({query: {token: token}})
       if (res.data.status == '200') {
         that.userInfo = res.data.data;
+        if(that.userInfo.USsex == '男') {
+          that.index = 0
+        }if (that.userInfo.USsex == '女') {
+          that.index = 1
+        }
         tip.loaded();
         that.$apply();
       }
       else tip.error("加载失败")
     }
-
-    async updateUserInfo(params){
+    async updateInfo (nickName, sex, token) {
       let that = this;
-      tip.loading();
-      let res = await api.updateInfo({query: params, token : that.token, method: 'POST'})
+      const res = await api.updateInfo({
+        query: {
+          USname: nickName,
+          USsex: sex,
+        },
+        token: token,
+        method: 'POST'
+      })
       if(res.data.status == '200'){
-        tip.success("修改信息成功")
-        setTimeout( wx.navigateBack, 1000)
-
-      }
-      else tip.error(res.data.message)
+        tip.success("修改成功")
+        wepy.navigateBack()
+        that.$apply()
+      }else tip.error(res.data.message)
     }
-    async formSubmit(e){
-      let that = this
-      let params = {
-        USsex: that.array[this.index],
-        USname: e.detail.value.name
-      }
-      this.updateUserInfo(params)
-
-    }
-    onLoad(params) {
-      let that = this;
-      this.name = params.name;
-      this.sex = params.sex;
-      let token =  wepy.getStorageSync('token');
-      this.token = token;
-      this.getPersonInfo(token);
-      for(let i=0; i<2; i++){
-        if(params.sex == that.array[i])
-          that.index = i;
-      }
-    }
-
     methods = {
-      sexTap(v){
-        this.index = v
+      bindPickerChange: function(e) {
+        let that = this
+        console.log('picker发送选择改变，携带值为', e)
+        that.index = e.detail.value
+      },
+      formSubmit (e) {
+        let that = this;
+        let nickName = e.detail.value.nickName;
+        let sex = e.detail.value.sex;
+        if(nickName == ''){ tip.alert("请输入昵称"); return false;}
+        if(sex == ''){ tip.alert("请选择性别"); return false;}
+        if(sex == '1') {
+          sex = '女'
+        }if(sex =='0') {
+          sex='男'
+        }
+        let token =  wepy.getStorageSync('token')
+        that.updateInfo(nickName, sex, token)
+      },
+    }
+    events = {}
+    onLoad() {
+      let that = this;
+      let token =  wepy.getStorageSync('token')
+      if(token){
+        that.getPersonInfo(token)
+        // that.$parent.globalData.token = token;
+        that.$apply()
       }
-    };
+    }
   }
 </script>
+

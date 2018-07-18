@@ -13,13 +13,13 @@ const getValidate = (params) => wxRequest(params, host+'/group/meal/user/get_inf
 //  登录  UStelphone  USpassword
 const login = params => wxRequest(params, host+'/group/meal/user/login');
 //  更新基础信息
-const updateInfo = params => wxRequest(params, host+'/group/meal/user/update_info');
+const updateInfo = params => wxRequest(params, host+`/group/meal/user/update_info?token=${params.token}`);
 //  更新密码
 const updatePwd = params => wxRequest(params, host+'/group/meal/user/update_pwd');
 //  获取个人基础信息  GET
 const allInfo = params => wxRequest(params, host+`/group/meal/user/all_info?token=${params.token}`);
 //  填写第一份个人资料
-const updateFirstUser = params => wxRequest(params, host+'/group/meal/user/update_first_user');
+const updateFirstUser = params => wxRequest(params, host+`/group/meal/user/update_first_user?token=${params.token}`);
 //  忘记密码
 const forgetPwd = params => wxRequest(params, host+'/group/meal/user/forget_pwd');
 //  获取验证码
