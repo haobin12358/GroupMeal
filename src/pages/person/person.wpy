@@ -100,14 +100,14 @@
     <view class="divide"></view>
     <view class="cells">
       <view wx:if="{{isLogin}}">
-        <view class="cell">
+        <navigator class="cell" url="coupons">
           <view class="cell-bd">我的优惠券</view>
           <view class="cell-ft cell-ft-access"></view>
-        </view>
-        <view class="cell">
+        </navigator>
+        <navigator class="cell">
           <view class="cell-bd">我的喜好</view>
           <view class="cell-ft cell-ft-access"></view>
-        </view>
+        </navigator>
         <navigator class="cell" url="baseInfo?name={{userInfo.USname}}&sex={{userInfo.Ussex}}">
           <view class="cell-bd">基本信息</view>
           <view class="cell-ft cell-ft-access"></view>
