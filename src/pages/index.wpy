@@ -218,7 +218,12 @@
       }
     }
 
-
+    onShow(){
+      if(this.selectCanteen.MSid){
+        this.getSetMeal(this.selectCanteen.MSid)
+        this.getRecommendMeal(this.selectCanteen.MSid)
+      }
+    }
 
     onLoad(){
       var myAmapFun = new AMapWX({key:myconfig.key});

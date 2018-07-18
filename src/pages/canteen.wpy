@@ -9,6 +9,15 @@
     display: flex;
     flex-flow: column;
 
+    .fixed-block{
+      position: fixed;
+      width: 100%;
+      height: 100rpx;
+      bottom: 0;
+      background: #141414;
+      z-index: 10;
+    }
+
     .container-header{
       padding: 26rpx 0 18rpx 36rpx;
       display: flex;
@@ -101,6 +110,11 @@
 
                 .food-item{
                   display: flex;
+                  margin-bottom: 50rpx;
+
+                  &:last-child{
+                    margin-bottom: 0;
+                  }
 
                   image{
                     width: 160rpx;
@@ -108,6 +122,7 @@
                   }
 
                   .main-content{
+                    padding-left: 18rpx;
                     flex: 1;
                     .fz28();
 
@@ -145,6 +160,9 @@
 
                         text{
                           margin: 0 26rpx;
+                          color: #6f6f6f;
+
+                          .fz24();
                         }
                       }
                     }
@@ -154,36 +172,57 @@
             }
           }
 
+
           /*购物清单*/
           .footer{
-            height: 98rpx;
-            background: #6a6a6a;
-            display: flex;
+            height: 100rpx;
+
             /*position: absolute;*/
             /*bottom: 0;*/
             /*width: 100%;*/
 
-            .footer-left{
-              width: 558rpx;
-              padding: 24rpx 0 28rpx 50rpx;
+            /*购物清单  弹出*/
+            /*.footer-popup{*/
+              /*height: 400rpx;*/
+              /*background: #141414;*/
+            /*}*/
 
-              .num{
-                width: 46rpx;
-                height: 46rpx;
-                line-height: 46rpx;
+            .footer-resident{
+              background: #6a6a6a;
+              display: flex;
+
+              .footer-left{
+                width: 558rpx;
+                padding: 24rpx 0 28rpx 50rpx;
+                display: flex;
+                box-sizing: border-box;
+
+                .num{
+                  width: 46rpx;
+                  height: 46rpx;
+                  line-height: 46rpx;
+                  text-align: center;
+                  border-radius: 50%;
+                  margin-right: 22rpx;
+
+                  .type-pink();
+                }
+
+                .total-price{
+                  color: #ffffff;
+
+                  .fz32();
+                }
+              }
+              .footer-right{
+                flex: 1;
+                line-height: 98rpx;
                 text-align: center;
-                border-radius: 50%;
 
                 .type-pink();
               }
             }
-            .footer-right{
-              flex: 1;
-              line-height: 98rpx;
-              text-align: center;
 
-              .type-pink();
-            }
 
           }
 
@@ -236,7 +275,7 @@
       /*食堂*/
       .swiper-item-detail{
         .header{
-          padding: 28rpx 20rpx 0 36rpx;
+          padding: 6rpx 20rpx 0 36rpx;
 
           .header-title{
 
@@ -292,6 +331,8 @@
 
 <template>
   <view class="container">
+
+    <shopping-list :shopList.sync="shopList" @updateCart.user="updateCart"></shopping-list>
     <!-- 头部食堂信息-->
     <view class="container-header">
       <view class="canteen-logo">
@@ -327,7 +368,7 @@
 
               <view class="food-list">
                 <view wx:for="{{mealList[activeMenuIndex].content}}" wx:key="MEid" class="food-item">
-                  <image src="{{}}"></image>
+                  <image src="{{item.MEimage}}"></image>
                   <view class="main-content">
                     <view class="line1">{{item.MEname}}</view>
                     <view class="line2">
@@ -339,15 +380,15 @@
                     </view>
                     <view class="line4">
                       <view class="price">
-                        ￥{{item.MEdprice}}
+                        ￥{{item.MEprice}}
                       </view>
                       <view class="num-handler-block">
                         <block wx:if="{{item.CAnumber}}">
-                          <image src="../images/minus.png"></image>
+                          <image src="../images/minus.png" @tap="minusCart({{item.MEid}})"></image>
                           <text>{{item.CAnumber}}</text>
                         </block>
 
-                        <image src="../images/add.png"></image>
+                        <image src="../images/add.png" @tap="addCart({{item.MEid}})"></image>
                       </view>
                     </view>
                   </view>
@@ -356,15 +397,9 @@
             </scroll-view>
           </view>
 
-          <view class="footer">
-            <view class="footer-left">
-              <view class="num">1</view>
-              <view class="total-price"></view>
-              <view class="original-cost"></view>
-            </view>
-            <view class="footer-right">
-              去支付
-            </view>
+
+          <view class="footer" >
+
           </view>
         </view>
       </swiper-item>
@@ -522,6 +557,7 @@
         ],
 
         shopList: [], //  购物车信息
+        shopListIsPopup: false, //  购物车信息
 
         //  食堂评分
         canteenRateStarSize: 20,
@@ -531,6 +567,7 @@
 
       }
       computed = {
+        //  合并购物车数据到餐品列表
         mealList(){
           let menuList = []
           let typeNameList = []
@@ -540,6 +577,7 @@
             let currentData = data[i];
             let listIndex = 0
 
+            currentData.CAnumber = 0;
             if(this.shopList.length){
               for (let j = 0; j< this.shopList.length; j++) {
                 let currentShopList = this.shopList[j]
@@ -565,9 +603,24 @@
             }
           }
 
-
-          console.log('menuList',menuList);
+          // console.log('menuList',menuList);
           return menuList;
+        },
+
+        //  计算购物车总价
+        shopListTotal(){
+          let total = 0;
+
+          if(this.shopList && this.shopList.length){
+            for (let i =0; i < this.shopList.length; i++) {
+              let currentShop = this.shopList[i]
+
+              total += currentShop.CAnumber * currentShop.MEprice;
+            }
+          }
+
+          // console.log(total);
+          return total.toFixed(2);
         }
       }
 
@@ -596,6 +649,49 @@
               }
             }
           )
+        },
+        //  添加购物车
+        addCart(MEid){
+          console.log('addCart',MEid);
+          let token = wx.getStorageSync('token'),
+            MSid = this.canteen.MSid,
+            CAnumber = 1;
+
+          this.updateCart(token,MSid,MEid,CAnumber);
+        },
+        //  减少购物车
+        minusCart(MEid){
+          console.log('minusCart',MEid);
+          let token = wx.getStorageSync('token'),
+              MSid = this.canteen.MSid,
+              CAnumber = -1;
+
+          this.updateCart(token,MSid,MEid,CAnumber);
+        },
+        //  弹出/收起购物车
+        popShopList(){
+          this.shopListIsPopup = !this.shopListIsPopup;
+        },
+      //    shoplist组件updateCart
+        updateCart(MEid, CAnumber){
+          console.log('页面',MEid,CAnumber)
+          this.updateCart(wx.getStorageSync('token'), this.canteen.MSid, MEid, CAnumber);
+        }
+      }
+
+      /**
+       * 修改购物车数据  并获取修改后的数据
+       * @param token
+       * @param MSid  食堂id
+       * @param MEid  餐品id
+       * @param CAnumber  增减数量  1 -1
+       */
+      async updateCart(token, MSid, MEid, CAnumber){
+        let res = await api.updateCart({method: 'POST',token,MSid, query: {MEid ,CAnumber}});
+
+        if(res.data.status == 200){
+          this.getCartInfo(token, MSid);
+          this.$apply();
         }
       }
 
@@ -646,10 +742,11 @@
       }
 
       async getCartInfo(token, MSid){
-        let res = await api.getAll({method: 'GET',token,MSid})
+        let res = await api.getCartInfo({method: 'GET',token,MSid})
 
         if(res.data.status){
           this.shopList = res.data.data;
+          console.log(this.shopList);
           this.$apply();
         }
       }
@@ -667,6 +764,10 @@
       events = {}
 
       onLoad(params) {
+        // params = {
+        //   MSid: 'ed68478f-8675-11e8-b4c5-5800e3119d4a',
+        //   MSname: '海康威视一期食堂'
+        // }
         // this.getMessAbo('ed68478f-8675-11e8-b4c5-5800e3119d4a')
         this.getMessAbo(params.MSid)
         this.getRecommendMeal(params.MSid)

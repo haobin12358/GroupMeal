@@ -47,7 +47,7 @@ const getAllCity = params => wxRequest(params, host+`/group/meal/mess/get_all_ci
 //  获取购物车信息 GET
 const getCartInfo = params => wxRequest(params, host+`/group/meal/cart/get_all?token=${params.token}&MSid=${params.MSid}`);
 //  添加/减少购物车
-const updateCart = params => wxRequest(params, host+`/group/meal/cart/update`);
+const updateCart = params => wxRequest(params, host+`/group/meal/cart/update?token=${params.token}&MSid=${params.MSid}`);
 
 //  创建订单
 const makeMainOrder = params => wxRequest(params, host+`/group/meal/order/make_main_order`);
