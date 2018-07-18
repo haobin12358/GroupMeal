@@ -1,0 +1,240 @@
+<style lang="less">
+  @import "../../styles/base";
+  page {
+    height: 100%;
+  }
+  .container{
+    display: flex;
+    flex-direction: column;
+    height: 100% ;
+    .title {
+      color: #646464;
+      font-size: 28rpx;
+      text-align: center;
+      margin-top: 5%;
+      margin-bottom: 15%;
+    }
+    .cells{
+      .item-checkboxs {
+        .item-label {
+          .item-checkbox {
+            position: relative;
+          }
+          .item-image {
+            width: 182rpx;
+            height: 170rpx;
+            padding: 0 35rpx 30rpx 35rpx;
+          }
+          .item-text {
+            color: #FFFFFF;
+            font-size: 24rpx;
+            position: absolute;
+          }
+        }
+      }
+    }
+    .bottom {
+      margin-top: 10%;
+      .bottom-button {
+        color: #FFFFFF;
+        width: 270rpx;
+        height: 80rpx;
+        font-size: 28rpx;
+        line-height: 80rpx;
+        border-radius: 16rpx;
+        background-color: @redPink;
+      }
+    }
+  }
+</style>
+
+<template>
+  <view class="container">
+    <view class="title">
+      <view>选择至少一种口味爱好</view>
+      <view>方便我们为您制定您的个人食谱</view>
+    </view>
+    <view class="cells">
+      <!--<checkbox-group bindchange="checkChange">
+        <label bindtap="click" wx:for="{{items}}" wx:key="{{items}}" class="{{item.checked?'is_checked':''}}">
+          <checkbox value="{{item.name}}" name="{{item.value}}" checked="{{item.checked}}" hidden='true'></checkbox>
+          <label style="margin-left: 80px">{{item.value}}</label>
+        </label>
+      </checkbox-group>-->
+      <checkbox-group class="item-checkboxs" bindchange="checkChange">
+        <label class="item-label" bindtap="chooseChange">
+          <checkbox class="item-checkbox" value="0" name="酸" checked="false" hidden='false'></checkbox>
+          <image class="item-image" src="{{imageUrl0}}" @tap="changeImg('{{imageStatus}}', 0)"></image>
+          <label class="item-text" style="top: 296rpx;left: 110rpx">酸</label>
+        </label>
+        <label class="item-label" bindtap="chooseChange">
+          <checkbox class="item-checkbox" value="甜" name="甜" checked="false" hidden='true'></checkbox>
+          <image class="item-image" src="{{imageUrl1}}" @tap="changeImg('{{imageStatus}}', 1)"></image>
+          <label class="item-text" style="top: 296rpx;left: 360rpx">甜</label>
+        </label>
+        <label class="item-label" bindtap="chooseChange">
+          <checkbox class="item-checkbox" value="苦" name="苦" checked="false" hidden='true'></checkbox>
+          <image class="item-image" src="{{imageUrl2}}" @tap="changeImg('{{imageStatus}}', 2)"></image>
+          <label class="item-text" style="top: 296rpx;left: 610rpx">苦</label>
+        </label>
+        <label class="item-label" bindtap="chooseChange">
+          <checkbox class="item-checkbox" value="辣" name="辣" checked="false" hidden='true'></checkbox>
+          <image class="item-image" src="{{imageUrl3}}" @tap="changeImg('{{imageStatus}}', 3)"></image>
+          <label class="item-text" style="top: 511rpx;left: 110rpx">辣</label>
+        </label>
+        <label class="item-label" bindtap="chooseChange">
+          <checkbox class="item-checkbox" value="川菜" name="川菜" checked="false" hidden='true'></checkbox>
+          <image class="item-image" src="{{imageUrl4}}" @tap="changeImg('{{imageStatus}}', 4)"></image>
+          <label class="item-text" style="top: 511rpx;left: 345rpx">川菜</label>
+        </label>
+        <label class="item-label" bindtap="chooseChange">
+          <checkbox class="item-checkbox" value="粤菜" name="粤菜" checked="false" hidden='true'></checkbox>
+          <image class="item-image" src="{{imageUrl5}}" @tap="changeImg('{{imageStatus}}', 5)"></image>
+          <label class="item-text" style="top: 511rpx;left: 596rpx">粤菜</label>
+        </label>
+        <label class="item-label" bindtap="chooseChange">
+          <checkbox class="item-checkbox" value="杭帮菜" name="杭帮菜" checked="false" hidden='true'></checkbox>
+          <image class="item-image" src="{{imageUrl6}}" @tap="changeImg('{{imageStatus}}', 6)"></image>
+          <label class="item-text" style="top: 720rpx;left: 84rpx">杭帮菜</label>
+        </label>
+        <label class="item-label" bindtap="chooseChange">
+          <checkbox class="item-checkbox" value="湘菜" name="湘菜" checked="false" hidden='true'></checkbox>
+          <image class="item-image" src="{{imageUrl7}}" @tap="changeImg('{{imageStatus}}', 7)"></image>
+          <label class="item-text" style="top: 720rpx;left: 346rpx">湘菜</label>
+        </label>
+        <label class="item-label" bindtap="chooseChange">
+          <checkbox class="item-checkbox" value="东北菜" name="东北菜" checked="true" hidden='true'></checkbox>
+          <image class="item-image" src="{{imageUrl8}}" @tap="changeImg('{{imageStatus}}', 8)"></image>
+          <label class="item-text" style="top: 720rpx;left: 585rpx">东北菜</label>
+        </label>
+      </checkbox-group>
+    </view>
+    <view class="bottom">
+      <button class="bottom-button">选好了</button>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import tip from '@/utils/tip'
+  import api from '@/api/api'
+
+  export default class Person extends wepy.page {
+    config = {}
+    components = {
+
+    }
+    data = {
+      imageUrl0: '/images/flavor_group.png',
+      imageUrl1: '/images/flavor_group.png',
+      imageUrl2: '/images/flavor_group.png',
+      imageUrl3: '/images/flavor_group.png',
+      imageUrl4: '/images/flavor_group.png',
+      imageUrl5: '/images/flavor_group.png',
+      imageUrl6: '/images/flavor_group.png',
+      imageUrl7: '/images/flavor_group.png',
+      imageUrl8: '/images/flavor_group.png',
+      imageUrl: '/images/flavor_group.png',
+      imageStatus: '0'
+    }
+    async checkChange(e) {
+      var checkArr = e.detail.value;
+      // console.log(checkArr)
+    }
+    computed = {}
+    methods = {
+      chooseChange(e) {
+        // console.log('chooseChange', e)
+      },
+      changeImg(e, id) {
+        if(id == 0) {
+          if(e == 0) {
+            this.imageStatus = 1
+            this.imageUrl0 = '/images/data_count.png'
+          }if(e == 1) {
+            this.imageStatus = 0
+            this.imageUrl0 = '/images/flavor_group.png'
+          }
+        }
+        if(id == 1) {
+          if(e == 0) {
+            this.imageStatus = 1
+            this.imageUrl1 = '/images/data_count.png'
+          }if(e == 1) {
+            this.imageStatus = 0
+            this.imageUrl1 = '/images/flavor_group.png'
+          }
+        }
+        if(id == 2) {
+          if(e == 0) {
+            this.imageStatus = 1
+            this.imageUrl2 = '/images/data_count.png'
+          }if(e == 1) {
+            this.imageStatus = 0
+            this.imageUrl2 = '/images/flavor_group.png'
+          }
+        }
+        if(id == 3) {
+          if(e == 0) {
+            this.imageStatus = 1
+            this.imageUrl3 = '/images/data_count.png'
+          }if(e == 1) {
+            this.imageStatus = 0
+            this.imageUrl3 = '/images/flavor_group.png'
+          }
+        }
+        if(id == 4) {
+          if(e == 0) {
+            this.imageStatus = 1
+            this.imageUrl4 = '/images/data_count.png'
+          }if(e == 1) {
+            this.imageStatus = 0
+            this.imageUrl4 = '/images/flavor_group.png'
+          }
+        }
+        if(id == 5) {
+          if(e == 0) {
+            this.imageStatus = 1
+            this.imageUrl5 = '/images/data_count.png'
+          }if(e == 1) {
+            this.imageStatus = 0
+            this.imageUrl5 = '/images/flavor_group.png'
+          }
+        }
+        if(id == 6) {
+          if(e == 0) {
+            this.imageStatus = 1
+            this.imageUrl6 = '/images/data_count.png'
+          }if(e == 1) {
+            this.imageStatus = 0
+            this.imageUrl6 = '/images/flavor_group.png'
+          }
+        }
+        if(id == 7) {
+          if(e == 0) {
+            this.imageStatus = 1
+            this.imageUrl7 = '/images/data_count.png'
+          }if(e == 1) {
+            this.imageStatus = 0
+            this.imageUrl7 = '/images/flavor_group.png'
+          }
+        }
+        if(id == 8) {
+          if(e == 0) {
+            this.imageStatus = 1
+            this.imageUrl8 = '/images/data_count.png'
+          }if(e == 1) {
+            this.imageStatus = 0
+            this.imageUrl8 = '/images/flavor_group.png'
+          }
+        }
+      }
+    }
+    events = {}
+    onLoad() {
+
+    }
+  }
+</script>
+

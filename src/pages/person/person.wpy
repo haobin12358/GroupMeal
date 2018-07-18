@@ -104,11 +104,11 @@
           <view class="cell-bd">我的优惠券</view>
           <view class="cell-ft cell-ft-access"></view>
         </navigator>
-        <navigator class="cell">
+        <navigator class="cell" url="myHobby">
           <view class="cell-bd">我的喜好</view>
           <view class="cell-ft cell-ft-access"></view>
         </navigator>
-        <navigator class="cell" url="baseInfo?name={{userInfo.USname}}&sex={{userInfo.Ussex}}">
+        <navigator class="cell" url="baseInfo">
           <view class="cell-bd">基本信息</view>
           <view class="cell-ft cell-ft-access"></view>
         </navigator>
