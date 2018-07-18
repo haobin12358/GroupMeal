@@ -87,15 +87,15 @@
       推荐
     </view>
     <view class="list">
-      <view wx:for="aaaaaaa" wx:key="*this" class="list-item">
+      <view wx:for="{{list}}" wx:key="MEid" class="list-item">
         <view class="item-hd">
-          <image src="../images/food.jpg"></image>
+          <image src="{{item.MEimage}}"></image>
         </view>
         <view class="item-bd">
-          <view class="line1">餐品名称餐品名称餐品名称餐品名称餐品名称餐品名称</view>
-          <view class="line2">月售</view>
+          <view class="line1">{{item.MEname}}</view>
+          <view class="line2">月售 {{item.MEvolume}}</view>
           <view class="line3">当前优惠:优惠券减5元</view>
-          <view class="line4">￥20</view>
+          <view class="line4">￥{{item.MEprice}}</view>
         </view>
         <view class="item-ft">
           <button>订餐</button>
@@ -109,6 +109,13 @@
     import wepy from 'wepy'
 
     export default class CommodityList extends wepy.component {
+        props={
+          list: {
+            //  Object String Number Boolean Array
+            type: Array
+          }
+        }
+
         data = {}
         computed = {}
 

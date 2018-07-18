@@ -72,25 +72,10 @@
     </view>
     <scroll-view scroll-x="true" class="swiper" scroll-into-view="{{toView}}"
                  bindscroll="scrollHandler">
-      <view id="demo1" class="swiper-item" >
-        <image src="../images/food.jpg"></image>
-        <view class="name">餐品名称</view>
-        <view class="price">￥20</view>
-      </view>
-      <view id="demo2" class="swiper-item swiper-item-active">
-          <image src="../images/food.jpg"></image>
-          <view class="name">餐品名称</view>
-          <view class="price">￥20</view>
-      </view>
-      <view id="demo3" class="swiper-item">
-        <image src="../images/food.jpg"></image>
-        <view class="name">餐品名称</view>
-        <view class="price">￥20</view>
-      </view>
-      <view id="demo4" class="swiper-item">
-        <image src="../images/food.jpg"></image>
-        <view class="name">餐品名称</view>
-        <view class="price">￥20</view>
+      <view wx:for="{{list}}" wx:key="MEid" class="swiper-item" >
+        <image src="{{item.MEimage}}"></image>
+        <view class="name">{{item.MEname}}</view>
+        <view class="price">￥{{item.MEprice}}</view>
       </view>
     </scroll-view>
   </view>
@@ -101,34 +86,35 @@
 
 
     export default class CommoditySwiper extends wepy.component {
-        data = {
-          views: ['demo1','demo2','demo3','demo4'],
-          toView: ''
+      props = {
+        list: {
+          //  Object String Number Boolean Array
+          type: Array
         }
-        computed = {}
+      }
 
-        methods = {
-          scrollHandler(e){
-            let scrollLeft = e.scrollLeft
-            let scrollTop = e.scrollTop
-            let scrollHeight = e.scrollHeight
-            let scrollWidth = e.scrollWidth
-            let deltaX = e.deltaX
-            let deltaY = e.deltaY
-            // console.log(e);
-          }
+      data = {
+
+      }
+      computed = {}
+
+      methods = {
+        scrollHandler(e) {
+          let scrollLeft = e.scrollLeft
+          let scrollTop = e.scrollTop
+          let scrollHeight = e.scrollHeight
+          let scrollWidth = e.scrollWidth
+          let deltaX = e.deltaX
+          let deltaY = e.deltaY
+          // console.log(e);
         }
+      }
 
-        events = {}
+      events = {}
 
-        onLoad() {
-          let index = 1
-          // setInterval(function () {
-          //   this.toView = 'demo'+index;
-          //   index++;
-          //   this.$apply();
-          // }.bind(this), 1000)
-        }
+      onLoad() {
+
+      }
     }
 </script>
 

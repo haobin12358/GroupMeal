@@ -81,7 +81,6 @@
         sliderOffset() {
           let res = this.windowWidth / this.tabList.length * this.currentTab
 
-          console.log(res);
           return res
         }
       }
@@ -90,7 +89,6 @@
        switchTab(index,e) {
 
           if (this.currentTab == index) {
-            console.log('return');
           } else {
             this.currentTab = index;
             this.$emit("switchTab", this.currentTab);
@@ -106,7 +104,6 @@
         this.windowWidth = res.windowWidth
         this.sliderLeft = res.windowWidth / this.tabList.length - sliderWidth;
 
-        console.log(this.sliderLeft);
         // this.sliderOffset = (res.windowWidth / this.tabList.length * this.currentTab)*2;
 
         this.$apply();

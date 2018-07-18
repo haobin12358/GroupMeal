@@ -128,7 +128,7 @@
                     }
                     .line4{
                       display: flex;
-                      justify-content: space-around;
+                      justify-content: space-between;
 
                       .price{
                         color: @redPink;
@@ -312,21 +312,21 @@
       <!--点餐-->
       <swiper-item class="swiper-item-order" style="height: 100%">
         <!--推荐餐品滚动区域-->
-        <choose-commodity-swiper></choose-commodity-swiper>
+        <choose-commodity-swiper :list.sync="recommendMealList"></choose-commodity-swiper>
         <!--菜单区域-->
         <view class="scroll-block">
           <view class="maintain-height">
             <scroll-view scroll-y="true" class="order-slider-bar">
-              <view wx:for="{{menu}}" wx:key="typeName" class="slider-bar-item {{index == activeMenuIndex ? 'slider-bar-item-active':''}}"
+              <view wx:for="{{mealList}}" wx:key="typeName" class="slider-bar-item {{index == activeMenuIndex ? 'slider-bar-item-active':''}}"
                     @tap = "switchMenu({{index}})">
                 {{item.typeName}}
               </view>
             </scroll-view>
             <scroll-view scroll-y="true" class="order-food-list">
-              <view class="select-type">{{menu[activeMenuIndex].typeName}}</view>
+              <view class="select-type">{{mealList[activeMenuIndex].typeName}}</view>
 
               <view class="food-list">
-                <view wx:for="{{menu[activeMenuIndex].content}}" wx:key="MEid" class="food-item">
+                <view wx:for="{{mealList[activeMenuIndex].content}}" wx:key="MEid" class="food-item">
                   <image src="{{}}"></image>
                   <view class="main-content">
                     <view class="line1">{{item.MEname}}</view>
@@ -342,8 +342,11 @@
                         ￥{{item.MEdprice}}
                       </view>
                       <view class="num-handler-block">
-                        <image src="../images/minus.png"></image>
-                        <text>1</text>
+                        <block wx:if="{{item.CAnumber}}">
+                          <image src="../images/minus.png"></image>
+                          <text>{{item.CAnumber}}</text>
+                        </block>
+
                         <image src="../images/add.png"></image>
                       </view>
                     </view>
@@ -453,14 +456,13 @@
       }
 
       data = {
+        canteen: {},  //  食堂
         tabList: ['点餐', '评价', '食堂'],  //  tab
         showSlider: true, //  显示滑动条
         currentIndex: 0,  //  tabIndex
-        canteen: {},  //  食堂
-        activeMenuIndex: 0,
-        shopList: [
+        recommendMealList: [],
 
-        ],
+        activeMenuIndex: 0,
         menu: [
           {
             typeName: '热销',
@@ -518,6 +520,10 @@
             ]
           },
         ],
+
+        shopList: [], //  购物车信息
+
+        //  食堂评分
         canteenRateStarSize: 20,
         canteenRate: 4.6,
         canteenRateReadonly: true,
@@ -525,6 +531,44 @@
 
       }
       computed = {
+        mealList(){
+          let menuList = []
+          let typeNameList = []
+          let data = this.menu;
+
+          for (let i = 0; i < data.length; i++) {
+            let currentData = data[i];
+            let listIndex = 0
+
+            if(this.shopList.length){
+              for (let j = 0; j< this.shopList.length; j++) {
+                let currentShopList = this.shopList[j]
+
+                if(currentShopList.MEid == currentData.MEid){
+                  currentData.CAnumber = currentShopList.CAnumber;
+                }
+              }
+            }
+
+            if(typeNameList.includes(currentData.MEtype)){
+              listIndex = typeNameList.indexOf(currentData.MEtype);
+
+              menuList[listIndex].content.push(currentData)
+            }else{
+              typeNameList.push(currentData.MEtype);
+              menuList.push({
+                typeName: currentData.MEtype,
+                content: [
+                  currentData
+                ]
+              })
+            }
+          }
+
+
+          console.log('menuList',menuList);
+          return menuList;
+        }
       }
 
       methods = {
@@ -535,7 +579,6 @@
           this. currentIndex = currentIndex
         },
         switchMenu(index){
-          console.log(index);
           this.activeMenuIndex = index;
         },
         tapCallCanteen(){
@@ -556,6 +599,7 @@
         }
       }
 
+      //  获取食堂详情
       async getMessAbo(MSid){
         let res =await api.getMessAbo({method: 'GET', MSid ,query:{}})
 
@@ -565,11 +609,69 @@
         }
       }
 
+      async getMealList(MSid){
+        let res = await api.mealList({method: 'GET' ,MSid});
+
+        if(res.data.status == 200 ){
+          let data = res.data.data
+
+          // let menuList = []
+          // let typeNameList = []
+          //
+          // for (let i = 0; i < data.length; i++) {
+          //   let currentData = data[i];
+          //   let listIndex = 0
+          //
+          //   if(typeNameList.includes(currentData.MEtype)){
+          //     listIndex = typeNameList.indexOf(currentData.MEtype);
+          //
+          //     menuList[listIndex].content.push(currentData)
+          //   }else{
+          //     typeNameList.push(currentData.MEtype);
+          //     menuList.push({
+          //       typeName: currentData.MEtype,
+          //       content: [
+          //         currentData
+          //       ]
+          //     })
+          //   }
+          // }
+          //
+          // console.log(typeNameList);
+          // console.log(menuList);
+
+          this.menu = data;
+          this.$apply();
+        }
+      }
+
+      async getCartInfo(token, MSid){
+        let res = await api.getAll({method: 'GET',token,MSid})
+
+        if(res.data.status){
+          this.shopList = res.data.data;
+          this.$apply();
+        }
+      }
+
+      //  推荐
+      async getRecommendMeal(MSid){
+        let res =await api.mealList({method: 'GET',MEtag: '热销',MEtype: '',MSid})
+
+        if(res.data.status == 200){
+          this.recommendMealList = res.data.data;
+          this.$apply();
+        }
+      }
+
       events = {}
 
       onLoad(params) {
-        this.getMessAbo('ed68478f-8675-11e8-b4c5-5800e3119d4a')
-        // this.getMessAbo(params.MSid)
+        // this.getMessAbo('ed68478f-8675-11e8-b4c5-5800e3119d4a')
+        this.getMessAbo(params.MSid)
+        this.getRecommendMeal(params.MSid)
+        this.getCartInfo(wx.getStorageSync('token'), params.MSid)
+        this.getMealList(params.MSid)
         wx.setNavigationBarTitle({
           title: params.MSname
         })

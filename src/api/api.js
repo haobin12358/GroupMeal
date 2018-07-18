@@ -30,7 +30,7 @@ const newMeal = params => wxRequest(params, host+'/group/meal/meal/new_meal');
 //  更新餐品
 const updateMeal = params => wxRequest(params, host+'/group/meal/meal/update_meal');
 //  获取某食堂餐品列表 GET
-const mealList = params => wxRequest(params, host+`/group/meal/meal/meal_list?MSid=${params.MSid}&MEtag=${params.MEtag}`);
+const mealList = params => wxRequest(params, host + `/group/meal/meal/meal_list?MSid=${params.MSid}${params.MEtag ? '&MEtag=' + params.MEtag : ''}${params.MEtype ? '&MEtype=' + params.MEtype : ''}`);
 //  获取餐品详情  GET
 const mealAbo = params => wxRequest(params, host+`/group/meal/meal/meal_abo?MEid=${params.MEid}`);
 
@@ -44,6 +44,8 @@ const getMessAbo = params => wxRequest(params, host+`/group/meal/mess/get_mess_a
 //  获取已开放的城市  GET
 const getAllCity = params => wxRequest(params, host+`/group/meal/mess/get_all_city`);
 
+//  获取购物车信息 GET
+const getAll = params => wxRequest(params, host+`/group/meal/cart/get_all?token=${params.token}&MSid=${params.MSid}`);
 
 export default {
   register,
@@ -63,6 +65,7 @@ export default {
   newMess,
   getMessByCity,
   getMessAbo,
-  getAllCity
+  getAllCity,
+  getAll
 
 }
