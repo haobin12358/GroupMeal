@@ -44,10 +44,10 @@
         }
       }
       .form-button {
-        width: 140rpx;
-        height: 60rpx;
+        width: 200rpx;
+        height: 80rpx;
         font-size: 28rpx;
-        line-height: 60rpx;
+        line-height: 80rpx;
         border-radius: 4rpx;
         background-color: @redPink;
         color: #ffffff;
