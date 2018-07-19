@@ -11,8 +11,8 @@ export default class extends wepy.app {
   config = {
     pages: [
       'pages/index',
-      'pages/canteen',
       'pages/order',
+      'pages/canteen',
       'pages/data',
 
       'pages/chooseCanteen',//  选择食堂

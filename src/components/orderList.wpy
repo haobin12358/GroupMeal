@@ -4,7 +4,6 @@
   .order-list{
 
       .order-item{
-        height:140rpx;
         display: flex;
         border-bottom: 2rpx solid #e9e9e9;
         padding:50rpx 18rpx 60rpx 40rpx;
@@ -40,6 +39,7 @@
         .item-ft{
           display: flex;
           flex-direction: column;
+          justify-content: space-between;
 
           .fz24();
 
@@ -49,8 +49,6 @@
           }
 
           .order-action{
-            margin-top: 34rpx;
-
             button{
               height: 46rpx;
               line-height: 46rpx;
@@ -69,81 +67,64 @@
 
 <template>
   <view class="order-list">
-    <view class="order-item">
+    <view wx:for="{{list}}" wx:key="OMid" class="order-item">
       <view class="item-hd">
-        <image src="../images/food.jpg"></image>
+        <image src="{{item.Orderitems[0].MEimage}}"></image>
       </view>
-      <view class="item-bd">
-        <view class="line1">菜品1+菜品2... 等三件菜品</view>
-        <view class="line2">2018-07-09 11:23</view>
-        <view class="line3">￥22.4</view>
+      <view class="item-bd" @tap="tapMain({{item.OMid}})">
+        <view class="line1">{{item.itemsNameGather}}</view>
+        <view class="line2">{{item.OMtime}}</view>
+        <view class="line3">￥{{item.OMtotal}}</view>
       </view>
       <view class="item-ft">
         <view class="order-status">
-          订单已完成
+          {{item.OMstatus}}
         </view>
         <view class="order-action">
-          <button>去评论</button>
+            <button wx:if="{{item.OMstatus == '未支付'}}" @tap="payOrder({{item.OMid}})">去支付</button>
         </view>
+
       </view>
     </view>
-
-    <view class="order-item">
-      <view class="item-hd">
-        <image src="../images/food.jpg"></image>
-      </view>
-      <view class="item-bd">
-        <view class="line1">菜品1+菜品2... 等三件菜品</view>
-        <view class="line2">2018-07-09 11:23</view>
-        <view class="line3">￥22.4</view>
-      </view>
-      <view class="item-ft">
-        <view class="order-status">
-          待取餐
-        </view>
-        <view class="order-action">
-          <button>取餐码</button>
-        </view>
-      </view>
-    </view>
-
-    <view class="order-item">
-      <view class="item-hd">
-        <image src="../images/food.jpg"></image>
-      </view>
-      <view class="item-bd">
-        <view class="line1">菜品1+菜品2... 等三件菜品</view>
-        <view class="line2">2018-07-09 11:23</view>
-        <view class="line3">￥22.4</view>
-      </view>
-      <view class="item-ft">
-        <view class="order-status">
-          未支付
-        </view>
-        <view class="order-action">
-          <button>去支付</button>
-        </view>
-      </view>
-    </view>
-
 
   </view>
 </template>
 
 <script>
     import wepy from 'wepy'
+    import tip from '@/utils/tip'
+    import api from '@/api/api'
 
     export default class OrderList extends wepy.component {
-        data = {}
+
+      props={
+        list: {
+          type: Array,
+          default: []
+        }
+      }
+        data = {
+          orderList: []
+        }
+
         computed = {}
 
-        methods = {}
+        methods = {
+          payOrder(OMid){
+            console.log('组件去支付');
+            this.$emit('tapGoPay',OMid)
+          },
+
+          tapMain(OMid){
+            console.log('组件tap',OMid);
+
+          }
+        }
 
         events = {}
 
-        onLoad() {
 
-        }
+
     }
 </script>
 

@@ -1,10 +1,43 @@
-<style scoped lang="less">
+<style  lang="less">
+  page{
+    height: 100%;
+  }
+  .container{
+    padding: 74rpx 24rpx 0;
+    box-sizing: border-box;
+    background-color: #afb9c0;
+    height: 100%;
 
+    .card{
+        height: 972rpx;
+        width: 702rpx;
+        position: absolute;
+
+
+    }
+    .img-crown{
+      position: relative;
+      width: 84rpx;
+      height: 84rpx;
+      top: -42rpx;
+      left: 312rpx;
+    }
+
+    .test{
+      position: relative;
+
+    }
+  }
 </style>
 
 <template>
 
-  支付成功 订单详情
+  <view class="container">
+    <image class="card" src="../images/card2.png">
+
+    </image>
+    <image src="../images/sliver_crown.png" class="img-crown"></image>
+  </view>
 </template>
 
 <script>

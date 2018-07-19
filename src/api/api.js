@@ -56,7 +56,7 @@ const updateOrderStatus = params => wxRequest(params, host+`/group/meal/order/up
 //  获取订单价格
 const orderPrice = params => wxRequest(params, host+`/group/meal/order/order_price`);
 //  获取订单列表  GET
-const getOrderList = params => wxRequest(params, host+`/group/meal/order/get_order_list?token=${params.token}`);
+const getOrderList = params => wxRequest(params, host+`/group/meal/order/get_order_list`);
 //  获取订单详情  GET
 const getOrderAbo = params => wxRequest(params, host+`/group/meal/order/get_order_abo?token=${params.token}&OMid=${params.OMid}`);
 //  获取优惠券列表  GET
@@ -66,7 +66,7 @@ const createReview = params => wxRequest(params, host+`/group/meal/review/create
 //  获取评论详情  GET
 const getReview = params => wxRequest(params, host+`/group/meal/review/get_review?token=${params.token}&OMid=${params.OMid}`);
 //  获取评论详情  GET
-const payConfig = params => wxRequest(params, host+`/love/breakfast/other/payconfig?code=${params.code}&OMid=${params.OMid}`);
+const payConfig = params => wxRequest(params, host+`/group/meal/other/payconfig?code=${params.code}&OMid=${params.OMid}`);
 
 
 export default {

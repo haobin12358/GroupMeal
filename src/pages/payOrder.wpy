@@ -216,7 +216,7 @@
       <view class="payment-list-ft">
         <view class="subtotal">
           <view class="word">小计</view>
-          <view class="price">￥123</view>
+          <view class="price">￥{{shopListTotal}}</view>
 
         </view>
       </view>
@@ -347,6 +347,9 @@
                     },
                     'fail': function (res) {
                       tip.error("支付失败")
+                      setTimeout(() => {
+                        wx.navigateTo({url: '/pages/order'});
+                      }, 1000)
                     }
                   })
                 }
@@ -354,7 +357,7 @@
                   console.log(res, 'fail!')
                   tip.error("服务器开小差了")
                 }
-                api.payConfig({method: 'GET', OMid: OMid, code: res.code}).then(successFun, failFun)
+                api.payConfig({query:{ OMid: OMid, code: res.code}}).then(successFun, failFun)
               } else {
                 console.log('获取用户登录态失败！' + res.errMsg)
               }
@@ -396,9 +399,8 @@
       events = {}
 
       onLoad(params) {
+        console.log(params);
         this.getCartInfo(wx.getStorageSync('token'), params.MSid)
-
-
       }
     }
 </script>

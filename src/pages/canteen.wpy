@@ -320,7 +320,7 @@
                     <view class="line1">{{item.MEname}}</view>
                     <view class="line2">
                       <text>月售: {{item.MEvolume}}</text>
-                      <text>评分: {{item.MEvolume}}</text>
+                      <text>评分: {{item.MEfraction}}</text>
                     </view>
                     <view class="line3">
                       {{item.MEtag}}

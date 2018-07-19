@@ -168,7 +168,7 @@
           goPay(){
             console.log('页面','去支付')
             wx.navigateTo({
-              url: '/pages/payOrder'
+              url: `/pages/payOrder?MSid=${this.MSid}`
             })
           },
           //  添加购物车

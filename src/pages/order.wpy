@@ -4,7 +4,7 @@
 
 <template>
   <tab @switchTab.user="switchTab" :tabList.sync="tabList" :currentTab.sync="currentTab"></tab>
-  <order-list></order-list>
+  <order-list :list.sync="orderList" @tapGoPay.user="payOrder"></order-list>
 </template>
 
 <script>
@@ -25,17 +25,94 @@
     data = {
       tabList: ['全部','待支付','待取餐','已完成'],
       currentTab: 0,
-      msg: ''
+      msg: '',
+
+      orderList: []
     }
-    computed = {}
+    computed = {
+
+    }
 
     methods = {
       switchTab(currentTab){
         this.msg = `查询${this.tabList[currentTab]}的数据`
+
+        console.log(this.msg);
+      },
+
+      payOrder(OMid){
+        console.log('页面pay order',OMid);
+
+        wx.login({
+          success: function (res) {
+            if (res.code) {
+              console.log(res.code, 'this is code')
+              let successFun = (res3) => {
+                console.log(res3, 'gg')
+
+                let timeStamp = res3.data.timeStamp.toString()
+                wx.requestPayment({
+                  'appId': res3.data.appId,
+                  'timeStamp': timeStamp,
+                  'nonceStr': res3.data.nonceStr,
+                  'package': res3.data.package,
+                  'signType': res3.data.signType,
+                  'paySign': res3.data.paySign,
+                  'success': function (res) {
+                    tip.success("支付成功")
+                    setTimeout(() => {
+                      wx.navigateTo({url: '/pages/orderDetail?OMid=' + OMid});
+                    }, 1000)
+                  },
+                  'fail': function (res) {
+                    tip.error("支付失败")
+                  }
+                })
+              }
+              let failFun = (res) => {
+                console.log(res, 'fail!')
+                tip.error("服务器开小差了")
+              }
+              api.payConfig({query:{ OMid: OMid, code: res.code}}).then(successFun, failFun)
+            } else {
+              console.log('获取用户登录态失败！' + res.errMsg)
+            }
+          }
+        });
       }
     }
 
     events = {}
+
+    async getOrderList(){
+      let res = await api.getOrderList({query: {token: wx.getStorageSync('token')}})
+      let nameGather = ''
+
+      if (res.data.status == 200) {
+        this.orderList = res.data.data;
+
+        for (let i = 0; i < this.orderList.length; i++) {
+          nameGather = ''
+          for (let j = 0; j < this.orderList[i].Orderitems.length; j++) {
+            nameGather += this.orderList[i].Orderitems[j].MEname;
+            if (j != this.orderList[i].Orderitems.length - 1) {
+              nameGather += '+'
+            }
+          }
+          if(nameGather.length>9){
+            this.orderList[i].itemsNameGather = nameGather.substring(0,9)+`等${this.orderList[i].Orderitems.length}件菜品`;
+          }else{
+            this.orderList[i].itemsNameGather = nameGather;
+          }
+        }
+        console.log(this.orderList);
+        this.$apply()
+      }
+    }
+
+    onShow() {
+      this.getOrderList();
+    }
 
     onLoad() {
 
