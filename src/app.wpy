@@ -20,6 +20,8 @@ export default class extends wepy.app {
       'pages/nutritionRecommend',//  营养推荐
       'pages/discountMeal',//  营养推荐
       'pages/mealDetail',//  营养推荐
+      'pages/payOrder',//  结算
+      'pages/orderDetail',//  订单详情
 
       'pages/person/person',// 个人
       'pages/person/login',// 登录

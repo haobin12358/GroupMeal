@@ -50,7 +50,7 @@ const getCartInfo = params => wxRequest(params, host+`/group/meal/cart/get_all?t
 const updateCart = params => wxRequest(params, host+`/group/meal/cart/update?token=${params.token}&MSid=${params.MSid}`);
 
 //  创建订单
-const makeMainOrder = params => wxRequest(params, host+`/group/meal/order/make_main_order`);
+const makeMainOrder = params => wxRequest(params, host+`/group/meal/order/make_main_order?token=${params.token}&MSid=${params.MSid}`);
 //  修改订单状态
 const updateOrderStatus = params => wxRequest(params, host+`/group/meal/order/update_order_status`);
 //  获取订单价格

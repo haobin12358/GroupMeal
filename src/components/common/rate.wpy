@@ -29,7 +29,6 @@
     .grade{
       margin-left: 50rpx;
       color: @redPink;
-      font-size: 40rpx;
     }
   }
 
@@ -40,7 +39,7 @@
     <view class="image-block">
       <block wx:for="{{stars}}" wx:key="index">
         <image class="star-image" style="left:{{item*10}}rpx;width: {{starSize}}rpx;height: {{starSize}}rpx;"
-               src="{{key > item ?(key-item <= 0.7?halfSrc:selectedSrc) : normalSrc}}">
+               src="{{key > item ?((key-item) <= 0.71?halfSrc:selectedSrc) : normalSrc}}">
           <block wx:if="{{!readonly}}">
             <view class="item" style="left:0rpx" data-key="{{item+0.5}}" @tap="selectLeft"></view>
             <view class="item" style="left:25rpx" data-key="{{item+1}}" @tap="selectRight"></view>
@@ -57,18 +56,22 @@
   import wepy from 'wepy';
   export default class Rate extends wepy.component {
     props = {
+      //  分数  0-5
       key: {
         type: Number,
         default: 0
       },
+      //  只读  false可进行改变分数
       readonly: {
         type:Boolean,
         default:false
       },
+      //  星星图尺寸
       starSize: {
         type: Number,
         default: 50
       },
+      //  在后面显示分数
       showKey: {
         type:Boolean,
         default:false

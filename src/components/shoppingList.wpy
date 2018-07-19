@@ -107,6 +107,8 @@
       width: 100%;
       height: 100rpx;
 
+
+
       .footer-left{
         width: 558rpx;
         padding: 24rpx 0 28rpx 50rpx;
@@ -120,15 +122,22 @@
           text-align: center;
           border-radius: 50%;
           margin-right: 22rpx;
+          background: #9f9f9f;
 
           .type-pink();
         }
+
+        /*.num-zero{*/
+          /*background: #9f9f9f;*/
+        /*}*/
 
         .total-price{
           color: #ffffff;
 
           .fz32();
         }
+
+
       }
       .footer-right{
         flex: 1;
@@ -145,6 +154,7 @@
 <template>
 
   <view class="shopping-list" style="height: {{shopListIsPopup ? '100%' : '100rpx'}};">
+    <!--弹出区-->
     <view wx:if="{{shopListIsPopup}}" class="footer-popup">
       <view class="outside-area" @tap="popShopList"></view>
       <view class="content-area">
@@ -171,13 +181,14 @@
         </scroll-view>
       </view>
     </view>
-    <view class="footer-resident" @tap="popShopList">
-      <view class="footer-left">
-        <view class="num">{{shopListLength}}</view>
+    <!--底部常驻区-->
+    <view class="footer-resident" >
+      <view class="footer-left" @tap="popShopList">
+        <view class="num num-zero">{{shopListLength}}</view>
         <view class="total-price">￥{{shopListTotal}}</view>
         <view class="original-cost"></view>
       </view>
-      <view class="footer-right">
+      <view class="footer-right {{!shopListLength ? 'bg-disable': ''}}" @tap="tapGoPayHandler">
         去支付
       </view>
     </view>
@@ -186,6 +197,7 @@
 
 <script>
     import wepy from 'wepy'
+    import tip from '@/utils/tip'
 
     export default class ShoppingList extends wepy.component {
         poops = {
@@ -223,7 +235,7 @@
 
           shopListCmp(){
             return this.shopList;
-          }
+          },
         }
 
         methods = {
@@ -231,6 +243,15 @@
           popShopList(){
             this.shopListIsPopup = !this.shopListIsPopup;
             console.log('弹出/收起购物车',this.shopListIsPopup);
+          },
+          tapGoPayHandler(){
+              console.log('组件去支付');
+              if(this.shopList&&this.shopList.length){
+
+                this.$emit('tapGoPay');
+              }else{
+                tip.alert('购物车为空')
+              }
           },
 
           minusCart(MEid) {

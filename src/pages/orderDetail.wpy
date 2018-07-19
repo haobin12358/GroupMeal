@@ -1,0 +1,30 @@
+<style scoped lang="less">
+
+</style>
+
+<template>
+
+  支付成功 订单详情
+</template>
+
+<script>
+    import wepy from 'wepy'
+
+    export default class OrderDetail extends wepy.page {
+        config = {}
+
+        components = {}
+
+        data = {}
+        computed = {}
+
+        methods = {}
+
+        events = {}
+
+        onLoad(params) {
+          console.log(params.OMid);
+        }
+    }
+</script>
+

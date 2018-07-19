@@ -31,6 +31,8 @@
 
           .meal-volume{
             margin-right: 30rpx;
+            height: 76rpx;
+            line-height: 76rpx;
           }
           .meal-rate{
 
@@ -57,6 +59,19 @@
       .line3{
         color: @redPink;
       }
+      /*商品详情*/
+      .line4{
+        .info-label{
+          color: #141414;
+        }
+
+        .info-text{
+          text-indent: 2em;
+          color: #a5a5a5;
+
+          .fz24();
+        }
+      }
     }
   }
 </style>
@@ -70,25 +85,31 @@
       <view class="line1">{{meal.MEname}}</view>
       <view class="line2">
         <view class="line2-left">
-          <text class="meal-volume">
+          <view class="meal-volume">
             月售: {{meal.MEvolume}}
-          </text>
+          </view>
           <rate :starSize.sync="mealRateStarSize" :key.sync="mealRate"
                   :readonly.sync="mealRateReadonly" :showKey="mealRateShowKey"></rate>
             <!--{{meal.MEfraction}}-->
         </view>
         <view class="line2-right">
           <block wx:if="{{mealCAnumber}}">
-            <image src="../images/minus.png" @tap="minusCart({{item.MEid}})"></image>
+            <image src="../images/minus.png" @tap="minusCart({{meal.MEid}})"></image>
             <text>{{mealCAnumber}}</text>
           </block>
 
-          <image src="../images/add.png" @tap="addCart({{item.MEid}})"></image>
+          <image src="../images/add.png" @tap="addCart({{meal.MEid}})"></image>
         </view>
       </view>
       <view class="line3">￥{{meal.MEprice}}</view>
+      <view class="line4">
+        <view class="info-label">餐品详情</view>
+        <view class="info-text">
+          {{meal.MEinfo}}
+        </view>
+      </view>
     </view>
-    <shopping-list :shopList.sync="shopList" @updateCart.user="updateCart"></shopping-list>
+    <shopping-list :shopList.sync="shopList" @updateCart.user="updateCart" @tapGoPay.user="goPay"></shopping-list>
   </view>
 
 </template>
@@ -117,11 +138,13 @@
 
           //  食堂评分
           mealRateStarSize: 20,
-          mealRate: 4.6,
           mealRateReadonly: true,
           mealRateShowKey: true,
         }
         computed = {
+          mealRate(){
+              return this.meal.MEfraction
+          },
           mealCAnumber(){
             let CAnumber = 0;
 
@@ -137,46 +160,84 @@
               }
             }
 
-            console.log(CAnumber);
-
             return CAnumber
           }
         }
 
         methods = {
+          goPay(){
+            console.log('页面','去支付')
+            wx.navigateTo({
+              url: '/pages/payOrder'
+            })
+          },
           //  添加购物车
           addCart(MEid){
             console.log('addCart',MEid);
-            // let token = wx.getStorageSync('token'),
-            //   MSid = this.canteen.MSid,
-            //   CAnumber = 1;
-            //
-            // this.updateCart(token,MSid,MEid,CAnumber);
+            let token = wx.getStorageSync('token'),
+                MSid = this.MSid,
+                CAnumber = 1;
+
+            this.updateCart(token,MSid,MEid,CAnumber);
           },
           //  减少购物车
           minusCart(MEid){
             console.log('minusCart',MEid);
-            // let token = wx.getStorageSync('token'),
-            //   MSid = this.canteen.MSid,
-            //   CAnumber = -1;
-            //
-            // this.updateCart(token,MSid,MEid,CAnumber);
+            let token = wx.getStorageSync('token'),
+              MSid = this.MSid,
+              CAnumber = -1;
+
+            this.updateCart(token,MSid,MEid,CAnumber);
           },
+          //  shoplist组件updateCart
+          updateCart(MEid, CAnumber){
+            console.log('页面',MEid,CAnumber)
+            this.updateCart(wx.getStorageSync('token'), this.MSid, MEid, CAnumber);
+          }
+        }
+
+        /**
+         * 修改购物车数据  并获取修改后的数据
+         * @param token
+         * @param MSid  食堂id
+         * @param MEid  餐品id
+         * @param CAnumber  增减数量  1 -1
+         */
+        async updateCart(token, MSid, MEid, CAnumber){
+          let res = await api.updateCart({method: 'POST',token,MSid, query: {MEid ,CAnumber}});
+
+          if(res.data.status == 200){
+            this.getCartInfo(token, MSid);
+            this.$apply();
+          }
         }
 
         //  获取购物车信息
         async getCartInfo(token, MSid){
           let res = await api.getCartInfo({method: 'GET',token,MSid})
 
-          if(res.data.status){
+          if(res.data.status == 200){
             this.shopList = res.data.data;
             this.$apply();
           }
         }
 
+        async getMealAbo(MEid){
+          let res = await api.mealAbo({MEid})
+
+          if(res.data.status == 200){
+            this.meal= res.data.data;
+            this.$apply();
+          }
+        }
+
         onLoad(params) {
-          this.meal = params;
+          this.getMealAbo(params.MEid);
+          this.MSid =  params.MSid;
           this.getCartInfo(wx.getStorageSync('token'), params.MSid)
+          wx.setNavigationBarTitle({
+            title: params.MEname
+          })
         }
     }
 </script>

@@ -172,61 +172,6 @@
               }
             }
           }
-
-
-          /*购物清单*/
-          .footer{
-            height: 100rpx;
-
-            /*position: absolute;*/
-            /*bottom: 0;*/
-            /*width: 100%;*/
-
-            /*购物清单  弹出*/
-            /*.footer-popup{*/
-              /*height: 400rpx;*/
-              /*background: #141414;*/
-            /*}*/
-
-            .footer-resident{
-              background: #6a6a6a;
-              display: flex;
-
-              .footer-left{
-                width: 558rpx;
-                padding: 24rpx 0 28rpx 50rpx;
-                display: flex;
-                box-sizing: border-box;
-
-                .num{
-                  width: 46rpx;
-                  height: 46rpx;
-                  line-height: 46rpx;
-                  text-align: center;
-                  border-radius: 50%;
-                  margin-right: 22rpx;
-
-                  .type-pink();
-                }
-
-                .total-price{
-                  color: #ffffff;
-
-                  .fz32();
-                }
-              }
-              .footer-right{
-                flex: 1;
-                line-height: 98rpx;
-                text-align: center;
-
-                .type-pink();
-              }
-            }
-
-
-          }
-
         }
 
 
@@ -248,11 +193,12 @@
 
             .grade{
               .line1{
-
+                font-size: 40rpx;
               }
               .line2{
                 color: #919191;
                 margin-top: 18rpx;
+
               }
             }
 
@@ -333,7 +279,7 @@
 <template>
   <view class="container">
 
-    <shopping-list :shopList.sync="shopList" @updateCart.user="updateCart"></shopping-list>
+    <shopping-list :shopList.sync="shopList" @updateCart.user="updateCart" @tapGoPay.user="goPay"></shopping-list>
     <!-- 头部食堂信息-->
     <view class="container-header">
       <view class="canteen-logo">
@@ -588,7 +534,14 @@
         }
       }
 
+
+
       methods = {
+        goPay(){
+          wx.navigateTo({
+            url: `/pages/payOrder?MSid=${this.canteen.MSid}`
+          })
+        },
         swiperPage(e){
           this.currentIndex = e.detail.current;
         },
@@ -674,32 +627,6 @@
 
         if(res.data.status == 200 ){
           let data = res.data.data
-
-          // let menuList = []
-          // let typeNameList = []
-          //
-          // for (let i = 0; i < data.length; i++) {
-          //   let currentData = data[i];
-          //   let listIndex = 0
-          //
-          //   if(typeNameList.includes(currentData.MEtype)){
-          //     listIndex = typeNameList.indexOf(currentData.MEtype);
-          //
-          //     menuList[listIndex].content.push(currentData)
-          //   }else{
-          //     typeNameList.push(currentData.MEtype);
-          //     menuList.push({
-          //       typeName: currentData.MEtype,
-          //       content: [
-          //         currentData
-          //       ]
-          //     })
-          //   }
-          // }
-          //
-          // console.log(typeNameList);
-          // console.log(menuList);
-
           this.menu = data;
           this.$apply();
         }

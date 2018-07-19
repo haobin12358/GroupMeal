@@ -1,0 +1,33 @@
+<style scoped lang="less">
+
+</style>
+
+<template>
+  带动画的轮播图
+</template>
+
+<script>
+    import wepy from 'wepy'
+
+    export default class CommodityAnimationSwiper extends wepy.component {
+        props = {
+            xxx: {
+                //  Object String Number Boolean
+                type: Object
+            }
+        }
+
+        data = {}
+
+        computed = {}
+
+        methods = {}
+
+        events = {}
+
+        onLoad() {
+
+        }
+    }
+</script>
+

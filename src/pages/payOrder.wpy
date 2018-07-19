@@ -1,0 +1,405 @@
+<style lang="less">
+  @import "../styles/base";
+
+  .container{
+    padding-bottom: 100rpx ;
+
+    .divide{
+      height: 20rpx;
+      background-color: #f2f2f2;
+    }
+
+    .payment-list{
+      padding:24rpx 60rpx 32rpx;
+      box-sizing: border-box;
+
+      .payment-list-hd{
+        margin-bottom: 56rpx;
+
+        .delivery-method{
+          padding: 10rpx 0 10rpx 24rpx;
+          background-color: #f2f2f2;
+          margin-bottom: 6rpx;
+        }
+
+        .meal-list{
+          border: solid 1px #e8e8e8;
+          padding:0 22rpx 0 30rpx;
+
+          .meal-list-item{
+            display: flex;
+            border-bottom: 1px solid #f1f1f1;
+            padding: 28rpx 0;
+
+            &:last-child{
+              border-bottom: 0;
+            }
+
+            .item-hd{
+                width: 120rpx;
+                height: 120rpx;
+               margin-right: 20rpx;
+            }
+
+            .item-bd{
+              flex: 1;
+
+              color: #141414;
+            }
+
+             .item-ft{
+               display: flex;
+               flex-direction: column;
+               justify-content: space-between;
+               align-items: center;
+
+               .line1{
+                 color: @redPink;
+
+                 .fz32();
+               }
+
+               .line2{
+                 color: #444444;
+
+               }
+            }
+          }
+        }
+
+      }
+
+      .payment-list-bd{
+        margin-bottom: 34rpx;
+
+        .fee-detail-list  {
+          color: #444444;
+          padding-right: 50rpx;
+          padding-left: 28rpx;
+          border: solid 1px #e8e8e8;
+
+
+          .fee-detail-list-item{
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #f1f1f1;
+            padding: 28rpx 0;
+
+            &:last-child{
+              border-bottom: 0;
+            }
+          }
+        }
+      }
+
+      .payment-list-ft{
+        .subtotal{
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+
+          .word{
+            color: #444444;
+            margin-right: 30rpx;
+
+            .fz24();
+          }
+
+          .price {
+            color: @redPink;
+            margin-right: 20rpx;
+          }
+        }
+      }
+    }
+
+    .order-info{
+      .order-info-list{
+        padding: 0 60rpx;
+
+        .order-info-list-item{
+          display: flex;
+          justify-content: space-between;
+          border-bottom: 1px solid #f1f1f1;
+          padding: 28rpx 0;
+
+          &:last-child{
+            border-bottom: 0;
+          }
+
+          .item-bd{
+
+          }
+          .item-ft{
+            flex: 1;
+            text-align: right;
+          }
+        }
+      }
+    }
+
+    .footer-resident-pay{
+      background: #6a6a6a;
+      display: flex;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      height: 100rpx;
+      z-index: 10;
+
+      .footer-left{
+        width: 558rpx;
+        padding: 24rpx 0 28rpx 50rpx;
+        display: flex;
+        box-sizing: border-box;
+
+        .num{
+          width: 46rpx;
+          height: 46rpx;
+          line-height: 46rpx;
+          text-align: center;
+          border-radius: 50%;
+          margin-right: 22rpx;
+          background: #9f9f9f;
+
+          .type-pink();
+        }
+
+        .total-price{
+          color: #ffffff;
+
+          .fz32();
+        }
+      }
+      .footer-right{
+        flex: 1;
+        line-height: 98rpx;
+        text-align: center;
+
+        .type-pink();
+      }
+    }
+  }
+</style>
+
+<template>
+  <view class="container">
+    <view class="payment-list">
+      <view class="payment-list-hd">
+        <view class="delivery-method">
+          配送方式: 自取
+        </view>
+        <view class="meal-list">
+          <view wx:for="{{shopList}}" wx:key="MEid" class="meal-list-item">
+            <image class="item-hd" src="{{item.MEimage}}"></image>
+            <view class="item-bd">{{item.MEname}}</view>
+            <view class="item-ft">
+              <view class="line1">￥{{item.MEprice}}</view>
+              <view class="line2">数量:{{item.CAnumber}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="payment-list-bd">
+        <view class="fee-detail-list">
+          <view class="fee-detail-list-item">
+            <view class="item-hd">优惠</view>
+            <view class="item-ft"></view>
+          </view>
+          <view class="fee-detail-list-item">
+            <view class="item-hd">可用优惠券</view>
+            <view class="item-ft"></view>
+          </view>
+
+        </view>
+      </view>
+      <view class="payment-list-ft">
+        <view class="subtotal">
+          <view class="word">小计</view>
+          <view class="price">￥123</view>
+
+        </view>
+      </view>
+    </view>
+    <view class="divide"></view>
+    <view class="order-info">
+      <view class="order-info-list">
+        <view class="order-info-list-item">
+          <view class="item-hd">支付方式</view>
+          <view class="item-ft">微信支付</view>
+        </view>
+        <!--<view class="order-info-list-item">-->
+          <!--<view class="item-hd">下单手机号</view>-->
+          <!--<view class="item-ft">当前账号</view>-->
+        <!--</view>-->
+        <view class="order-info-list-item">
+          <view class="item-hd">订单备注</view>
+          <view class="item-ft item-ft-input ">
+            <!--<input type="text" value="{{remark}}" bindfocus="setRemarkInputTrue" bindblur="setRemarkInputFalse"/>-->
+            <input type="text" value="{{remark}}" bindinput="remarkInputHandler"/>
+          </view>
+        </view>
+
+      </view>
+    </view>
+    <view class="divide"></view>
+
+    <view class="footer-resident-pay">
+      <view class="footer-left" @tap="">
+        <view class="total-price">￥{{shopListTotal}}</view>
+        <view class="original-cost"></view>
+      </view>
+      <view class="footer-right {{!shopListLength ? 'bg-disable': ''}}" @tap="tapGoPayHandler">
+        立即付款
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+    import wepy from 'wepy'
+    import tip from '@/utils/tip'
+    import util from '@/utils/util'
+    import api from '@/api/api'
+    import ShoppingList from "@/components/shoppingList"
+
+
+    export default class PayOrder extends wepy.page {
+      config = {
+        navigationBarTitleText: '支付'
+      }
+
+      components = {
+        'shopping-list': ShoppingList,
+      }
+
+      data = {
+        shopList: [],
+        remark: '这是一条备注',
+        remarkInputFocus: true
+      }
+      computed = {
+        //  计算购物车总价
+        shopListTotal() {
+          let total = 0;
+
+          if (this.shopList && this.shopList.length) {
+            for (let i = 0; i < this.shopList.length; i++) {
+              let currentShop = this.shopList[i]
+
+              total += currentShop.CAnumber * currentShop.MEprice;
+            }
+          }
+
+          return total.toFixed(2);
+        },
+      }
+
+      async createOrder() {
+        let query = {}
+        let token = wx.getStorageSync('token');
+        let MSid = wx.getStorageSync('selectCanteen').MSid;
+
+        query = {
+          OMtime: util.getCurrentTime(),
+          OMtotal: 0,
+          OMabo: this.remark,
+          Order_items: [
+          ]
+        }
+
+        for (let i = 0; i < this.shopList.length; i++) {
+          let currentShopItem = this.shopList[i];
+
+          query.OMtotal += currentShopItem.MEprice
+          query.Order_items.push({
+            MEid: currentShopItem.MEid,
+            MEnumber: currentShopItem.CAnumber,
+          })
+        }
+
+        let res =await api.makeMainOrder({method:'POST',query,token,MSid})
+
+        if(res.data.status == 200){
+          console.log('创建订单成功',res.data.data);
+          let OMid = res.data.data.OMid;
+
+          await wx.login({
+            success: function (res) {
+              if (res.code) {
+                console.log(res.code, 'this is code')
+                let successFun = (res3) => {
+                  console.log(res3, 'gg')
+
+                  let timeStamp = res3.data.timeStamp.toString()
+                  wx.requestPayment({
+                    'appId': res3.data.appId,
+                    'timeStamp': timeStamp,
+                    'nonceStr': res3.data.nonceStr,
+                    'package': res3.data.package,
+                    'signType': res3.data.signType,
+                    'paySign': res3.data.paySign,
+                    'success': function (res) {
+                      tip.success("支付成功")
+                      setTimeout(() => {
+                        wx.navigateTo({url: '/pages/orderDetail?OMid=' + OMid});
+                      }, 1000)
+                    },
+                    'fail': function (res) {
+                      tip.error("支付失败")
+                    }
+                  })
+                }
+                let failFun = (res) => {
+                  console.log(res, 'fail!')
+                  tip.error("服务器开小差了")
+                }
+                api.payConfig({method: 'GET', OMid: OMid, code: res.code}).then(successFun, failFun)
+              } else {
+                console.log('获取用户登录态失败！' + res.errMsg)
+              }
+            }
+          });
+        }
+      }
+
+      //  获取购物车信息
+      async getCartInfo(token, MSid) {
+        let res = await api.getCartInfo({method: 'GET', token, MSid})
+
+        if (res.data.status) {
+          this.shopList = res.data.data;
+          console.log('购物车数据', this.shopList);
+
+          this.$apply();
+        }
+      }
+
+      methods = {
+        setRemarkInputFocus(bool){
+          console.log('setRemarkInputFocus',bool)
+        },
+
+        remarkInputHandler(e){
+          this.remark = e.detail.value;
+          console.log(this.remark);
+        },
+
+        tapGoPayHandler(){
+          if(this.shopList.length){
+
+            this.createOrder();
+          }
+        }
+      }
+
+      events = {}
+
+      onLoad(params) {
+        this.getCartInfo(wx.getStorageSync('token'), params.MSid)
+
+
+      }
+    }
+</script>
+

@@ -9,7 +9,7 @@ function getCurrentTime() {
   var f = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
   var s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
   var rand = Math.round(Math.random() * 899 + 100);
-  keep = y + '' + m + '' + d + '' + h + '' + f + '' + s;
+  keep = y + '-' + m + '-' + d + ' ' + h + ':' + f + ':' + s;
   return keep; //20160614134947
 }
 
@@ -66,7 +66,7 @@ function div(a, b) {
   } catch (g) { }
   return c = Number(a.toString().replace(".", "")), d = Number(b.toString().replace(".", "")), mul(c / d, Math.pow(10, f - e));
 }
-//浮点型加法函数   
+//浮点型加法函数
 function accAdd(arg1, arg2) {
   var r1, r2, m;
   try {
@@ -114,7 +114,7 @@ function replaceMaohao(txt) {
 }
 //转换星星分数
 function convertStarArray(score) {
-  //1 全星,0 空星,2半星 
+  //1 全星,0 空星,2半星
   var arr = []
   for (var i = 1; i <= 5; i++) {
     if (score >= i) {
