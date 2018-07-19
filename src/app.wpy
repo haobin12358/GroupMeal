@@ -20,13 +20,14 @@ export default class extends wepy.app {
       'pages/nutritionRecommend',//  营养推荐
       'pages/discountMeal',//  营养推荐
 
+      'pages/person/person',// 个人
       'pages/person/login',// 登录
       'pages/person/register',// 注册
-      'pages/person/person',// 个人
       'pages/person/myHobby',// 我的喜好
       'pages/person/chooseHobby',// 选择喜好
       'pages/person/coupons',// 优惠券
       'pages/person/forgetPwd',// 忘记密码
+      'pages/person/memberCenter',// 会员中心
       'pages/person/settings',// 设置
       'pages/person/baseInfo',// 基本信息
       'pages/person/setUp',// 修改密码

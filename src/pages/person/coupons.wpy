@@ -44,8 +44,8 @@
           height: 200rpx;
           padding: 20rpx 0 20rpx 50rpx;
           /*position: absolute;*/
-          top: 0;
-          left: 0;
+          /*top: 0;*/
+          /*left: 0;*/
         }
         .item-cocut-symbol {
           top: 32%;

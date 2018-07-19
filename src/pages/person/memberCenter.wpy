@@ -1,0 +1,198 @@
+<style lang="less">
+  @import "../../styles/base";
+  page {
+    height: 100%;
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    height: 100% ;
+    .member-top {
+      position: relative;
+      .top-image {
+        width: 612rpx;
+        height: 324rpx;
+        padding: 46rpx 0 46rpx 70rpx;
+      }
+      .member-icon {
+        top: 25%;
+        left: 18%;
+        width: 56rpx;
+        height: 40rpx;
+        position: absolute;
+      }
+      .member-level {
+        top: 25%;
+        left: 29%;
+        color: #FFFFFF;
+        font-size: 32rpx;
+        position: absolute;
+      }
+    }
+    .member-bottom {
+      .bottom-titles {
+        .bottom-line1 {
+          height: 22rpx;
+          margin-bottom: 28rpx;
+          background-color: #efefef;
+        }
+        .bottom-line2 {
+          float: left;
+          width: 132rpx;
+          height: 6rpx;
+          margin: 21rpx 16rpx 0 16rpx;
+          background-color: #d1d1d1;
+        }
+        .bottom-title {
+          float: left;
+          color: #444444;
+          font-size: 32rpx;
+        }
+      }
+      .bottom-questions {
+        width: 612rpx;
+        height: 172rpx;
+        margin: 120rpx 0 0 70rpx;
+        border: solid 1px #bcbcbc;
+        .activity-title{
+          width: 168rpx;
+          color: @redPink;
+          font-size: 28rpx;
+          margin: -75rpx 0 0 22rpx;
+        }
+        .activity-status {
+          width: 60rpx;
+          color: #ffffff;
+          font-size: 20rpx;
+          margin: -65rpx 0 0 540rpx;
+        }
+        .activity-content{
+          width: 252rpx;
+          color: #444444;
+          font-size: 28rpx;
+          margin: 53rpx 0 0 22rpx;
+        }
+        .activity-page{
+          float: right;
+          width: 90rpx;
+          color: @redPink;
+          font-size: 28rpx;
+          margin: -84rpx 94rpx 0 0;
+        }
+        .cell-ft-access{
+          margin: -82rpx 0 0 550rpx;
+          position: relative;
+        }
+        .cell-ft-access:after, .cell-ft-access:before {
+          width: 0;
+          height: 0;
+          border: 20rpx solid transparent;
+          border-left-color: @redPink;
+          position: absolute;
+          content: "";
+        }
+        .cell-ft-access:before{
+          z-index: 1;
+          top: 0;
+          left: -2rpx;
+          border-left-color: white;
+        }
+        .activity-prompt {
+          width: 240rpx;
+          color: #444444;
+          font-size: 20rpx;
+          margin: -35rpx 0 0 330rpx;
+        }
+        .done-image {
+          width: 130rpx;
+          height: 100rpx;
+          margin-left: 79.3%;
+        }
+      }
+    }
+  }
+</style>
+
+<template>
+  <view class="container">
+    <view class="member-top">
+      <image class="top-image" src="/images/member_center.png"></image>
+      <image class="member-icon" src="/images/glod_crown.png"></image>
+      <view class="member-level">黄金会员</view>
+    </view>
+    <view class="member-bottom">
+      <view class="bottom-titles">
+        <view class="bottom-line1"></view>
+        <view class="bottom-line2" style="margin-left: 22%"></view>
+        <view class="bottom-title">活动中心</view>
+        <view class="bottom-line2"></view>
+      </view>
+      <view wx:if="{{questionsDone}}">
+        <view class="bottom-questions">
+          <view class="activity-title" style="margin: 30rpx 0 0 20rpx">填问卷得好礼</view>
+          <view class="activity-content" style="margin: 20rpx 0 0 20rpx">百分百获得首单优惠</view>
+          <navigator class="activity-page" style="margin: -74rpx 70rpx 0 0" url="firstQuestionnaire">去填写</navigator>
+          <view class="cell-ft-access" style="margin: -70rpx 0 0 560rpx"></view>
+        </view>
+      </view>
+      <view wx:if="{{!questionsDone}}">
+        <view class="bottom-questions">
+          <image class="done-image" src="/images/questions_done.png"></image>
+          <view class="activity-title">填问卷得好礼</view>
+          <view class="activity-status">已参与</view>
+          <view class="activity-content">百分百获得首单优惠</view>
+          <view class="activity-prompt">优惠卷已放入我的优惠卷中</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import tip from '@/utils/tip'
+  import api from '@/api/api'
+
+  export default class Person extends wepy.page {
+    config = {
+      navigationBarTitleText: '会员中心'
+    }
+    components = {
+
+    }
+    data = {
+      questionsDone: true,
+      userInfo: []
+    }
+    computed = {}
+    methods = {
+
+    }
+    async getPersonInfo(token) {
+      let that = this;
+      tip.loading();
+      let res = await api.allInfo({query: {token: token}})
+      if (res.data.status == '200') {
+        that.userInfo = res.data.data;
+        tip.loaded();
+        that.$apply();
+      }
+      else tip.error("加载失败")
+    }
+    events = {}
+    onLoad() {
+
+    }
+    onShow() {
+      let that = this;
+      let token =  wepy.getStorageSync('token')
+      if(token){
+        that.getPersonInfo(token)
+        this.isLogin = true
+        // that.$parent.globalData.token = token;
+        that.$apply()
+      }
+    }
+  }
+</script>
+

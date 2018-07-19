@@ -156,7 +156,7 @@
         if(id == 0) {
           if(e == 0) {
             this.imageStatus0 = 1
-            this.imageUrl0 = '/images/data_count.png'
+            this.imageUrl0 = '/images/flavor_choose.png'
           }if(e == 1) {
             this.imageStatus0 = 0
             this.imageUrl0 = '/images/flavor_group.png'
@@ -165,7 +165,7 @@
         if(id == 1) {
           if(e == 0) {
             this.imageStatus1 = 1
-            this.imageUrl1 = '/images/data_count.png'
+            this.imageUrl1 = '/images/flavor_choose.png'
           }if(e == 1) {
             this.imageStatus1 = 0
             this.imageUrl1 = '/images/flavor_group.png'
@@ -174,7 +174,7 @@
         if(id == 2) {
           if(e == 0) {
             this.imageStatus2 = 1
-            this.imageUrl2 = '/images/data_count.png'
+            this.imageUrl2 = '/images/flavor_choose.png'
           }if(e == 1) {
             this.imageStatus2 = 0
             this.imageUrl2 = '/images/flavor_group.png'
@@ -183,7 +183,7 @@
         if(id == 3) {
           if(e == 0) {
             this.imageStatus3 = 1
-            this.imageUrl3 = '/images/data_count.png'
+            this.imageUrl3 = '/images/flavor_choose.png'
           }if(e == 1) {
             this.imageStatus3 = 0
             this.imageUrl3 = '/images/flavor_group.png'
@@ -192,7 +192,7 @@
         if(id == 4) {
           if(e == 0) {
             this.imageStatus4 = 1
-            this.imageUrl4 = '/images/data_count.png'
+            this.imageUrl4 = '/images/flavor_choose.png'
           }if(e == 1) {
             this.imageStatus4 = 0
             this.imageUrl4 = '/images/flavor_group.png'
@@ -201,7 +201,7 @@
         if(id == 5) {
           if(e == 0) {
             this.imageStatus5 = 1
-            this.imageUrl5 = '/images/data_count.png'
+            this.imageUrl5 = '/images/flavor_choose.png'
           }if(e == 1) {
             this.imageStatus5 = 0
             this.imageUrl5 = '/images/flavor_group.png'
@@ -210,7 +210,7 @@
         if(id == 6) {
           if(e == 0) {
             this.imageStatus6 = 1
-            this.imageUrl6 = '/images/data_count.png'
+            this.imageUrl6 = '/images/flavor_choose.png'
           }if(e == 1) {
             this.imageStatus6 = 0
             this.imageUrl6 = '/images/flavor_group.png'
@@ -219,7 +219,7 @@
         if(id == 7) {
           if(e == 0) {
             this.imageStatus7 = 1
-            this.imageUrl7 = '/images/data_count.png'
+            this.imageUrl7 = '/images/flavor_choose.png'
           }if(e == 1) {
             this.imageStatus7 = 0
             this.imageUrl7 = '/images/flavor_group.png'
@@ -228,7 +228,7 @@
         if(id == 8) {
           if(e == 0) {
             this.imageStatus8 = 1
-            this.imageUrl8 = '/images/data_count.png'
+            this.imageUrl8 = '/images/flavor_choose.png'
           }if(e == 1) {
             this.imageStatus8 = 0
             this.imageUrl8 = '/images/flavor_group.png'

@@ -90,10 +90,18 @@
     </view>
     <view class="divide"></view>
     <view class="cells">
-      <view class="cell">
-        <view class="cell-bd">
-          会员中心
-          <image src="../../images/glod_crown.png" class="cell-image"></image>
+      <view wx:if="{{isLogin}}">
+        <navigator class="cell" url="memberCenter">
+          <view class="cell-bd">会员中心
+            <image src="../../images/glod_crown.png" class="cell-image"></image>
+          </view>
+        </navigator>
+      </view>
+      <view wx:if="{{!isLogin}}">
+        <view class="cell">
+          <view class="cell-bd">会员中心
+            <image src="../../images/glod_crown.png" class="cell-image"></image>
+          </view>
         </view>
       </view>
     </view>
