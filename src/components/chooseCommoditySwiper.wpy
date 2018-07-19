@@ -113,7 +113,10 @@
       data = {}
       computed = {}
 
-      methods = {}
+      methods = {
+        tapItem(item){
+        }
+      }
 
       events = {}
 

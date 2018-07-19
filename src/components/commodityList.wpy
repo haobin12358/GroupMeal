@@ -87,7 +87,7 @@
       推荐
     </view>
     <view class="list">
-      <view wx:for="{{list}}" wx:key="MEid" class="list-item">
+      <view wx:for="{{list}}" wx:key="MEid" class="list-item" @tap="tapItem({{item}})">
         <view class="item-hd">
           <image src="{{item.MEimage}}"></image>
         </view>
@@ -119,7 +119,12 @@
         data = {}
         computed = {}
 
-        methods = {}
+        methods = {
+          tapItem(item){
+            console.log('组件','tapItem')
+            this.$emit('tapItem', item)
+          }
+        }
 
         events = {}
 

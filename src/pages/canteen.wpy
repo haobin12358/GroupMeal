@@ -66,6 +66,7 @@
           flex-direction: column;
           border-top: solid 1px #e8e8e8;
           height: 100%;
+          padding-bottom: 100rpx;
 
           /*菜单和菜品wrap 为了撑满*/
           .maintain-height{
@@ -398,9 +399,7 @@
           </view>
 
 
-          <view class="footer" >
-
-          </view>
+          <!--<view class="footer" ></view>-->
         </view>
       </swiper-item>
       <!--评价-->
@@ -499,6 +498,7 @@
 
         activeMenuIndex: 0,
         menu: [],
+        tagNameList: ['热销'],  //  menu 要额外显示的tag
 
         shopList: [], //  购物车信息
         shopListIsPopup: false, //  购物车信息
@@ -516,7 +516,7 @@
           let menuList = []
           let typeNameList = []
           //  选择显示在侧边栏顶部tag
-          let tagNameList = ['热销']
+          let tagNameList = this.tagNameList;
           let data = this.menu;
 
           //  将tag放在前面
@@ -539,6 +539,8 @@
 
                 if(currentShopList.MEid == currentData.MEid){
                   currentData.CAnumber = currentShopList.CAnumber;
+
+                  break;
                 }
               }
             }
@@ -703,6 +705,7 @@
         }
       }
 
+      //  获取购物车信息
       async getCartInfo(token, MSid){
         let res = await api.getCartInfo({method: 'GET',token,MSid})
 

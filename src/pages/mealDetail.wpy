@@ -1,0 +1,183 @@
+<style scoped lang="less">
+  @import "../styles/base";
+
+  .container{
+    padding-bottom: 100rpx ;
+
+    .meal-image{
+      height: 750rpx;
+
+      image{
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .main-content{
+      padding: 24rpx 38rpx 18rpx 54rpx;
+
+      .line1{
+        .fz32();
+      }
+
+      .line2{
+        color: #a5a5a5;
+        .fz24();
+        display: flex;
+        justify-content: space-between;
+
+        .line2-left {
+          display: flex;
+
+          .meal-volume{
+            margin-right: 30rpx;
+          }
+          .meal-rate{
+
+          }
+        }
+        .line2-right{
+          display: flex;
+          align-items: center;
+
+          image{
+            width: 44rpx;
+            height: 44rpx;
+          }
+
+          text{
+            margin: 0 26rpx;
+            color: #6f6f6f;
+
+            .fz24();
+          }
+        }
+      }
+
+      .line3{
+        color: @redPink;
+      }
+    }
+  }
+</style>
+
+<template>
+  <view class="container">
+    <view class="meal-image">
+      <image src="{{meal.MEimage}}"></image>
+    </view>
+    <view class="main-content">
+      <view class="line1">{{meal.MEname}}</view>
+      <view class="line2">
+        <view class="line2-left">
+          <text class="meal-volume">
+            月售: {{meal.MEvolume}}
+          </text>
+          <rate :starSize.sync="mealRateStarSize" :key.sync="mealRate"
+                  :readonly.sync="mealRateReadonly" :showKey="mealRateShowKey"></rate>
+            <!--{{meal.MEfraction}}-->
+        </view>
+        <view class="line2-right">
+          <block wx:if="{{mealCAnumber}}">
+            <image src="../images/minus.png" @tap="minusCart({{item.MEid}})"></image>
+            <text>{{mealCAnumber}}</text>
+          </block>
+
+          <image src="../images/add.png" @tap="addCart({{item.MEid}})"></image>
+        </view>
+      </view>
+      <view class="line3">￥{{meal.MEprice}}</view>
+    </view>
+    <shopping-list :shopList.sync="shopList" @updateCart.user="updateCart"></shopping-list>
+  </view>
+
+</template>
+
+<script>
+    import wepy from 'wepy'
+    import ShoppingList from "@/components/shoppingList"
+    import tip from '@/utils/tip'
+    import api from '@/api/api'
+    import Rate from "@/components/common/rate"
+
+    export default class MealDetail extends wepy.page {
+        config = {}
+
+        components = {
+          'shopping-list': ShoppingList,
+          rate: Rate,
+
+        }
+
+        data = {
+          meal:{
+            CAnumber: 1,
+          },
+          shopList: [],
+
+          //  食堂评分
+          mealRateStarSize: 20,
+          mealRate: 4.6,
+          mealRateReadonly: true,
+          mealRateShowKey: true,
+        }
+        computed = {
+          mealCAnumber(){
+            let CAnumber = 0;
+
+            if(this.shopList.length) {
+              for (let i = 0; i < this.shopList.length; i++) {
+                let currentShopList = this.shopList[i]
+
+                if(currentShopList.MEid == this.meal.MEid){
+                  CAnumber = currentShopList.CAnumber;
+
+                  break;
+                }
+              }
+            }
+
+            console.log(CAnumber);
+
+            return CAnumber
+          }
+        }
+
+        methods = {
+          //  添加购物车
+          addCart(MEid){
+            console.log('addCart',MEid);
+            // let token = wx.getStorageSync('token'),
+            //   MSid = this.canteen.MSid,
+            //   CAnumber = 1;
+            //
+            // this.updateCart(token,MSid,MEid,CAnumber);
+          },
+          //  减少购物车
+          minusCart(MEid){
+            console.log('minusCart',MEid);
+            // let token = wx.getStorageSync('token'),
+            //   MSid = this.canteen.MSid,
+            //   CAnumber = -1;
+            //
+            // this.updateCart(token,MSid,MEid,CAnumber);
+          },
+        }
+
+        //  获取购物车信息
+        async getCartInfo(token, MSid){
+          let res = await api.getCartInfo({method: 'GET',token,MSid})
+
+          if(res.data.status){
+            this.shopList = res.data.data;
+            this.$apply();
+          }
+        }
+
+        onLoad(params) {
+          this.meal = params;
+          this.getCartInfo(wx.getStorageSync('token'), params.MSid)
+        }
+    }
+</script>
+

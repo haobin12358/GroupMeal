@@ -106,8 +106,8 @@
         <view class="name">优惠</view>
       </view>
     </view>
-    <commodity-swiper :list.sync="setMealList"></commodity-swiper>
-    <commodity-list :list.sync="recommendMealList"></commodity-list>
+    <commodity-swiper :list.sync="setMealList" @tapItem.user="goMealDetail"></commodity-swiper>
+    <commodity-list :list.sync="recommendMealList" @tapItem.user="goMealDetail"></commodity-list>
   </view>
 </template>
 
@@ -192,7 +192,12 @@
           });
         }
       },
+      //
+      goMealDetail(item){
+        item.MSid = this.selectCanteen.MSid;
 
+        this.$navigate('/pages/mealDetail',item);
+      }
     }
 
     onShow(){

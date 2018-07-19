@@ -71,8 +71,8 @@
       <view class="showMore">查看更多</view>
     </view>
     <scroll-view scroll-x="true" class="swiper" scroll-into-view="{{toView}}"
-                 bindscroll="scrollHandler">
-      <view wx:for="{{list}}" wx:key="MEid" class="swiper-item" >
+                 bindscroll="scrollHandler" >
+      <view wx:for="{{list}}" wx:key="MEid" class="swiper-item" @tap="tapItem({{item}})">
         <image src="{{item.MEimage}}"></image>
         <view class="name">{{item.MEname}}</view>
         <view class="price">￥{{item.MEprice}}</view>
@@ -107,6 +107,10 @@
           let deltaX = e.deltaX
           let deltaY = e.deltaY
           // console.log(e);
+        },
+        tapItem(item){
+          console.log('组件','tapItem')
+          this.$emit('tapItem', item)
         }
       }
 
