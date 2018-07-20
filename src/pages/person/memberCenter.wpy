@@ -28,6 +28,18 @@
         font-size: 32rpx;
         position: absolute;
       }
+      .member-text {
+        top: 63%;
+        left: 18%;
+        width: 100%;
+        position: absolute;
+        .member-level-text {
+          .fz28;
+          width: 40%;
+          float: left;
+          color: #ffffff;
+        }
+      }
     }
     .member-bottom {
       .bottom-titles {
@@ -118,7 +130,11 @@
     <view class="member-top">
       <image class="top-image" src="/images/member_center.png"></image>
       <image class="member-icon" src="/images/glod_crown.png"></image>
-      <view class="member-level">黄金会员</view>
+      <view class="member-level">普通会员</view>
+      <view class="member-text">
+        <view class="member-level-text">会员等级：{{userInfo.USlevel}}</view>
+        <view class="member-level-text">会员积分：{{userInfo.UScoin}}</view>
+      </view>
     </view>
     <view class="member-bottom">
       <view class="bottom-titles">
@@ -169,13 +185,14 @@
 
     }
     async getPersonInfo(token) {
-      let that = this;
-      tip.loading();
       let res = await api.allInfo({query: {token: token}})
       if (res.data.status == '200') {
-        that.userInfo = res.data.data;
-        tip.loaded();
-        that.$apply();
+        this.userInfo = res.data.data;
+        console.log(this.userInfo)
+        if(this.userInfo.is_true == 601) {
+          this.questionsDone = false
+        }
+        this.$apply();
       }
       else tip.error("加载失败")
     }
