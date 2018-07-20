@@ -314,7 +314,7 @@
               <view class="select-type">{{mealList[activeMenuIndex].typeName}}</view>
 
               <view class="food-list">
-                <view wx:for="{{mealList[activeMenuIndex].content}}" wx:key="MEid" class="food-item">
+                <view wx:for="{{mealList[activeMenuIndex].content}}" wx:key="MEid" class="food-item" @tap="tapMealItem({{item}})">
                   <image src="{{item.MEimage}}"></image>
                   <view class="main-content">
                     <view class="line1">{{item.MEname}}</view>
@@ -331,11 +331,11 @@
                       </view>
                       <view class="num-handler-block">
                         <block wx:if="{{item.CAnumber}}">
-                          <image src="../images/minus.png" @tap="minusCart({{item.MEid}})"></image>
+                          <image src="../images/minus.png" @tap.stop="minusCart({{item.MEid}})"></image>
                           <text>{{item.CAnumber}}</text>
                         </block>
 
-                        <image src="../images/add.png" @tap="addCart({{item.MEid}})"></image>
+                        <image src="../images/add.png" @tap.stop="addCart({{item.MEid}})"></image>
                       </view>
                     </view>
                   </view>
@@ -593,6 +593,10 @@
         updateCart(MEid, CAnumber){
           console.log('页面',MEid,CAnumber)
           this.updateCart(wx.getStorageSync('token'), this.canteen.MSid, MEid, CAnumber);
+        },
+        tapMealItem(item){
+          item.MSid = this.canteen.MSid;
+          this.$navigate('/pages/mealDetail',item);
         }
       }
 

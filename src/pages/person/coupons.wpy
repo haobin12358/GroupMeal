@@ -139,13 +139,11 @@
 
     }
     async getCardpkg(token) {
-      let that = this;
-      tip.loading();
       let res = await api.getCardpkg({query: {token: token}})
+
       if (res.data.status == '200') {
-        that.couponList = res.data.data;
-        tip.loaded();
-        that.$apply();
+        this.couponList = res.data.data;
+        this.$apply();
       }
       else tip.error("加载失败")
     }
@@ -154,12 +152,12 @@
     }
     events = {}
     onShow() {
-      let that = this;
       let token =  wepy.getStorageSync('token')
+
       if(token){
-        that.getCardpkg(token)
+        this.getCardpkg(token)
         // that.$parent.globalData.token = token;
-        that.$apply()
+        this.$apply()
       }
     }
   }

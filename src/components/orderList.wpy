@@ -40,6 +40,7 @@
           display: flex;
           flex-direction: column;
           justify-content: space-between;
+          min-width: 120rpx;
 
           .fz24();
 
@@ -67,25 +68,27 @@
 
 <template>
   <view class="order-list">
-    <view wx:for="{{list}}" wx:key="OMid" class="order-item">
-      <view class="item-hd">
-        <image src="{{item.Orderitems[0].MEimage}}"></image>
-      </view>
-      <view class="item-bd" @tap="tapMain({{item.OMid}})">
-        <view class="line1">{{item.itemsNameGather}}</view>
-        <view class="line2">{{item.OMtime}}</view>
-        <view class="line3">￥{{item.OMtotal}}</view>
-      </view>
-      <view class="item-ft">
-        <view class="order-status">
-          {{item.OMstatus}}
+    <block  wx:for="{{list}}" wx:key="OMid" >
+      <view wx:if="{{filter == '全部' || filter == item.OMstatus}}" class="order-item">
+        <view class="item-hd">
+          <image src="{{item.Orderitems[0].MEimage}}"></image>
         </view>
-        <view class="order-action">
+        <view class="item-bd" @tap="tapMain({{item.OMid}})">
+          <view class="line1">{{item.itemsNameGather}}</view>
+          <view class="line2">{{item.OMtime}}</view>
+          <view class="line3">￥{{item.OMtotal}}</view>
+        </view>
+        <view class="item-ft">
+          <view class="order-status">
+            {{item.OMstatus}}
+          </view>
+          <view class="order-action">
             <button wx:if="{{item.OMstatus == '未支付'}}" @tap="payOrder({{item.OMid}})">去支付</button>
+          </view>
         </view>
-
       </view>
-    </view>
+    </block>
+
 
   </view>
 </template>
@@ -101,6 +104,11 @@
         list: {
           type: Array,
           default: []
+        },
+        //  筛选显示  OMstatus
+        filter: {
+          type: String,
+          default: '未支付'
         }
       }
         data = {

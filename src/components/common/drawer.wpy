@@ -1,76 +1,70 @@
 <style scoped lang="less">
-  .drawer{
-    .drawer_screen {
-      width: 100%;
-      height: 100%;
-      position: fixed;
-      top: 0;
-      left: 0;
-      background: #000;
-      opacity: 0.2;
-      overflow: hidden;
-      z-index: 1000;
-      color: #fff;
-    }
+  .drawer_screen{
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    background: #CCCCCC;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    opacity: 0.2;
 
-    .drawer_attr_box {
-      width: 100%;
-      overflow: hidden;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      z-index: 2000;
-      background: #fff;
+  }
+  .drawer_content{
+    width: 100%;
 
-      .scroll-y-view{
-        height: 360rpx;
-      }
+    z-index: 2000;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    background: #ffffff;
+
+
+    .scroll-view{
+      max-height: 600rpx;
+      /*min-height: 300rpx;*/
     }
   }
 </style>
 
 <template>
-  <view class="drawer">
-    <view class="drawer_screen" @tap="setModalStatus" wx:if="{{showModalStatus}}"></view>
-    <view class="drawer_attr_box" animation="{{animationData}}" wx:if="{{showModalStatus}}">
-      <scroll-view class="scroll-y-view" scroll-y="true">
+  <block wx:if="{{show}}">
+    <view class="drawer_screen" @tap="hideDrawer"></view>
+    <view class="drawer_content">
+      <view class="scroll-view" scroll-y="true">
         <slot></slot>
-      </scroll-view>
+      </view>
     </view>
-  </view>
+  </block>
+
 </template>
 
 <script>
     import wepy from 'wepy'
 
     export default class Drawer extends wepy.component {
-        data = {
-          modalStatus: 1
+      props = {
+        //  显示抽屉
+        show: {
+          //  Object String Number Boolean
+          type: Boolean,
+          default: false
         }
-        computed = {}
+      }
 
-        methods = {
-          setModalStatus(){
-            var animation = wx.createAnimation({
-              duration: 200,
-              timingFunction: "linear",
-              delay: 0
-            })
-            this.animation = animation
-            animation.translateY(300).step()
-            this.setData({
-              animationData: animation.export()
-            })
+        data = {}
 
-            if(this.modalStatus){
-              console.log('关闭抽屉');
-            }else{
-              console.log('打开抽屉');
-            }
-          }
+        computed = {
+
         }
 
-
+      methods = {
+        hideDrawer() {
+          this.$emit('hide')
+        }
+      }
 
         events = {}
 

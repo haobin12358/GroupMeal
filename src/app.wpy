@@ -10,20 +10,22 @@ import 'wepy-async-function'
 export default class extends wepy.app {
   config = {
     pages: [
-      'pages/index',
-      'pages/order',
-      'pages/canteen',
-      'pages/data',
+      'pages/index',  //  首页
+      'pages/order',  //  订单
+      'pages/data', //  数据
+      'pages/person/person',// 个人
 
       'pages/chooseCanteen',//  选择食堂
-      'pages/purchaseRecently',//  营养推荐
+      'pages/purchaseRecently',//  最近购买
       'pages/nutritionRecommend',//  营养推荐
-      'pages/discountMeal',//  营养推荐
-      'pages/mealDetail',//  营养推荐
+      'pages/discountMeal',//  优惠
+
+      'pages/canteen',  //  食堂详情
+      'pages/mealDetail',//  餐品详情
+
       'pages/payOrder',//  结算
       'pages/orderDetail',//  订单详情
 
-      'pages/person/person',// 个人
       'pages/person/login',// 登录
       'pages/person/register',// 注册
       'pages/person/myHobby',// 我的喜好

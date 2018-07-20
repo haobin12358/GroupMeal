@@ -9,11 +9,40 @@
     height: 100%;
 
     .card{
+      position: absolute;
+
+      .card-bg{
         height: 972rpx;
         width: 702rpx;
-        position: absolute;
+      }
 
+      .card-top-section{
+        position: relative;
+        left: 0;
+        width: 100% ;
+        top: 0;
+        height: 494rpx;
 
+        background-color: red;
+      }
+      .card-middle-section{
+        position: relative;
+        left: 0;
+        width: 100% ;
+        top: 494rpx;
+        height: 242rpx;
+        background-color: green;
+
+      }
+      .card-bottom-section{
+        position: relative;
+        left: 0;
+        width: 100% ;
+        top: 736rpx;
+        height: 232rpx;
+        background-color: blue;
+
+      }
     }
     .img-crown{
       position: relative;
@@ -23,20 +52,21 @@
       left: 312rpx;
     }
 
-    .test{
-      position: relative;
 
-    }
   }
 </style>
 
 <template>
 
   <view class="container">
-    <image class="card" src="../images/card2.png">
+    <view class="card">
+      <image class="card-bg" src="../images/card2.png"></image>
+      <image class="img-crown" src="../images/sliver_crown.png" ></image>
+      <!--<view class="card-top-section"></view>-->
+      <!--<view class="card-middle-section"></view>-->
+      <!--<view class="card-bottom-section"></view>-->
+    </view>
 
-    </image>
-    <image src="../images/sliver_crown.png" class="img-crown"></image>
   </view>
 </template>
 

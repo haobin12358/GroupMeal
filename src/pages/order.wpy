@@ -4,7 +4,7 @@
 
 <template>
   <tab @switchTab.user="switchTab" :tabList.sync="tabList" :currentTab.sync="currentTab"></tab>
-  <order-list :list.sync="orderList" @tapGoPay.user="payOrder"></order-list>
+  <order-list :list.sync="orderList" @tapGoPay.user="payOrder" :filter.sync="orderFilter"></order-list>
 </template>
 
 <script>
@@ -19,24 +19,29 @@
 
     components = {
       tab: Tab,
-      'order-list': OrderList
+      'order-list': OrderList,
     }
 
     data = {
-      tabList: ['全部','待支付','待取餐','已完成'],
+      tabList: ['全部','未支付','已支付','已完成'],
       currentTab: 0,
       msg: '',
 
-      orderList: []
+      orderList: [],
+
+      showDrawer: true
     }
     computed = {
+      orderFilter(){
+        return this.tabList[this.currentTab];
+      }
 
     }
 
     methods = {
       switchTab(currentTab){
         this.msg = `查询${this.tabList[currentTab]}的数据`
-
+        this.currentTab = currentTab;
         console.log(this.msg);
       },
 
