@@ -59,7 +59,8 @@
       //  分数  0-5
       key: {
         type: Number,
-        default: 0
+        default: 0,
+        twoWay: true
       },
       //  只读  false可进行改变分数
       readonly: {
@@ -98,13 +99,11 @@
         // }
 
         this.key = key;
-        this.$emit("change", this.key)
       },
       selectRight(e){
         let key = e.currentTarget.dataset.key;
 
         this.key = key;
-        this.$emit("change", this.key)
       },
     }
 

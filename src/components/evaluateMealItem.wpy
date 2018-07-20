@@ -1,0 +1,163 @@
+<style scoped lang="less">
+  @import "../styles/base";
+
+    .evaluate-meal-item {
+      border: solid 1px #e5e5e5;
+      padding: 84rpx 8rpx 32rpx;
+      margin-bottom: 20rpx;
+
+      .rate-line {
+        display: flex;
+        align-items: center;
+        margin-bottom: 36rpx;
+
+        .label {
+          width: 300rpx;
+          text-align: center;
+
+        }
+
+        .rate{
+          display: flex;
+          align-items: center;
+
+          .image-block{
+            .star-image {
+              position: relative;
+              src: "../../images/star.jpg";
+              height: 30rpx;
+              width: 30rpx;
+
+              .item {
+                position: absolute;
+                width: 25rpx;
+                top: 0;
+                height: 50rpx;
+              }
+            }
+          }
+
+          .grade{
+            margin-left: 50rpx;
+            color: @redPink;
+          }
+        }
+
+      }
+
+      .evaluate-content {
+        width: 100%;
+        background-color: #f8f8f8;
+        padding: 20rpx;
+        box-sizing: border-box;
+
+        .fz20();
+      }
+    }
+</style>
+
+<template>
+  <view class="evaluate-meal-item">
+    <view class="rate-line">
+      <view class="label">
+        {{evaluateItem.MEname}}
+        {{evaluateItem.REfscore}}
+        {{evaluateItem.REscore}}
+      </view>
+    </view>
+    <view class="rate-line">
+      <view class="label">用餐体验</view>
+      <view class="rate">
+        <view class="rate">
+          <view class="image-block">
+            <block wx:for="{{stars}}" wx:key="*this">
+              <image class="star-image" style="left:{{item*10}}rpx;"
+                     src="{{evaluateItem.REfscore > item ?((evaluateItem.REfscore-item) == 0.5?halfSrc:selectedSrc) : normalSrc}}">
+                <block wx:if="{{!readonly}}">
+                  <view class="item" style="left:0rpx"  @tap="epSelectLeft({{item+0.5}})"></view>
+                  <view class="item" style="left:25rpx"  @tap="epSelectRight({{item+1}})"></view>
+                </block>
+              </image>
+            </block>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="rate-line">
+      <view class="label">味道</view>
+      <view class="rate">
+        <view class="image-block">
+          <block wx:for="{{stars}}" wx:key="*this">
+            <image class="star-image" style="left:{{item*10}}rpx;"
+                   src="{{REscore > item ?(REscore-item== 0.5?halfSrc:selectedSrc) : normalSrc}}">
+              <block wx:if="{{!readonly}}">
+                <view class="item" style="left:0rpx"  @tap="selectLeft({{item+0.5}})"></view>
+                <view class="item" style="left:25rpx" @tap="selectRight({{item+1}})"></view>
+              </block>
+            </image>
+          </block>
+        </view>
+      </view>
+
+    </view>
+    <textarea class="evaluate-content" placeholder="写评论..." value="{{comment}}" bindinput="commentInputHandler"></textarea>
+  </view>
+</template>
+
+<script>
+    import wepy from 'wepy'
+    import Rate from "@/components/common/rate"
+
+    export default class EvaluateMealItem extends wepy.component {
+        props = {
+          evaluateItem: {
+                //  Object String Number Boolean
+                type: Object,
+                default: {
+                }
+            }
+        }
+
+        components = {
+        }
+
+
+      data = {
+        stars: [0, 1, 2, 3, 4],
+        normalSrc: '../images/star.png',
+        selectedSrc: '../images/star_full.png',
+        halfSrc: '../images/star_half.png',
+        readonly: false,
+
+        REfscore: 1,
+        REscore: 2,
+      }
+
+        computed = {}
+
+        methods = {
+          epSelectLeft(key){
+            this.REfscore = key;
+          },
+          epSelectRight(key){
+            this.REfscore = key;
+          },
+          selectLeft(key){
+            this.REscore = key;
+
+          },
+          selectRight(key){
+            this.REscore = key;
+
+          },
+
+        }
+
+        events = {}
+
+        onLoad() {
+
+        }
+    }
+</script>
+

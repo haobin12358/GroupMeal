@@ -84,6 +84,8 @@
           </view>
           <view class="order-action">
             <button wx:if="{{item.OMstatus == '未支付'}}" @tap="payOrder({{item.OMid}})">去支付</button>
+            <button wx:elif="{{item.OMstatus == '已支付'}}" @tap="takeMealCode({{item}})">取餐码</button>
+            <button wx:elif="{{item.OMstatus == '已取餐'}}" @tap="evaluate({{item}})">去评论</button>
           </view>
         </view>
       </view>
@@ -123,9 +125,19 @@
             this.$emit('tapGoPay',OMid)
           },
 
+          takeMealCode(item){
+            console.log('组件取餐码');
+            this.$emit('tapTakeMealCode',item)
+          },
+
           tapMain(OMid){
             console.log('组件tap',OMid);
 
+          },
+
+          evaluate(item){
+            console.log('组件评价');
+            this.$emit('tapGoEvaluate',item)
           }
         }
 

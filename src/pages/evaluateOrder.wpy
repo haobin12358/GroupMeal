@@ -1,0 +1,148 @@
+<style scoped lang="less">
+  @import "../styles/base";
+
+  .container{
+    padding: 42rpx 40rpx 0;
+    box-sizing: border-box;
+
+    .container-hd{
+      display: flex;
+      margin-bottom: 38rpx;
+
+      .canteen-img{
+        width: 140rpx;
+        height: 140rpx;
+        margin-right: 28rpx;
+      }
+      .main-content{
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .line1{
+          .fz32();
+        }
+        .line2{
+          color: #444444;
+
+          .fz24();
+        }
+      }
+    }
+
+    .container-ft{
+
+      .btn-sub{
+        width: 100%;
+        font-size: 32rpx;
+        .type-pink();
+      }
+    }
+  }
+</style>
+
+<template>
+
+  <view class="container">
+    <view class="container-hd">
+      <image class="canteen-img" src="../images/food.jpg"></image>
+      <view class="main-content">
+        <view class="line1">
+          食堂名称
+        </view>
+        <view class="line2">
+          {{order.itemsNameGather}}
+        </view>
+      </view>
+    </view>
+    <view class="container-bd">
+      <repeat for="{{Orderitems}}" item="item">
+        <evaluate-meal-item :evaluateItem="item"></evaluate-meal-item>
+      </repeat>
+    </view>
+    <view class="container-ft">
+      <button class="btn-sub" @tap="subComment">提交</button>
+    </view>
+  </view>
+</template>
+
+<script>
+    import wepy from 'wepy'
+    import tip from '@/utils/tip'
+    import api from '@/api/api'
+    import Rate from "@/components/common/rate"
+    import EvaluateMealItem from "@/components/evaluateMealItem"
+
+    export default class EvaluateOrder extends wepy.page {
+        config = {
+          navigationBarTitleText: '评价'
+
+        }
+        components = {
+          'experience-rate': Rate,
+          'taste-rate':Rate,
+          'evaluate-meal-item': EvaluateMealItem
+        }
+
+        data = {
+          order: {},
+          Orderitems: [],
+
+          REscore: 0,
+          REfscore: 0,
+          comment: '',
+
+          rateStarSize: 30,
+          rateReadonly: false,
+          rateShowKey: true,
+
+
+        }
+        computed = {
+        }
+
+        async reviewOrder(OMid){
+          let res = await api.review({method: 'POST',query:
+              {token:wx.getStorageSync('token'),}})
+        }
+
+        methods = {
+          subComment(){
+            // console.log({
+            //   REscore: this.REscore,
+            //   REfscore: this.REfscore,
+            //   comment: this.comment,
+            // });
+          },
+
+          commentInputHandler(e){
+            this.comment = e.detail.value;
+          }
+        }
+
+        events = {}
+
+        async getOrderAbo(OMid){
+          let res =await api.getOrderAbo({token: wx.getStorageSync('token'),OMid})
+
+          if(res.data.status == 200){
+            this.order = res.data.data;
+            this.Orderitems = this.order.Orderitems;
+            this.Orderitems[0].REfscore = 1
+            this.Orderitems[0].REscore = 2
+            this.Orderitems[1].REfscore = 3
+            this.Orderitems[1].REscore = 4
+
+            console.log('Orderitems',this.Orderitems);
+            this.$apply()
+          }
+        }
+
+        onLoad(params) {
+          console.log(params);
+          this.getOrderAbo(params.OMid)
+        }
+    }
+</script>
+

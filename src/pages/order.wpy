@@ -4,7 +4,8 @@
 
 <template>
   <tab @switchTab.user="switchTab" :tabList.sync="tabList" :currentTab.sync="currentTab"></tab>
-  <order-list :list.sync="orderList" @tapGoPay.user="payOrder" :filter.sync="orderFilter"></order-list>
+  <order-list :list.sync="orderList" @tapGoPay.user="payOrder" @tapTakeMealCode.user="goTakeMealCode"
+              :filter.sync="orderFilter" @tapGoEvaluate.user="goEvaluate"></order-list>
 </template>
 
 <script>
@@ -23,7 +24,7 @@
     }
 
     data = {
-      tabList: ['全部','未支付','已支付','已完成'],
+      tabList: ['全部','未支付','已支付','已取餐'],
       currentTab: 0,
       msg: '',
 
@@ -38,11 +39,23 @@
 
     }
 
+
+
     methods = {
       switchTab(currentTab){
         this.msg = `查询${this.tabList[currentTab]}的数据`
         this.currentTab = currentTab;
         console.log(this.msg);
+      },
+
+      goEvaluate(order){
+        this.$navigate('/pages/evaluateOrder',order)
+
+      },
+
+      goTakeMealCode(order){
+        this.$navigate('/pages/takeMealCode',order)
+
       },
 
       payOrder(OMid){

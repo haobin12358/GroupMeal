@@ -71,7 +71,6 @@
             {{item.time}}
           </view>
           <view class="evaluate-rate">
-            <rate :starSize.sync="canteenRateStarSize" :key.sync="canteenRate" :readonly.sync="canteenRateReadonly"></rate>
           </view>
         </view>
       </view>
@@ -110,18 +109,21 @@
 
       data = {
         canteenRateStarSize: 20,
-        canteenRate: 4.6,
         canteenRateReadonly: true,
       }
 
-      computed = {}
+      computed = {
+        rateCmp(){
+          return this.item.rate;
+        }
+      }
 
       methods = {}
 
       events = {}
 
       onLoad() {
-
+        console.log(this.item);
       }
     }
 </script>

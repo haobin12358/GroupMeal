@@ -155,7 +155,7 @@
         <view class="card-top-bd">
           <image class="meal-img" src="../images/food.jpg"></image>
           <view class="main-content">
-            <view class="line1">菜品名</view>
+            <view class="line1">{{order.itemsNameGather}}</view>
             <view class="line2">取餐地点: 某某大厦几楼某食堂
               2号取餐点</view>
             <view class="line3">
@@ -163,7 +163,7 @@
                 实付金额
               </view>
               <view class="price-value">
-                ￥22.4
+                ￥{{order.OMtotal}}
               </view>
             </view>
           </view>
@@ -175,7 +175,7 @@
         </view>
         <view class="card-middle-content">
           <view class="take-meals-code">
-          <text style="color: #b2b2b2;">取餐码：</text>  1807 1010 6345 2342
+            <text style="color: #b2b2b2;">取餐码：</text>  {{order.OMcode}}
           </view>
 
         </view>
@@ -195,23 +195,32 @@
 </template>
 
 <script>
-    import wepy from 'wepy'
+  import wepy from 'wepy'
+  import tip from '@/utils/tip'
+  import api from '@/api/api'
 
-    export default class OrderDetail extends wepy.page {
-        config = {}
+  export default class OrderDetail extends wepy.page {
+    config = {
+      navigationBarTitleText: '取餐码'
 
-        components = {}
-
-        data = {}
-        computed = {}
-
-        methods = {}
-
-        events = {}
-
-        onLoad(params) {
-          console.log(params.OMid);
-        }
     }
+
+    components = {}
+
+    data = {
+      order: {}
+    }
+
+    computed = {}
+
+    methods = {}
+
+    events = {}
+
+    onLoad(params) {
+     this.order = params;
+     console.log(this.order);
+    }
+  }
 </script>
 

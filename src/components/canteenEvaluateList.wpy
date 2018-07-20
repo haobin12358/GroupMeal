@@ -56,8 +56,10 @@
       </view>
     </view>
     <view class="evaluate-list">
-      <repeat for="{{evaluateList}}">
-        <canteen-evaluate-item :item="item"></canteen-evaluate-item>
+      <repeat for="{{evaluateList}}" key="index"  item="item">
+        <canteen-evaluate-item :item.sync="item" :index="index">
+          <rate :starSize.sync="canteenRateStarSize" :key.sync="rateCmp" :readonly.sync="canteenRateReadonly"></rate>
+        </canteen-evaluate-item>
       </repeat>
     </view>
   </view>
@@ -70,35 +72,31 @@
 
     export default class CanteenEvaluateList extends wepy.component {
       components = {
-        rate: Rate,
         'canteen-evaluate-item': CanteenEvaluateItem
       }
         data = {
+          canteenRateStarSize: 30,
+          canteenRateReadonly: false,
+          rateCmp: 2,
 
           evaluateList: [
             {
               headimg: '../images/gm-headimage.png',
-              username: '用户名1',
-              time: '2018.07.10 12:34',
-              rate: 1,
-              content: '评价内容评价内容评价内容评价内容。'
-            },{
-              headimg: '../images/gm-headimage.png',
               username: '用户名2',
               time: '2018.07.11 12:34',
-              rate: 1,
+              rate: 2,
               content: '评价内容评价内容评价内容评价内容。'
             },{
               headimg: '../images/gm-headimage.png',
               username: '用户名3',
               time: '2018.07.12 12:34',
-              rate: 1,
+              rate: 3,
               content: '评价内容评价内容评价内容评价内容。'
             },{
               headimg: '../images/gm-headimage.png',
               username: '用户名4',
               time: '2018.07.13 12:34',
-              rate: 1,
+              rate: 4,
               content: '评价内容评价内容评价内容评价内容。'
             },
           ]
