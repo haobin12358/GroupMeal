@@ -12,10 +12,9 @@ export default class extends wepy.app {
     pages: [
       'pages/index',  //  首页
 
-      'pages/order',  //  订单
-
-      'pages/evaluateOrder',//  评价
       'pages/orderDetail',//  订单详情
+      'pages/order',  //  订单
+      'pages/evaluateOrder',//  评价
       'pages/data', //  数据
       'pages/person/person',// 个人
 

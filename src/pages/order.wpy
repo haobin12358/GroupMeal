@@ -5,7 +5,7 @@
 <template>
   <tab @switchTab.user="switchTab" :tabList.sync="tabList" :currentTab.sync="currentTab"></tab>
   <order-list :list.sync="orderList" @tapGoPay.user="payOrder" @tapTakeMealCode.user="goTakeMealCode"
-              :filter.sync="orderFilter" @tapGoEvaluate.user="goEvaluate"></order-list>
+              :filter.sync="orderFilter" @tapGoEvaluate.user="goEvaluate" @tapMain.user="goOrderDetail"></order-list>
 </template>
 
 <script>
@@ -24,6 +24,7 @@
     }
 
     data = {
+      refreshTime: new Date(),
       tabList: ['全部','未支付','已支付','已取餐'],
       currentTab: 0,
       msg: '',
@@ -49,6 +50,8 @@
       },
 
       goEvaluate(order){
+        tip.confirm('后续上线', false);
+        return
         this.$navigate('/pages/evaluateOrder',order)
 
       },
@@ -58,9 +61,12 @@
 
       },
 
-      payOrder(OMid){
-        console.log('页面pay order',OMid);
+      goOrderDetail(order){
+        this.$navigate('/pages/orderDetail',order)
 
+      },
+
+      payOrder(OMid){
         wx.login({
           success: function (res) {
             if (res.code) {
@@ -108,6 +114,10 @@
 
       if (res.data.status == 200) {
         this.orderList = res.data.data;
+        console.log(this.refreshTime);
+        this.refreshTime = this.refreshTime.setMinutes(this.refreshTime.getMinutes()+2);
+        console.log(this.refreshTime);
+
 
         for (let i = 0; i < this.orderList.length; i++) {
           nameGather = ''
@@ -129,10 +139,14 @@
     }
 
     onShow() {
-      this.getOrderList();
+      // console.log(this.refreshTime);
+      if(new Date()>this.refreshTime){
+        this.getOrderList();
+      }
     }
 
     onLoad() {
+
 
     }
   }

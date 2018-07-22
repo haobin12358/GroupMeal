@@ -263,7 +263,6 @@
     import tip from '@/utils/tip'
     import util from '@/utils/util'
     import api from '@/api/api'
-    import ShoppingList from "@/components/shoppingList"
     import ChooseCouponDrawer from "@/components/chooseCouponDrawer"
 
 
@@ -273,7 +272,6 @@
       }
 
       components = {
-        'shopping-list': ShoppingList,
         'choose-coupon-drawer': ChooseCouponDrawer
       }
 
@@ -303,6 +301,7 @@
         },
       }
 
+      //  创建订单
       async createOrder() {
         let query = {}
         let token = wx.getStorageSync('token');
@@ -387,9 +386,6 @@
       }
 
       watch={
-        showCouponDrawer(){
-          console.log('showCouponDrawer',this.showCouponDrawer)
-        }
       }
 
       methods = {
@@ -415,6 +411,8 @@
         },
 
         showCouponDrawer(){
+          tip.confirm('优惠券功能暂不可用')
+          return;
           this.showCouponDrawer = true;
         }
       }

@@ -69,11 +69,11 @@
 <template>
   <view class="order-list">
     <block  wx:for="{{list}}" wx:key="OMid" >
-      <view wx:if="{{filter == '全部' || filter == item.OMstatus}}" class="order-item">
+      <view wx:if="{{filter == '全部' || filter == item.OMstatus}}" class="order-item" @tap="tapMain({{item}})">
         <view class="item-hd">
           <image src="{{item.Orderitems[0].MEimage}}"></image>
         </view>
-        <view class="item-bd" @tap="tapMain({{item.OMid}})">
+        <view class="item-bd" >
           <view class="line1">{{item.itemsNameGather}}</view>
           <view class="line2">{{item.OMtime}}</view>
           <view class="line3">￥{{item.OMtotal}}</view>
@@ -83,9 +83,9 @@
             {{item.OMstatus}}
           </view>
           <view class="order-action">
-            <button wx:if="{{item.OMstatus == '未支付'}}" @tap="payOrder({{item.OMid}})">去支付</button>
-            <button wx:elif="{{item.OMstatus == '已支付'}}" @tap="takeMealCode({{item}})">取餐码</button>
-            <button wx:elif="{{item.OMstatus == '已取餐'}}" @tap="evaluate({{item}})">去评论</button>
+            <button wx:if="{{item.OMstatus == '未支付'}}" @tap.stop="payOrder({{item.OMid}})">去支付</button>
+            <button wx:elif="{{item.OMstatus == '已支付'}}" @tap.stop="takeMealCode({{item}})">取餐码</button>
+            <button wx:elif="{{item.OMstatus == '已取餐'}}" @tap.stop="evaluate({{item}})">去评论</button>
           </view>
         </view>
       </view>
@@ -130,9 +130,8 @@
             this.$emit('tapTakeMealCode',item)
           },
 
-          tapMain(OMid){
-            console.log('组件tap',OMid);
-
+          tapMain(order){
+            this.$emit('tapMain',order)
           },
 
           evaluate(item){

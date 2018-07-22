@@ -159,6 +159,8 @@
       //  最近吃过
       goPurchaseRecently(){
         if(this.selectCanteen){
+          tip.confirm('后续可用',false);
+          return;
           wx.navigateTo({
             url: '/pages/purchaseRecently'
           });
@@ -171,6 +173,9 @@
       //  营养推荐
       goNutritionRecommend(){
         if(this.selectCanteen){
+          tip.confirm('后续可用',false);
+          return
+
           wx.navigateTo({
             url: '/pages/nutritionRecommend'
           });
@@ -183,6 +188,9 @@
       //  优惠
       goDiscount(){
         if(this.selectCanteen){
+          tip.confirm('后续可用',false);
+          return
+
           wx.navigateTo({
             url: '/pages/discountMeal'
           });

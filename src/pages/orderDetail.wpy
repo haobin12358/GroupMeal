@@ -1,140 +1,139 @@
-<style  lang="less">
+<style lang="less">
   @import "../styles/base";
 
-  page{
-    height: 100%;
-  }
   .container{
-    padding: 74rpx 24rpx 0;
-    box-sizing: border-box;
-    background-color: #afb9c0;
-    height: 100%;
+    padding-bottom: 100rpx ;
 
-    .card{
-      position: relative;
+    .divide{
+      height: 20rpx;
+      background-color: #f2f2f2;
+    }
 
-      .card-bg{
-        height: 972rpx;
-        width: 702rpx;
-      }
+    .payment-list{
+      padding:24rpx 60rpx 32rpx;
+      box-sizing: border-box;
 
-      .img-crown{
-        position: absolute;
-        width: 84rpx;
-        height: 84rpx;
-        top: -42rpx;
-        left: 312rpx;
-      }
+      .payment-list-hd{
+        margin-bottom: 56rpx;
 
-      .card-top-section{
-        position: absolute;
-        left: 0;
-        width: 100% ;
-        top: 0;
-        height: 494rpx;
-        padding: 58rpx 46rpx;
-        box-sizing: border-box;
-
-        .card-top-hd{
-          text-align: center;
-          color: #444444;
-          margin-bottom: 56rpx;
-
-          .fz24();
+        .delivery-method{
+          padding: 10rpx 0 10rpx 24rpx;
+          background-color: #f2f2f2;
+          margin-bottom: 6rpx;
         }
-        .card-top-bd{
-          display: flex;
-          position: relative;
 
-          .fz28();
+        .meal-list{
+          border: solid 1px #e8e8e8;
+          padding:0 22rpx 0 30rpx;
 
-          .meal-img{
-            margin-right: 20rpx;
-            width: 240rpx;
-            height: 240rpx;
-          }
+          .meal-list-item{
+            display: flex;
+            border-bottom: 1px solid #f1f1f1;
+            padding: 28rpx 0;
 
-          .main-content{
-            flex: 1;
-            height: 240rpx;
-
-            .line1{
-              font-weight: bold;
-              margin-bottom: 12rpx;
+            &:last-child{
+              border-bottom: 0;
             }
-            .line2{
-              word-wrap: normal;
-              .fz24();
-              color: #444444;
 
+            .item-hd{
+              width: 120rpx;
+              height: 120rpx;
+              margin-right: 20rpx;
             }
-            .line3{
+
+            .item-bd{
+              flex: 1;
+
+              color: #141414;
+            }
+
+            .item-ft{
               display: flex;
+              flex-direction: column;
               justify-content: space-between;
-              position: absolute;
-              width: 350rpx;
-              bottom: 0;
+              align-items: center;
 
-              .price-label{
-                color: #444444;
-              }
-
-              .price-value{
+              .line1{
                 color: @redPink;
+
+                .fz32();
               }
 
+              .line2{
+                color: #444444;
+
+              }
             }
-
           }
         }
 
       }
-      .card-middle-section{
-        position: absolute;
-        left: 0;
-        width: 100% ;
-        top: 498rpx;
-        height: 240rpx;
 
-        .card-middle-title{
-          padding-top: 12rpx;
-          padding-left: 46rpx;
-          color: #141414;
-          margin-bottom: 38rpx;
-        }
-        .card-middle-content{
-          display: flex;
-          justify-content: center;
+      .payment-list-bd{
+        margin-bottom: 34rpx;
 
-          .take-meals-code{
-            width: 480rpx;
-            height: 100rpx;
-            line-height: 100rpx;
-            border: solid 1px #d5d5d5;
-            text-align: center;
-          }
-        }
-
-      }
-      .card-bottom-section{
-        position: absolute;
-        left: 0;
-        width: 100% ;
-        top: 740rpx;
-        height: 232rpx;
-
-        .card-bottom-title{
-          padding-top: 12rpx;
-          padding-left: 46rpx;
-          color: #141414;
-          margin-bottom: 38rpx;
-
-        }
-        .card-bottom-content{
-          font-size: 12px;
+        .fee-detail-list  {
           color: #444444;
-          padding-left: 72rpx;
-          padding-right: 52rpx;
+          padding-right: 50rpx;
+          padding-left: 28rpx;
+          border: solid 1px #e8e8e8;
+
+
+          .fee-detail-list-item{
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #f1f1f1;
+            padding: 28rpx 0;
+
+            &:last-child{
+              border-bottom: 0;
+            }
+          }
+        }
+      }
+
+      .payment-list-ft{
+        .subtotal{
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+
+          .word{
+            color: #444444;
+            margin-right: 30rpx;
+
+            .fz24();
+          }
+
+          .price {
+            color: @redPink;
+            margin-right: 20rpx;
+          }
+        }
+      }
+    }
+
+    .order-info{
+      .order-info-list{
+        padding: 0 60rpx;
+
+        .order-info-list-item{
+          display: flex;
+          justify-content: space-between;
+          border-bottom: 1px solid #f1f1f1;
+          padding: 28rpx 0;
+
+          &:last-child{
+            border-bottom: 0;
+          }
+
+          .item-bd{
+
+          }
+          .item-ft{
+            flex: 1;
+            text-align: right;
+          }
         }
       }
     }
@@ -142,76 +141,162 @@
 </style>
 
 <template>
-
   <view class="container">
-    <view class="card">
-      <image class="card-bg" src="../images/card2.png"></image>
-      <image class="img-crown" src="../images/sliver_crown.png" ></image>
-      <view class="card-top-section">
-        <view class="card-top-hd">
-          白银会员
+    <view class="payment-list">
+      <view class="payment-list-hd">
+        <view class="delivery-method">
+          食堂: {{order.MSname}}
+        </view>
+        <view class="delivery-method">
+          配送方式: 自取
         </view>
 
-        <view class="card-top-bd">
-          <image class="meal-img" src="../images/food.jpg"></image>
-          <view class="main-content">
-            <view class="line1">菜品名</view>
-            <view class="line2">取餐地点: 某某大厦几楼某食堂
-              2号取餐点</view>
-            <view class="line3">
-              <view class="price-label">
-                实付金额
-              </view>
-              <view class="price-value">
-                ￥22.4
-              </view>
+        <view class="meal-list">
+          <view wx:for="{{order.Orderitems}}" wx:key="MEid" class="meal-list-item">
+            <image class="item-hd" src="{{item.MEimage}}"></image>
+            <view class="item-bd">{{item.MEname}}</view>
+            <view class="item-ft">
+              <view class="line1">￥{{item.MEprice}}</view>
+              <view class="line2">数量:{{item.MEnumber}}</view>
             </view>
           </view>
         </view>
       </view>
-      <view class="card-middle-section">
-        <view class="card-middle-title">
-          取餐
-        </view>
-        <view class="card-middle-content">
-          <view class="take-meals-code">
-          <text style="color: #b2b2b2;">取餐码：</text>  1807 1010 6345 2342
+      <view class="payment-list-bd">
+        <view class="fee-detail-list">
+          <view class="fee-detail-list-item">
+            <view class="item-hd">优惠</view>
+            <view class="item-ft"></view>
           </view>
+        </view>
+      </view>
+      <view class="payment-list-ft">
+        <view class="subtotal">
+          <view class="word">小计</view>
+          <view class="price">￥{{order.OMtotal}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="divide"></view>
+    <view class="order-info">
+      <view class="order-info-list">
+        <view class="order-info-list-item">
+          <view class="item-hd">支付方式</view>
+          <view class="item-ft">微信支付</view>
+        </view>
+        <view class="order-info-list-item">
+        <view class="item-hd">下单手机号</view>
+        <view class="item-ft">{{order.UStelphone}}</view>
+        </view>
+        <view class="order-info-list-item">
+          <view class="item-hd">订单备注</view>
+          <view class="item-ft ">
+            {{order.OMabo}}
+          </view>
+        </view>
 
-        </view>
       </view>
-      <view class="card-bottom-section">
-        <view class="card-bottom-title">
-          取餐须知
-        </view>
-        <view class="card-bottom-content">
-          请于几点前取走您预订的餐品，工作人员将在每天某时
-          对取餐点进行清理
-        </view>
-      </view>
+    </view>
+    <view class="divide"></view>
+    <view style="margin-top: 30rpx">
+      <button wx:if="{{order.OMstatus == '未支付'}}" @tap="payOrder({{order.OMid}})" class="item-ft">微信支付</button>
     </view>
 
   </view>
 </template>
 
 <script>
-    import wepy from 'wepy'
+  import wepy from 'wepy'
+  import tip from '@/utils/tip'
+  import util from '@/utils/util'
+  import api from '@/api/api'
+  import ChooseCouponDrawer from "@/components/chooseCouponDrawer"
 
-    export default class OrderDetail extends wepy.page {
-        config = {}
 
-        components = {}
-
-        data = {}
-        computed = {}
-
-        methods = {}
-
-        events = {}
-
-        onLoad(params) {
-          console.log(params.OMid);
-        }
+  export default class OrderDetail extends wepy.page {
+    config = {
+      navigationBarTitleText: '订单详情'
     }
+
+    components = {
+    }
+
+    data = {
+      order: {}
+    }
+    computed = {
+      //  计算购物车总价
+      // shopListTotal() {
+      //   let total = 0;
+      //
+      //   if (this.shopList && this.shopList.length) {
+      //     for (let i = 0; i < this.shopList.length; i++) {
+      //       let currentShop = this.shopList[i]
+      //
+      //       total += currentShop.CAnumber * currentShop.MEprice;
+      //     }
+      //   }
+      //
+      //   return total.toFixed(2);
+      // },
+    }
+    methods = {
+      payOrder(OMid){
+        wx.login({
+          success: function (res) {
+            if (res.code) {
+              console.log(res.code, 'this is code')
+              let successFun = (res3) => {
+                console.log(res3, 'gg')
+
+                let timeStamp = res3.data.timeStamp.toString()
+                wx.requestPayment({
+                  'appId': res3.data.appId,
+                  'timeStamp': timeStamp,
+                  'nonceStr': res3.data.nonceStr,
+                  'package': res3.data.package,
+                  'signType': res3.data.signType,
+                  'paySign': res3.data.paySign,
+                  'success': function (res) {
+                    tip.success("支付成功")
+                    setTimeout(() => {
+                      wx.navigateTo({url: '/pages/orderDetail?OMid=' + OMid});
+                    }, 1000)
+                  },
+                  'fail': function (res) {
+                    tip.error("支付失败")
+                  }
+                })
+              }
+              let failFun = (res) => {
+                console.log(res, 'fail!')
+                tip.error("服务器开小差了")
+              }
+              api.payConfig({query:{ OMid: OMid, code: res.code}}).then(successFun, failFun)
+            } else {
+              console.log('获取用户登录态失败！' + res.errMsg)
+            }
+          }
+        });
+      }
+
+    }
+
+    events = {}
+
+    async getOrderAbo (OMid){
+      let res = await api.getOrderAbo({token: wx.getStorageSync('token'),OMid})
+
+      if(res.data.status == 200){
+        this.order = res.data.data;
+        console.log(this.order);
+        this.$apply()
+      }
+    }
+
+    onLoad(params) {
+      this.getOrderAbo(params.OMid);
+    }
+  }
 </script>
 
