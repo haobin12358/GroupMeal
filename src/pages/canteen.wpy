@@ -320,7 +320,7 @@
                     <view class="line1">{{item.MEname}}</view>
                     <view class="line2">
                       <text>月售: {{item.MEvolume}}</text>
-                      <text>评分: {{item.MEfraction}}</text>
+                      <text wx:if="{{item.MEfraction>=3}}"> 评分: {{item.MEfraction}}</text>
                     </view>
                     <view class="line3">
                       {{item.MEtag}}
@@ -466,18 +466,20 @@
           let data = this.menu;
 
           //  将tag放在前面
-          for (let i = 0; i <tagNameList.length; i++) {
-            menuList.push({
-              typeName: tagNameList[i],
-              content: []
-            })
-          }
+          // for (let i = 0; i <tagNameList.length; i++) {
+          //   menuList.push({
+          //     typeName: tagNameList[i],
+          //     content: []
+          //   })
+          // }
+
 
           for (let i = 0; i < data.length; i++) {
             let currentData = data[i];
             let listIndex = 0
 
             //  重置并合并CAnumber
+            // currentData.MEfraction = currentData.MEfraction.toFixed(1);
             currentData.CAnumber = 0;
             if(this.shopList.length){
               for (let j = 0; j< this.shopList.length; j++) {
@@ -492,11 +494,11 @@
             }
 
             //  tag组合 ['热销']
-            if(tagNameList.includes(currentData.MEtag)){
-              listIndex = tagNameList.indexOf(currentData.MEtag);
-
-              menuList[listIndex].content.push(currentData)
-            }
+            // if(tagNameList.includes(currentData.MEtag)){
+            //   listIndex = tagNameList.indexOf(currentData.MEtag);
+            //
+            //   menuList[listIndex].content.push(currentData)
+            // }
 
              // type组合结构数据
             if(typeNameList.includes(currentData.MEtype)){
@@ -513,6 +515,27 @@
               })
             }
           }
+
+          //  将tag放在前面
+          for (let i = 0; i <tagNameList.length; i++) {
+            menuList.unshift({
+              typeName: tagNameList[i],
+              content: []
+            })
+          }
+
+          for (let i = 0; i < data.length; i++) {
+            let currentData = data[i];
+            let listIndex = 0
+
+            //  tag组合 ['热销']
+            if(tagNameList.includes(currentData.MEtag)){
+              listIndex = tagNameList.indexOf(currentData.MEtag);
+
+              menuList[listIndex].content.push(currentData)
+            }
+          }
+
 
           return menuList;
         },
@@ -612,6 +635,7 @@
 
         if(res.data.status == 200){
           this.getCartInfo(token, MSid);
+
           this.$apply();
         }
       }
@@ -631,6 +655,13 @@
 
         if(res.data.status == 200 ){
           let data = res.data.data
+
+          for (let i = 0; i < data.length; i++) {
+            let fraction = data[i].MEfraction;
+
+            data[i].MEfraction = fraction.toFixed(1)
+          }
+
           this.menu = data;
           this.$apply();
         }

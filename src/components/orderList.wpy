@@ -83,9 +83,10 @@
             {{item.OMstatus}}
           </view>
           <view class="order-action">
-            <button wx:if="{{item.OMstatus == '未支付'}}" @tap.stop="payOrder({{item.OMid}})">去支付</button>
-            <button wx:elif="{{item.OMstatus == '已支付'}}" @tap.stop="takeMealCode({{item}})">取餐码</button>
-            <button wx:elif="{{item.OMstatus == '已取餐'}}" @tap.stop="evaluate({{item}})">去评论</button>
+            <button wx:if="{{item.OMstatus == '未支付'}}" @tap.stop="tapExtraBtn({{item}})">去支付</button>
+            <button wx:elif="{{item.OMstatus == '未取餐'}}" @tap.stop="tapExtraBtn({{item}})">取餐码</button>
+            <button wx:elif="{{item.OMstatus == '已取餐'}}" @tap.stop="tapExtraBtn({{item}})">去评论</button>
+            <button wx:elif="{{item.OMstatus == '已评价'}}" @tap.stop="tapExtraBtn({{item}})">查看评论</button>
           </view>
         </view>
       </view>
@@ -120,24 +121,13 @@
         computed = {}
 
         methods = {
-          payOrder(OMid){
-            console.log('组件去支付');
-            this.$emit('tapGoPay',OMid)
-          },
-
-          takeMealCode(item){
-            console.log('组件取餐码');
-            this.$emit('tapTakeMealCode',item)
+          tapExtraBtn(item){
+            this.$emit('tapExtraBtn',item)
           },
 
           tapMain(order){
             this.$emit('tapMain',order)
           },
-
-          evaluate(item){
-            console.log('组件评价');
-            this.$emit('tapGoEvaluate',item)
-          }
         }
 
         events = {}

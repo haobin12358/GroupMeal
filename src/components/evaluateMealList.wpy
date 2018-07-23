@@ -1,0 +1,196 @@
+<style scoped lang="less">
+  @import "../styles/base";
+
+    .evaluate-meal-item {
+      border: solid 1px #e5e5e5;
+      padding: 0 8rpx 32rpx;
+
+      .meal-header{
+        display: flex;
+        padding: 20rpx 0;
+        margin:0 30rpx;
+        border-bottom: 1px solid  #ececec;
+
+        image{
+          height: 80rpx;
+          width: 80rpx;
+          margin-right: 16rpx;
+        }
+
+        .meal-name{
+          color: #0c0c0c;
+          margin-top: 12rpx;
+        }
+
+      }
+
+      .rate-line {
+        display: flex;
+        align-items: center;
+        margin: 28rpx 0;
+
+        .label {
+          width: 300rpx;
+          text-align: center;
+          color: #444444;
+
+          .fz24()
+        }
+
+        .rate{
+          display: flex;
+          align-items: center;
+
+          .image-block{
+            .star-image {
+              position: relative;
+              src: "../../images/star.jpg";
+              height: 30rpx;
+              width: 30rpx;
+
+              .item {
+                position: absolute;
+                width: 25rpx;
+                top: 0;
+                height: 50rpx;
+              }
+            }
+          }
+
+          .grade{
+            margin-left: 50rpx;
+            color: @redPink;
+          }
+        }
+
+      }
+
+      .evaluate-content {
+        width: 100%;
+        height: 200rpx;
+        background-color: #f8f8f8;
+        padding: 20rpx;
+        box-sizing: border-box;
+      }
+    }
+
+  .divide{
+    height: 20rpx;
+    background-color: #efefef;
+  }
+</style>
+
+<template>
+  <repeat for="{{list}}" index="evaluateIndex" item="evaluateItem">
+    <view class="evaluate-meal-item">
+      <view class="meal-header">
+        <image src="{{evaluateItem.MEimage}}"></image>
+        <view class="meal-name">{{evaluateItem.MEname}}</view>
+
+      </view>
+      <view class="rate-line">
+        <view class="label">用餐体验</view>
+        <view class="rate">
+          <view class="rate">
+            <view class="image-block">
+              <block wx:for="{{stars}}" wx:key="*this">
+                <image class="star-image" style="left:{{item*10}}rpx;"
+                       src="{{evaluateItem.REfscore > item ?((evaluateItem.REfscore-item) == 0.5?halfSrc:selectedSrc) : normalSrc}}">
+                  <block wx:if="{{!readonly}}">
+                    <view class="item" style="left:0rpx" @tap="epSelectRight({{evaluateIndex}},{{item+1}})"></view>
+                  </block>
+                </image>
+              </block>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="rate-line">
+        <view class="label">味道</view>
+        <view class="rate">
+          <view class="image-block">
+            <block wx:for="{{stars}}" wx:key="*this">
+              <image class="star-image" style="left:{{item*10}}rpx;"
+                     src="{{evaluateItem.REscore > item ?(evaluateItem.REscore-item== 0.5?halfSrc:selectedSrc) : normalSrc}}">
+                <block wx:if="{{!readonly}}">
+
+                  <view class="item" style="left:0rpx" @tap="selectRight({{evaluateIndex}},{{item+1}})"></view>
+                </block>
+              </image>
+              </block>
+          </view>
+        </view>
+
+      </view>
+      <textarea class="evaluate-content" placeholder="写评论..." value="{{evaluateItem.REcontent}}" disabled="{{readonly}}"
+                data-index="{{evaluateIndex}}" bindinput="commentInputHandler"></textarea>
+    </view>
+    <view wx:if="{{evaluateIndex != list.length-1}}" class="divide"></view>
+  </repeat>
+
+</template>
+
+<script>
+    import wepy from 'wepy'
+    import Rate from "@/components/common/rate"
+
+    export default class EvaluateMealList extends wepy.component {
+        props = {
+          list: {
+                //  Object String Number Boolean
+                type: Array,
+            },
+
+          readonly: {
+            type: Boolean,
+          },
+
+        }
+
+        components = {
+        }
+
+
+      data = {
+        stars: [0, 1, 2, 3, 4],
+        normalSrc: '../images/star.png',
+        selectedSrc: '../images/star_full.png',
+        halfSrc: '../images/star_half.png',
+
+        REfscore: 1,
+        REscore: 2,
+      }
+
+        computed = {}
+
+        methods = {
+          epSelectLeft(index,key){
+              this.list[index].REfscore = key;
+          },
+          epSelectRight(index,key){
+              this.list[index].REfscore = key;
+          },
+          selectLeft(index,key){
+            this.list[index].REscore = key;
+
+          },
+          selectRight(index,key){
+            this.list[index].REscore = key;
+
+          },
+          commentInputHandler(e){
+            this.list[e.target.dataset.index].REcontent = e.detail.value;
+
+          }
+        }
+
+        events = {}
+
+        onLoad() {
+          console.log(this.list);
+          console.log(this.readonly);
+
+        }
+    }
+</script>
+

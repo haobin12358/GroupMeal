@@ -62,7 +62,7 @@ const getOrderAbo = params => wxRequest(params, host+`/group/meal/order/get_orde
 //  获取优惠券列表  GET
 const getCardpkg = params => wxRequest(params, host+`/group/meal/coupon/get_cardpkg?token=${params.token}`);
 //  评论订单
-const createReview = params => wxRequest(params, host+`/group/meal/review/create_review`);
+const createReview = params => wxRequest(params, host+`/group/meal/review/create_review?token=${params.token}&OMid=${params.OMid}`);
 //  获取评论详情  GET
 const getReview = params => wxRequest(params, host+`/group/meal/review/get_review?token=${params.token}&OMid=${params.OMid}`);
 //  获取评论详情  GET

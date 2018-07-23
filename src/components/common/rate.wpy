@@ -47,7 +47,7 @@
         </image>
       </block>
     </view>
-    <text wx:if="{{readonly && showKey}}" class="grade">{{key}}</text>
+    <text wx:if="{{readonly && showKey}}" class="grade">{{keyCmp}}</text>
   </view>
 
 </template>
@@ -83,6 +83,12 @@
       normalSrc: '../../images/star.png',
       selectedSrc: '../../images/star_full.png',
       halfSrc: '../../images/star_half.png',
+    }
+
+    computed={
+      keyCmp(){
+        return this.key.toFixed(1)
+      }
     }
 
     events = {

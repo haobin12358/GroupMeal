@@ -3,15 +3,24 @@
 </style>
 
 <template>
-  <tab @switchTab.user="switchTab" :tabList.sync="tabList" :currentTab.sync="currentTab"></tab>
-  <order-list :list.sync="orderList" @tapGoPay.user="payOrder" @tapTakeMealCode.user="goTakeMealCode"
-              :filter.sync="orderFilter" @tapGoEvaluate.user="goEvaluate" @tapMain.user="goOrderDetail"></order-list>
+  <block wx:if="{{isLogin}}">
+    <tab @switchTab.user="switchTab" :tabList.sync="tabList" :currentTab.sync="currentTab"></tab>
+    <order-list :list.sync="orderList" @tapExtraBtn.user="tapExtraBtn"
+                :filter.sync="orderFilter"  @tapMain.user="goOrderDetail"></order-list>
+    <placeholder2 wx:if="{{!orderList.length}}" :text.sync="msg2"></placeholder2>
+
+  </block>
+  <block wx:else>
+    <placeholder :text.sync="msg"></placeholder>
+  </block>
+
 </template>
 
 <script>
   import wepy from 'wepy'
   import tip from '@/utils/tip'
   import api from '@/api/api'
+  import Placeholder from "@/components/common/placeholder"
   import Tab from "@/components/common/tab"
   import OrderList from "@/components/orderList"
 
@@ -21,13 +30,18 @@
     components = {
       tab: Tab,
       'order-list': OrderList,
+      placeholder: Placeholder,
+      placeholder2: Placeholder,
     }
 
     data = {
-      refreshTime: new Date(),
-      tabList: ['全部','未支付','已支付','已取餐'],
-      currentTab: 0,
+      isLogin: false,
       msg: '',
+      msg2: '订单为空',
+
+      refreshTime: new Date().valueOf(),
+      tabList: ['全部','未支付','未取餐','已取餐'],
+      currentTab: 3,
 
       orderList: [],
 
@@ -44,21 +58,7 @@
 
     methods = {
       switchTab(currentTab){
-        this.msg = `查询${this.tabList[currentTab]}的数据`
         this.currentTab = currentTab;
-        console.log(this.msg);
-      },
-
-      goEvaluate(order){
-        tip.confirm('后续上线', false);
-        return
-        this.$navigate('/pages/evaluateOrder',order)
-
-      },
-
-      goTakeMealCode(order){
-        this.$navigate('/pages/takeMealCode',order)
-
       },
 
       goOrderDetail(order){
@@ -66,44 +66,64 @@
 
       },
 
-      payOrder(OMid){
-        wx.login({
-          success: function (res) {
-            if (res.code) {
-              console.log(res.code, 'this is code')
-              let successFun = (res3) => {
-                console.log(res3, 'gg')
+      tapExtraBtn(item) {
+        switch (item.OMstatus) {
+          case '未支付':
+            this.payOrder(item.OMid);
+            break;
+          case '未取餐':
+            this.$navigate('/pages/takeMealCode',item)
+            break;
+          case '已取餐':
+            item.justView = false;
+            this.$navigate('/pages/evaluateOrder',item)
+            break;
+          case '已评价':
+            item.justView = true;
 
-                let timeStamp = res3.data.timeStamp.toString()
-                wx.requestPayment({
-                  'appId': res3.data.appId,
-                  'timeStamp': timeStamp,
-                  'nonceStr': res3.data.nonceStr,
-                  'package': res3.data.package,
-                  'signType': res3.data.signType,
-                  'paySign': res3.data.paySign,
-                  'success': function (res) {
-                    tip.success("支付成功")
-                    setTimeout(() => {
-                      wx.navigateTo({url: '/pages/orderDetail?OMid=' + OMid});
-                    }, 1000)
-                  },
-                  'fail': function (res) {
-                    tip.error("支付失败")
-                  }
-                })
-              }
-              let failFun = (res) => {
-                console.log(res, 'fail!')
-                tip.error("服务器开小差了")
-              }
-              api.payConfig({query:{ OMid: OMid, code: res.code}}).then(successFun, failFun)
-            } else {
-              console.log('获取用户登录态失败！' + res.errMsg)
+            this.$navigate('/pages/evaluateOrder',item)
+            break;
+        }
+      },
+    }
+
+    payOrder(OMid){
+      wx.login({
+        success: function (res) {
+          if (res.code) {
+            console.log(res.code, 'this is code')
+            let successFun = (res3) => {
+              console.log(res3, 'gg')
+
+              let timeStamp = res3.data.timeStamp.toString()
+              wx.requestPayment({
+                'appId': res3.data.appId,
+                'timeStamp': timeStamp,
+                'nonceStr': res3.data.nonceStr,
+                'package': res3.data.package,
+                'signType': res3.data.signType,
+                'paySign': res3.data.paySign,
+                'success': function (res) {
+                  tip.success("支付成功")
+                  setTimeout(() => {
+                    wx.navigateTo({url: '/pages/orderDetail?OMid=' + OMid});
+                  }, 1000)
+                },
+                'fail': function (res) {
+                  tip.error("支付失败")
+                }
+              })
             }
+            let failFun = (res) => {
+              console.log(res, 'fail!')
+              tip.error("服务器开小差了")
+            }
+            api.payConfig({query:{ OMid: OMid, code: res.code}}).then(successFun, failFun)
+          } else {
+            console.log('获取用户登录态失败！' + res.errMsg)
           }
-        });
-      }
+        }
+      });
     }
 
     events = {}
@@ -114,9 +134,7 @@
 
       if (res.data.status == 200) {
         this.orderList = res.data.data;
-        console.log(this.refreshTime);
-        this.refreshTime = this.refreshTime.setMinutes(this.refreshTime.getMinutes()+2);
-        console.log(this.refreshTime);
+        this.refreshTime = this.refreshTime+120000;
 
 
         for (let i = 0; i < this.orderList.length; i++) {
@@ -140,14 +158,20 @@
 
     onShow() {
       // console.log(this.refreshTime);
-      if(new Date()>this.refreshTime){
-        this.getOrderList();
+      let isLogin = !!wx.getStorageSync('token');
+      this.isLogin = isLogin;
+
+      if(!isLogin){
+        console.log(this.isLogin);
+        this.msg = '未登录'
       }
+      // if(new Date().valueOf()>this.refreshTime){ 间断刷新 有bug先不上
+
+      this.getOrderList();
+
     }
 
     onLoad() {
-
-
     }
   }
 </script>

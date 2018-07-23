@@ -1,0 +1,51 @@
+<style scoped lang="less">
+  .placeholder{
+    text-align: center;
+
+    .placeholder-icon {
+      margin-top: 244rpx;
+      width: 258rpx;
+      height: 332rpx;
+    }
+
+    .placeholder-text{
+      margin-top: 26rpx;
+      font-size: 32rpx;
+
+    }
+
+  }
+</style>
+
+<template>
+  <view class="placeholder">
+    <image class="placeholder-icon" src="../../images/placeholder.png"></image>
+    <view class="placeholder-text">{{text}}</view>
+  </view>
+</template>
+
+<script>
+    import wepy from 'wepy'
+
+    export default class Placeholder extends wepy.component {
+        props = {
+            text: {
+                //  Object Array String Number Boolean
+                type: String
+            }
+        }
+
+        data = {}
+
+        computed = {}
+
+        methods = {}
+
+        events = {}
+
+        onLoad() {
+
+        }
+    }
+</script>
+

@@ -3,19 +3,31 @@
 </style>
 
 <template>
-  数据
+  <block wx:if="isLogin">
+    数据
+  </block>
+
+  <placeholder wx:else :text.sync="msg"></placeholder>
 
 </template>
 
 <script>
     import wepy from 'wepy'
+    import Placeholder from "@/components/common/placeholder"
 
     export default class Data extends wepy.page {
         config = {}
 
-        components = {}
+        components = {
+          placeholder: Placeholder,
 
-        data = {}
+        }
+
+        data = {
+          isLogin: false,
+          msg: '',
+        }
+
         computed = {}
 
         methods = {}
@@ -23,7 +35,13 @@
         events = {}
 
         onLoad() {
+          let isLogin = !!wx.getStorageSync('token');
+          this.isLogin = isLogin;
 
+          if(!isLogin){
+            console.log(this.isLogin);
+            this.msg = '未登录'
+          }
         }
     }
 </script>
