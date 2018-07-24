@@ -166,7 +166,7 @@
         <view class="fee-detail-list">
           <view class="fee-detail-list-item">
             <view class="item-hd">优惠</view>
-            <view class="item-ft"></view>
+            <view class="item-ft">-￥{{privilegePrice}}</view>
           </view>
         </view>
       </view>
@@ -225,20 +225,23 @@
       order: {}
     }
     computed = {
-      //  计算购物车总价
-      // shopListTotal() {
-      //   let total = 0;
-      //
-      //   if (this.shopList && this.shopList.length) {
-      //     for (let i = 0; i < this.shopList.length; i++) {
-      //       let currentShop = this.shopList[i]
-      //
-      //       total += currentShop.CAnumber * currentShop.MEprice;
-      //     }
-      //   }
-      //
-      //   return total.toFixed(2);
-      // },
+      //  计算优惠的差价
+      privilegePrice() {
+        let total = 0;
+        let res = 0
+
+        if(this.order.Orderitems){
+            for (let i = 0; i < this.order.Orderitems.length; i++) {
+              let currentItem = this.order.Orderitems[i]
+
+              total += currentItem.MEnumber * currentItem.MEprice;
+            }
+        }
+
+        res = total - this.order.OMtotal
+
+        return res ? res: 0;
+      },
     }
     methods = {
       payOrder(OMid){

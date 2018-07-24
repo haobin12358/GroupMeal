@@ -46,9 +46,18 @@
           }
         }
         .cell-ft-access{
-          position: relative;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+
+          image{
+            width: 20rpx;
+            height: 34rpx;
+          }
         }
-        .cell-ft-access:after, .cell-ft-access:before {
+
+        /**
+         .cell-ft-access:after, .cell-ft-access:before {
           width: 0;
           height: 0;
           border: 20rpx solid transparent;
@@ -62,6 +71,8 @@
           left: -2rpx;
           border-left-color: white;
         }
+         */
+
       }
     }
   }
@@ -110,15 +121,23 @@
       <view wx:if="{{isLogin}}">
         <navigator class="cell" url="coupons">
           <view class="cell-bd">我的优惠券</view>
-          <view class="cell-ft cell-ft-access"></view>
+          <view class="cell-ft cell-ft-access">
+            <image src="../../images/arrow.png"></image>
+          </view>
         </navigator>
         <navigator class="cell" url="myHobby">
           <view class="cell-bd">我的喜好</view>
-          <view class="cell-ft cell-ft-access"></view>
+          <view class="cell-ft cell-ft-access">
+            <image src="../../images/arrow.png"></image>
+
+          </view>
         </navigator>
         <navigator class="cell" url="baseInfo">
           <view class="cell-bd">基本信息</view>
-          <view class="cell-ft cell-ft-access"></view>
+          <view class="cell-ft cell-ft-access">
+            <image src="../../images/arrow.png"></image>
+
+          </view>
         </navigator>
       </view>
       <view wx:if="{{!isLogin}}">
@@ -138,7 +157,9 @@
       <view wx:if="{{isLogin}}">
         <navigator class="cell" url="settings">
           <view class="cell-bd">设置</view>
-          <view class="cell-ft cell-ft-access"></view>
+          <view class="cell-ft cell-ft-access">
+            <image src="../../images/arrow.png"></image>
+          </view>
         </navigator>
         <view class="cell">
           <view class="cell-bd">邀请码</view>
@@ -165,7 +186,9 @@
     import api from '@/api/api'
 
     export default class Person extends wepy.page {
-      config = {}
+      config = {
+          navigationBarTitleText: '智慧食堂'
+      }
       components = {
 
       }

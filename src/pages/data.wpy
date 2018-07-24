@@ -3,7 +3,7 @@
 </style>
 
 <template>
-  <block wx:if="isLogin">
+  <block wx:if="{{isLogin}}">
     数据
   </block>
 
@@ -16,7 +16,9 @@
     import Placeholder from "@/components/common/placeholder"
 
     export default class Data extends wepy.page {
-        config = {}
+        config = {
+          navigationBarTitleText: '数据'
+        }
 
         components = {
           placeholder: Placeholder,
@@ -34,7 +36,7 @@
 
         events = {}
 
-        onLoad() {
+        onShow() {
           let isLogin = !!wx.getStorageSync('token');
           this.isLogin = isLogin;
 

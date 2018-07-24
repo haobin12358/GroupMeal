@@ -33,8 +33,13 @@
   import api from '../../api/api'
   import tip from '../../utils/tip'
   export default class Person extends wepy.page {
+    config = {
+      navigationBarTitleText: '登录'
+    }
+
     data = {
     }
+
     async Login(phone, pass){
       let that = this
       let res = await api.login({query: {UStelphone: phone, USpassword: pass}, method: 'POST'});

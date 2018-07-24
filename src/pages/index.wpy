@@ -82,7 +82,7 @@
       </view>
     </navigator>
     <view class="search">
-      <image src="../images/food.jpg"></image>
+      <image src="../images/first_user_banner.png" @tap="tapFirstUserBanner"></image>
 
         <view class="navigate-search-page" >
           <image src="../images/search.png"></image>
@@ -144,6 +144,9 @@
     }
 
     methods={
+      tapFirstUserBanner(){
+          tip.confirm('活动暂未开始',false)
+      },
       //  进入食堂
       goCanteen(){
         if(this.selectCanteen){
@@ -238,7 +241,7 @@
       }
     }
 
-    onLoad(){
+    getRegeo(){
       var myAmapFun = new AMapWX({key:myconfig.key});
       let that = this
 
@@ -261,14 +264,35 @@
           if(that.selectCanteen.MSid){
             that.getSetMeal(that.selectCanteen.MSid)
             that.getRecommendMeal(that.selectCanteen.MSid)
+          }else{
+            wx.navigateTo({
+              url: '/pages/chooseCanteen',
+            })
           }
 
           that.$apply()
         },
         fail: function() {
-          console.log('失败');
+          wx.navigateTo({
+            url: '/pages/chooseCanteen',
+          })
         }
       })
+
+    }
+
+    onLoad(){
+      let content = '欢迎使用食堂小程序,为了快捷地定位到您的城市,接下来需要获得您的位置,当然您也可以手动选择我们合作的城市'
+
+      if(!wx.getStorageSync('locationCity')){
+       tip.confirm(content,false).then(
+         this.getRegeo.bind(this)
+       ).catch(
+         this.getRegeo
+       )
+      }else{
+        this.getRegeo();
+      }
     }
   }
 </script>

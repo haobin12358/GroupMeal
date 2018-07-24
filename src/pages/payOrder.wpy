@@ -236,7 +236,7 @@
           <view class="item-hd">订单备注</view>
           <view class="item-ft item-ft-input ">
             <!--<input type="text" value="{{remark}}" bindfocus="setRemarkInputTrue" bindblur="setRemarkInputFalse"/>-->
-            <input type="text" value="{{remark}}" bindinput="remarkInputHandler"/>
+            <input type="text" value="{{remark}}" placeholder="可以备注下忌口哦" bindinput="remarkInputHandler"/>
           </view>
         </view>
 
@@ -254,7 +254,7 @@
       </view>
     </view>
     <choose-coupon-drawer :showDrawer.sync="showCouponDrawer" :couponList.sync="couponList"
-    @tapItem.user="tapCouponItem"></choose-coupon-drawer>
+    @tapItem.user="tapCouponItem" :totalPrice.sync="totalWithOutCoupon"></choose-coupon-drawer>
   </view>
 </template>
 
@@ -277,12 +277,15 @@
 
       data = {
         shopList: [],
-        remark: '这是一条备注',
+        remark: '',
         remarkInputFocus: true,
 
         selectCoupon: {},
         showCouponDrawer: false,
         couponList: [],
+
+        totalWithOutCoupon: 0,
+        total: 0,
       }
       computed = {
         //  计算购物车总价
@@ -296,9 +299,15 @@
               total += currentShop.CAnumber * currentShop.MEprice;
             }
           }
-
+          this.totalWithOutCoupon = total;
+          total -= this.selectCoupon.COcut ? this.selectCoupon.COcut : 0
+          this.total = total;
           return total.toFixed(2);
         },
+      }
+
+      commonListTotal(){
+        return 10
       }
 
       //  创建订单
@@ -309,16 +318,16 @@
 
         query = {
           OMtime: util.getCurrentTime(),
-          OMtotal: 0,
+          OMtotal: this.total,
           OMabo: this.remark,
           Order_items: [
-          ]
+          ],
+          CPid: this.selectCoupon.CPid
         }
 
         for (let i = 0; i < this.shopList.length; i++) {
           let currentShopItem = this.shopList[i];
 
-          query.OMtotal += currentShopItem.MEprice
           query.Order_items.push({
             MEid: currentShopItem.MEid,
             MEnumber: currentShopItem.CAnumber,
@@ -411,8 +420,6 @@
         },
 
         showCouponDrawer(){
-          tip.confirm('优惠券功能暂不可用')
-          return;
           this.showCouponDrawer = true;
         }
       }

@@ -66,6 +66,15 @@
             color: #2e2e2e;
           }
         }
+
+        .coupon-list-item-disabel{
+          opacity: .5;
+        }
+
+        .coupon-divide {
+          text-align: center;
+          color: #b2b2b2;
+        }
       }
 
 
@@ -89,7 +98,21 @@
       <scroll-view scroll-y="true" class="choose-coupon-bd">
         <view scroll-y="true" class="coupon-list" wx:if="{{couponList.length}}">
 
-          <view wx:for="{{couponList}}" wx:key="item" class="coupon-list-item" @tap.stop="tapItem({{item}})">
+          <view wx:for="{{enableCouponList}}" wx:key="item" class="coupon-list-item" @tap.stop="tapItem({{item}})">
+            <image class="item-image" src="../images/coupon.png"></image>
+            <view class="card-upper-half">
+              <view class="item-cocut-symbol">￥</view>
+              <view class="item-cocut">{{item.COcut}}</view>
+              <view class="item-couse">{{item.COuse}}</view>
+            </view>
+            <view class="card-bottom-half">
+              <view class="item-costart">{{item.COstart}}</view>
+              <view class="item-text">至</view>
+              <view class="item-coend">{{item.COend}}</view>
+            </view>
+          </view>
+          <view class="coupon-divide">-下列优惠券不可用-</view>
+          <view wx:for="{{disableCouponList}}" wx:key="item" class="coupon-list-item coupon-list-item-disabel">
             <image class="item-image" src="../images/coupon.png"></image>
             <view class="card-upper-half">
               <view class="item-cocut-symbol">￥</view>
@@ -131,6 +154,12 @@
           showDrawer: {
             type: Boolean,
             twoWay: true	//双向绑定
+          },
+
+          totalPrice:{
+            type: Number,
+            default: 10000
+
           }
         }
 
@@ -145,7 +174,19 @@
 
         }
 
-        computed = {}
+        computed = {
+          enableCouponList(){
+            let totalPrice = this.totalPrice
+
+            return this.couponList.filter(x=>x.COfilter<=totalPrice);
+          },
+           disableCouponList(){
+             let totalPrice = this.totalPrice
+
+             return this.couponList.filter(x=>x.COfilter>totalPrice);
+          }
+
+        }
 
         methods = {
           tapItem(item){

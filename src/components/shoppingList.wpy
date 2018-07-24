@@ -163,7 +163,7 @@
           <view class="cart-list">
             <view class="cart-list-header">
               <view>已选商品</view>
-              <view class="header-right">
+              <view class="header-right" @tap="emptyCart">
                 <image src="../images/trash.png"></image>
                 <text>清空</text>
               </view>
@@ -261,8 +261,13 @@
           addCart(MEid) {
             console.log('组件➕', MEid);
             this.$emit('updateCart',MEid, 1)
-          }
+          },
 
+          emptyCart(){
+            if(this.shopList.length){
+              this.$emit('emptyCart')
+            }
+          }
         }
 
         events = {}

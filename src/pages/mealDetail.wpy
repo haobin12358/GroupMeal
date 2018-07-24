@@ -73,6 +73,16 @@
         }
       }
     }
+
+    .go-login{
+      position: fixed;
+      bottom: 0;
+      height: 100rpx;
+      background: #CCCCCC;
+      width: 100%;
+      z-index: 10;
+
+    }
   }
 </style>
 
@@ -110,6 +120,7 @@
       </view>
     </view>
     <shopping-list :shopList.sync="shopList" @updateCart.user="updateCart" @tapGoPay.user="goPay"></shopping-list>
+    <!--<view class="go-login">去登录</view>-->
   </view>
 
 </template>
@@ -174,11 +185,17 @@
           //  添加购物车
           addCart(MEid){
             console.log('addCart',MEid);
-            let token = wx.getStorageSync('token'),
+
+            if(this.isLogin) {
+
+              let token = wx.getStorageSync('token'),
                 MSid = this.MSid,
                 CAnumber = 1;
 
-            this.updateCart(token,MSid,MEid,CAnumber);
+              this.updateCart(token, MSid, MEid, CAnumber);
+            }else{
+              tip.alert('请先登录')
+            }
           },
           //  减少购物车
           minusCart(MEid){
@@ -232,9 +249,18 @@
         }
 
         onLoad(params) {
+          let token = wx.getStorageSync('token');
+
+          let isLogin = !!token;
+          this.isLogin = isLogin;
+
           this.getMealAbo(params.MEid);
           this.MSid =  params.MSid;
-          this.getCartInfo(wx.getStorageSync('token'), params.MSid)
+          if(isLogin){
+            this.getCartInfo(token, params.MSid)
+          }else{
+            this.shopList = [];
+          }
           wx.setNavigationBarTitle({
             title: params.MEname
           })

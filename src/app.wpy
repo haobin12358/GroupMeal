@@ -1,5 +1,4 @@
 <style lang="less">
-  @import "/styles/weui/weui";
   @import "/styles/base";
 </style>
 
@@ -11,10 +10,7 @@ export default class extends wepy.app {
   config = {
     pages: [
       'pages/index',  //  首页
-
       'pages/order',  //  订单
-      'pages/orderDetail',//  订单详情
-      'pages/evaluateOrder',//  评价
       'pages/data', //  数据
       'pages/person/person',// 个人
 
@@ -28,6 +24,8 @@ export default class extends wepy.app {
 
       'pages/payOrder',//  结算
       'pages/takeMealCode',//  取餐码
+      'pages/orderDetail',//  订单详情
+      'pages/evaluateOrder',//  评价
 
       'pages/person/login',// 登录
       'pages/person/register',// 注册

@@ -279,7 +279,8 @@
 <template>
   <view class="container">
 
-    <shopping-list :shopList.sync="shopList" @updateCart.user="updateCart" @tapGoPay.user="goPay"></shopping-list>
+    <shopping-list :shopList.sync="shopList" @updateCart.user="updateCart" @tapGoPay.user="goPay"
+    @emptyCart.user="emptyCart"></shopping-list>
     <!-- 头部食堂信息-->
     <view class="container-header">
       <view class="canteen-logo">
@@ -405,8 +406,6 @@
         </view>
       </swiper-item>
     </swiper>
-
-
   </view>
 </template>
 
@@ -436,6 +435,8 @@
       }
 
       data = {
+        isLogin: false,
+
         canteen: {},  //  食堂
         tabList: ['点餐', '评价', '食堂'],  //  tab
         showSlider: true, //  显示滑动条
@@ -560,20 +561,29 @@
 
 
       methods = {
+        //  清空购物车
+        emptyCart(){
+          console.log('清空购物车');
+        },
+        //  跳转到支付页
         goPay(){
           wx.navigateTo({
             url: `/pages/payOrder?MSid=${this.canteen.MSid}`
           })
         },
+        //  下半轮播区域 变动
         swiperPage(e){
           this.currentIndex = e.detail.current;
         },
+        //  上半tab切换
         switchTab(currentIndex){
           this. currentIndex = currentIndex
         },
+        //  点击tab切换
         switchMenu(index){
           this.activeMenuIndex = index;
         },
+        //  打电话给食堂
         tapCallCanteen(){
           let MStelphone = this.canteen.MStelphone;
 
@@ -593,11 +603,16 @@
         //  添加购物车
         addCart(MEid){
           console.log('addCart',MEid);
-          let token = wx.getStorageSync('token'),
-            MSid = this.canteen.MSid,
-            CAnumber = 1;
 
-          this.updateCart(token,MSid,MEid,CAnumber);
+          if(this.isLogin){
+            let token = wx.getStorageSync('token'),
+                MSid = this.canteen.MSid,
+                CAnumber = 1;
+
+            this.updateCart(token,MSid,MEid,CAnumber);
+          }else{
+            tip.alert('请先登录')
+          }
         },
         //  减少购物车
         minusCart(MEid){
@@ -617,6 +632,7 @@
           console.log('页面',MEid,CAnumber)
           this.updateCart(wx.getStorageSync('token'), this.canteen.MSid, MEid, CAnumber);
         },
+        //  点击餐品
         tapMealItem(item){
           item.MSid = this.canteen.MSid;
           this.$navigate('/pages/mealDetail',item);
@@ -650,6 +666,7 @@
         }
       }
 
+      //  获取食堂餐品列表
       async getMealList(MSid){
         let res = await api.mealList({method: 'GET' ,MSid});
 
@@ -691,14 +708,18 @@
       events = {}
 
       onLoad(params) {
-        // params = {
-        //   MSid: 'ed68478f-8675-11e8-b4c5-5800e3119d4a',
-        //   MSname: '海康威视一期食堂'
-        // }
-        // this.getMessAbo('ed68478f-8675-11e8-b4c5-5800e3119d4a')
+        let isLogin = !!wx.getStorageSync('token');
+        this.isLogin = isLogin;
+
         this.getMessAbo(params.MSid)
         this.getRecommendMeal(params.MSid)
-        this.getCartInfo(wx.getStorageSync('token'), params.MSid)
+
+        if(isLogin){
+          this.getCartInfo(wx.getStorageSync('token'), params.MSid)
+        }else{
+          this.shopList = [];
+        }
+
         this.getMealList(params.MSid)
         wx.setNavigationBarTitle({
           title: params.MSname

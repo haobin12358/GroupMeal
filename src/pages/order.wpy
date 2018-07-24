@@ -25,7 +25,10 @@
   import OrderList from "@/components/orderList"
 
   export default class Order extends wepy.page {
-    config = {}
+    config = {
+      navigationBarTitleText: '订单'
+
+    }
 
     components = {
       tab: Tab,
@@ -41,7 +44,7 @@
 
       refreshTime: new Date().valueOf(),
       tabList: ['全部','未支付','未取餐','已取餐'],
-      currentTab: 3,
+      currentTab: 0,
 
       orderList: [],
 
