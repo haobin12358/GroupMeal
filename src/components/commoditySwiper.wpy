@@ -28,20 +28,28 @@
       height: 300rpx;
 
       .swiper-item{
-        height: 300rpx;
+        height: 200rpx;
         width: 280rpx;
         display: inline-block;
         position: relative;
         margin-right: 50rpx;
         text-align: center;
+
         .fz24();
 
          image{
            width: 280rpx;
            height: 200rpx;
            box-shadow: 0 2px 4px 0 rgba(107, 107, 107, 0.5);
-
+           opacity: .8;
+           transition: height .5s;
          }
+
+        .meal-img-active{
+          width: 310rpx;
+          height: 230rpx;
+          opacity: 1;
+        }
 
          .name{
            color: @nameColor;
@@ -51,14 +59,9 @@
             color: @redPink;
           }
       }
-      .swiper-item:first-of-type{
-        margin-left: 50rpx;
-      }
 
       .swiper-item-active{
-        image{
-
-        }
+        height: 350rpx;
       }
     }
   }
@@ -70,14 +73,13 @@
       <view>营养套餐</view>
       <view class="showMore">查看更多</view>
     </view>
-    <scroll-view scroll-x="true" class="swiper" scroll-into-view="{{toView}}"
-                 bindscroll="scrollHandler" >
-      <view wx:for="{{list}}" wx:key="MEid" class="swiper-item" @tap="tapItem({{item}})">
-        <image src="{{item.MEimage}}"></image>
+    <swiper class="swiper" circular="true" previous-margin="187rpx" next-margin="187rpx" current="{{current}}" bindchange="swiperChange">
+      <swiper-item  wx:for="{{list}}" wx:key="MEid" class="swiper-item " @tap="tapItem({{item}})">
+        <image class="{{index==current? 'meal-img-active':''}}" src="{{item.MEimage}}"></image>
         <view class="name">{{item.MEname}}</view>
         <view class="price">￥{{item.MEprice}}</view>
-      </view>
-    </scroll-view>
+      </swiper-item>
+    </swiper>
   </view>
 
 </template>
@@ -94,6 +96,7 @@
       }
 
       data = {
+        current: 0
 
       }
       computed = {}
@@ -111,7 +114,12 @@
         tapItem(item){
           console.log('组件','tapItem')
           this.$emit('tapItem', item)
+        },
+        swiperChange(e){
+          console.log(e.detail.current);
+          this.current = e.detail.current
         }
+
       }
 
       events = {}

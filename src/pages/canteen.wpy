@@ -125,6 +125,7 @@
                   .main-content{
                     padding-left: 18rpx;
                     flex: 1;
+
                     .fz28();
 
                     .line1{
@@ -145,6 +146,7 @@
                     .line4{
                       display: flex;
                       justify-content: space-between;
+                      align-items: center;
 
                       .price{
                         color: @redPink;

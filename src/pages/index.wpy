@@ -216,7 +216,7 @@
     }
     //  套餐
     async getSetMeal(MSid){
-      let res =await api.mealList({method: 'GET',MEtype: '套餐',MEtag: '热销',MSid})
+      let res =await api.mealList({query: { MEtype: '套餐',MSid}})
 
       if(res.data.status == 200){
         this.setMealList = res.data.data;
@@ -226,7 +226,7 @@
 
     //  推荐
      async getRecommendMeal(MSid){
-      let res =await api.mealList({method: 'GET',MEtag: '热销',MEtype: '',MSid})
+      let res =await api.mealList({query: { MEtag: '热销',MSid}})
 
       if(res.data.status == 200){
         this.recommendMealList = res.data.data;
@@ -283,6 +283,8 @@
 
     onLoad(){
       let content = '欢迎使用食堂小程序,为了快捷地定位到您的城市,接下来需要获得您的位置,当然您也可以手动选择我们合作的城市'
+
+      wx.showShareMenu();
 
       if(!wx.getStorageSync('locationCity')){
        tip.confirm(content,false).then(
