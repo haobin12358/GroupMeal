@@ -83,8 +83,8 @@
               .slider-bar-item{
                 text-align: center;
                 color: #444444;
-                height: 60rpx;
-                line-height: 60rpx;
+                height: 40px;
+                line-height: 40px;
 
                 .fz24();
               }
@@ -101,9 +101,32 @@
               padding-bottom: 20rpx;
               box-sizing: border-box;
 
+              /*::-webkit-scrollbar {*/
+                /*width: 0;*/
+
+                /*height: 0;*/
+
+                /*color: transparent;*/
+              /*}*/
+
               .select-type{
-                padding: 12rpx 0 20rpx 22rpx;
+                /*box-sizing: border-box;*/
+                height: 40px;
+                line-height: 40px;
+                padding-left:22rpx;
+                margin-bottom: 20px;
+
                 .fz24()
+              }
+              .select-type.select-type-fixed{
+                position: fixed;
+                top: 0;
+                background: #ffffff;
+                width: 546rpx;
+              }
+
+              .select-type-placeholder{
+                height: 40px;
               }
 
               .food-list{
@@ -111,15 +134,15 @@
 
                 .food-item{
                   display: flex;
-                  margin-bottom: 50rpx;
+                  margin-bottom: 25px;
 
-                  &:last-child{
-                    margin-bottom: 0;
-                  }
+                  /*&:last-child{*/
+                    /*margin-bottom: 0;*/
+                  /*}*/
 
                   image{
-                    width: 160rpx;
-                    height: 160rpx;
+                    width: 80px;
+                    height: 80px;
                   }
 
                   .main-content{
@@ -307,43 +330,47 @@
         <!--菜单区域-->
         <view class="scroll-block">
           <view class="maintain-height">
-            <scroll-view scroll-y="true" class="order-slider-bar">
-              <view wx:for="{{mealList}}" wx:key="typeName" class="slider-bar-item {{index == activeMenuIndex ? 'slider-bar-item-active':''}}"
-                    @tap = "switchMenu({{index}})">
+            <scroll-view scroll-y="true" class="order-slider-bar"  scroll-top="{{scrollTop}}">
+              <view wx:for="{{mealList}}" wx:key="typeName" class="slider-bar-item {{item.id == toViewSlide ? 'slider-bar-item-active':''}}"
+                    @tap = "switchMenu({{item.id}})">
                 {{item.typeName}}
               </view>
             </scroll-view>
-            <scroll-view scroll-y="true" class="order-food-list">
-              <view class="select-type">{{mealList[activeMenuIndex].typeName}}</view>
+            <scroll-view scroll-y="true" class="order-food-list" scroll-into-view="{{toView}}" scroll-with-animation="true" @scroll="mealListScroll">
+              <view  wx:for="{{mealList}}" wx:for-item="mealItem" id="{{mealItem.id}}">
+                <view wx:if="{{toViewSlide == mealItem.id}}" class="select-type-placeholder"></view>
+                <view class="select-type {{toViewSlide == mealItem.id ? 'select-type-fixed': ''}}">{{mealItem.typeName}}</view>
 
-              <view class="food-list">
-                <view wx:for="{{mealList[activeMenuIndex].content}}" wx:key="MEid" class="food-item" @tap="tapMealItem({{item}})">
-                  <image src="{{item.MEimage}}"></image>
-                  <view class="main-content">
-                    <view class="line1">{{item.MEname}}</view>
-                    <view class="line2">
-                      <text>月售: {{item.MEvolume}}</text>
-                      <text wx:if="{{item.MEfraction>=3}}"> 评分: {{item.MEfraction}}</text>
-                    </view>
-                    <view class="line3">
-                      {{item.MEtag}}
-                    </view>
-                    <view class="line4">
-                      <view class="price">
-                        ￥{{item.MEprice}}
+                <view class="food-list">
+                  <view  wx:for="{{mealItem.content}}" wx:key="MEid" class="food-item" @tap="tapMealItem({{item}})">
+                    <image src="{{item.MEimage}}"></image>
+                    <view class="main-content">
+                      <view class="line1">{{item.MEname}}</view>
+                      <view class="line2">
+                        <text>月售: {{item.MEvolume}}</text>
+                        <text wx:if="{{item.MEfraction>=3}}"> 评分: {{item.MEfraction}}</text>
                       </view>
-                      <view class="num-handler-block">
-                        <block wx:if="{{item.CAnumber}}">
-                          <image src="../images/minus.png" @tap.stop="minusCart({{item.MEid}})"></image>
-                          <text>{{item.CAnumber}}</text>
-                        </block>
+                      <view class="line3">
+                        {{item.MEtag}}
+                      </view>
+                      <view class="line4">
+                        <view class="price">
+                          ￥{{item.MEprice}}
+                        </view>
+                        <view class="num-handler-block">
+                          <block wx:if="{{item.CAnumber}}">
+                            <image src="../images/minus.png" @tap.stop="minusCart({{item.MEid}})"></image>
+                            <text>{{item.CAnumber}}</text>
+                          </block>
 
-                        <image src="../images/add.png" @tap.stop="addCart({{item.MEid}})"></image>
+                          <image src="../images/add.png" @tap.stop="addCart({{item.MEid}})"></image>
+                        </view>
                       </view>
                     </view>
                   </view>
                 </view>
               </view>
+
             </scroll-view>
           </view>
 
@@ -445,9 +472,18 @@
         currentIndex: 0,  //  tabIndex
         recommendMealList: [],
 
-        activeMenuIndex: 0,
+        // activeMenuIndex: 0,
         menu: [],
+        mealList: [],
+        toView: 'id0',
+        toViewSlide: 'id0',
         tagNameList: ['热销'],  //  menu 要额外显示的tag
+
+        // 菜单
+        slideItemHei: 40, // 侧边项目高度
+        mealHeadHei: 40,  // 主体头部高度
+        mealItemHei: 105, // 一个菜品高度
+        scrollTop:0,//菜单滚动条默认位置
 
         shopList: [], //  购物车信息
         shopListIsPopup: false, //  购物车信息
@@ -461,7 +497,7 @@
       }
       computed = {
         //  合并购物车数据到餐品列表
-        mealList(){
+        cmpMealList(){
           let menuList = []
           let typeNameList = []
           //  选择显示在侧边栏顶部tag
@@ -538,9 +574,19 @@
               menuList[listIndex].content.push(currentData)
             }
           }
+          let h = 0;
 
+          for (let i = 0; i < menuList.length; i++) {
+            menuList[i].id ='id'+ i;
+            h += this.mealHeadHei;
+            // h += 20;
+            h += menuList[i].content.length * this.mealItemHei;
 
-          return menuList;
+            menuList[i].itemscrolltop = h;
+          }
+
+          this.mealList = menuList
+          // return menuList;
         },
 
         //  计算购物车总价
@@ -582,8 +628,25 @@
           this. currentIndex = currentIndex
         },
         //  点击tab切换
-        switchMenu(index){
-          this.activeMenuIndex = index;
+        switchMenu(id){
+          console.log(`switchMenu ${id}`);
+          this.toViewSlide = id;
+          this.toView = id;
+        },
+        mealListScroll(e){
+          // console.log(e);
+          for (let i = 0; i < this.mealList.length;i++){
+            let currentMeal = this.mealList[i]
+
+            if (e.detail.scrollTop < currentMeal.itemscrolltop) {
+
+              console.log(e.detail.scrollTop,currentMeal.itemscrolltop);
+              console.log(currentMeal.id);
+              this.toViewSlide = currentMeal.id;
+              // this.setData({ scrollTop: i * this.data.nav_item_h - 2 * this.data.nav_item_h })
+              break;
+            };
+          };
         },
         //  打电话给食堂
         tapCallCanteen(){
@@ -714,7 +777,6 @@
         this.isLogin = isLogin;
 
         this.getMessAbo(params.MSid)
-        this.getRecommendMeal(params.MSid)
 
         if(isLogin){
           this.getCartInfo(wx.getStorageSync('token'), params.MSid)
